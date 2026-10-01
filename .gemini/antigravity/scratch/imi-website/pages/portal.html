@@ -1405,7 +1405,7 @@
                 <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
                   <!-- Preview circle -->
                   <div id="acc-avatar-placeholder" style="width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,var(--gold),#7a5f10); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-size:1.3rem; font-weight:800; color:#000; flex-shrink:0; position:relative; overflow:hidden; border:2px solid rgba(201,162,39,0.4);">
-                    <img id="acc-avatar-img" src="" alt="Avatar preview" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:50%;">
+                    <img id="acc-avatar-img" src="" alt="Avatar preview" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; border-radius:50%;">
                     <span id="acc-avatar-initials-small">M</span>
                   </div>
                   <div style="flex:1; min-width:0;">
@@ -1604,9 +1604,9 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="../js/i18n.js?v=20261001_v52"></script>
-  <script src="../js/config.js?v=20261001_v52"></script>
-  <script src="../js/auth-client.js?v=20261001_v52"></script>
+  <script src="../js/i18n.js?v=20261001_v53"></script>
+  <script src="../js/config.js?v=20261001_v53"></script>
+  <script src="../js/auth-client.js?v=20261001_v53"></script>
   <script>
     // Immediate Synchronous Role Detection (prevents flash of unrestricted access)
     let syncRole = 'free';
@@ -1959,11 +1959,15 @@
     };
 
     // â”€â”€ Member Profile Update Handler â”€â”€
-    window.updateAvatarPreview = (url) => {
-      const img = document.getElementById('acc-avatar-img');
-      const initialsSmall = document.getElementById('acc-avatar-initials-small');
+    // -- Member Profile Update Handler --
+    window.updateAvatarPreview = function (url) {
+      var img = document.getElementById('acc-avatar-img');
+      var initialsSmall = document.getElementById('acc-avatar-initials-small');
       if (url && (url.startsWith('http') || url.startsWith('data:'))) {
-        if (img) { img.src = url; img.style.display = 'block'; }
+        if (img) {
+          img.src = url;
+          img.style.cssText = 'display:block;position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:50%;';
+        }
         if (initialsSmall) initialsSmall.style.display = 'none';
       } else {
         if (img) img.style.display = 'none';
@@ -1971,70 +1975,84 @@
       }
     };
 
-    // â”€â”€ Avatar File Upload Handler â”€â”€
-    (function setupAvatarUpload() {
-      function init() {
-        const fileInput = document.getElementById('acc-avatar-file-input');
-        const avatarCircle = document.getElementById('acc-avatar-initials');
-        const overlay = document.getElementById('acc-avatar-camera-overlay');
+    // -- Avatar upload: wire up on DOMContentLoaded --
+    document.addEventListener('DOMContentLoaded', function () {
+      var fileInput = document.getElementById('acc-avatar-file-input');
+      if (!fileInput) return;
 
-        // Hover overlay on the hero circle
-        if (avatarCircle && overlay) {
-          avatarCircle.addEventListener('mouseenter', () => overlay.style.opacity = '1');
-          avatarCircle.addEventListener('mouseleave', () => overlay.style.opacity = '0');
-        }
-
-        if (!fileInput) return;
-        fileInput.addEventListener('change', (e) => {
-          const file = e.target.files[0];
-          if (!file) return;
-
-          // 2 MB guard
-          if (file.size > 2 * 1024 * 1024) {
-            if (window.imiToast) window.imiToast('Image too large â€” please choose a file under 2 MB.', 'warning');
-            return;
-          }
-
-          const reader = new FileReader();
-          reader.onload = (evt) => {
-            const dataUrl = evt.target.result;
-
-            // Store in hidden field so saveMemberProfile() picks it up
-            const hiddenField = document.getElementById('acc-avatar');
-            if (hiddenField) hiddenField.value = dataUrl;
-
-            // Update small preview in form
-            window.updateAvatarPreview(dataUrl);
-
-            // Update the hero circle at the top of the Account panel
-            const heroCircle = document.getElementById('acc-avatar-initials');
-            if (heroCircle) {
-              heroCircle.innerHTML =
-                '<img src="' + dataUrl + '" alt="Avatar" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">' +
-                '<div id="acc-avatar-camera-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,0.55);border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s;pointer-events:none;"><i class="fa-solid fa-camera" style="color:#fff;font-size:1.1rem;"></i></div>';
-              // Re-attach hover events after innerHTML rewrite
-              const newOverlay = heroCircle.querySelector('#acc-avatar-camera-overlay');
-              heroCircle.addEventListener('mouseenter', () => { if (newOverlay) newOverlay.style.opacity = '1'; });
-              heroCircle.addEventListener('mouseleave', () => { if (newOverlay) newOverlay.style.opacity = '0'; });
-            }
-
-            // Update sidebar avatars
-            document.querySelectorAll('.sidebar-user-avatar').forEach(el => {
-              el.innerHTML = '<img src="' + dataUrl + '" alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
-            });
-
-            if (window.imiToast) window.imiToast('Photo selected â€” click "Save Profile Details" to save it to your account.', 'info');
-          };
-          reader.readAsDataURL(file);
+      // Hover overlay on the big hero circle
+      var heroCircle = document.getElementById('acc-avatar-initials');
+      if (heroCircle) {
+        heroCircle.addEventListener('mouseenter', function () {
+          var ov = document.getElementById('acc-avatar-camera-overlay');
+          if (ov) ov.style.opacity = '1';
+        });
+        heroCircle.addEventListener('mouseleave', function () {
+          var ov = document.getElementById('acc-avatar-camera-overlay');
+          if (ov) ov.style.opacity = '0';
         });
       }
 
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-      } else {
-        init();
-      }
-    })();
+      fileInput.addEventListener('change', function (e) {
+        var file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        if (file.size > 2 * 1024 * 1024) {
+          if (window.imiToast) window.imiToast('Image too large - please choose a file under 2 MB.', 'warning');
+          fileInput.value = '';
+          return;
+        }
+
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+          var dataUrl = evt.target.result;
+
+          // 1. Store in hidden field so saveMemberProfile() picks it up
+          var hiddenField = document.getElementById('acc-avatar');
+          if (hiddenField) hiddenField.value = dataUrl;
+
+          // 2. Update small preview circle in the form
+          var previewImg = document.getElementById('acc-avatar-img');
+          var previewInitials = document.getElementById('acc-avatar-initials-small');
+          if (previewImg) {
+            previewImg.src = dataUrl;
+            previewImg.style.cssText = 'display:block;position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:50%;';
+          }
+          if (previewInitials) previewInitials.style.display = 'none';
+
+          // 3. Update the large hero circle (preserve the overlay div)
+          var hero = document.getElementById('acc-avatar-initials');
+          if (hero) {
+            var existingImg = hero.querySelector('img');
+            if (existingImg) {
+              existingImg.src = dataUrl;
+            } else {
+              var newImg = document.createElement('img');
+              newImg.src = dataUrl;
+              newImg.alt = 'Avatar';
+              newImg.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:50%;';
+              Array.from(hero.childNodes).forEach(function (n) {
+                if (n.nodeType === 3) n.textContent = '';
+              });
+              hero.insertBefore(newImg, hero.firstChild);
+            }
+          }
+
+          // 4. Update sidebar avatars
+          document.querySelectorAll('.sidebar-user-avatar').forEach(function (el) {
+            var sImg = el.querySelector('img');
+            if (sImg) {
+              sImg.src = dataUrl;
+            } else {
+              el.innerHTML = '<img src="' + dataUrl + '" alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+            }
+          });
+
+          if (window.imiToast) window.imiToast('Photo ready - click Save Profile Details to save it.', 'info');
+        };
+        reader.readAsDataURL(file);
+      });
+    });
 
 
     window.saveMemberProfile = async () => {
