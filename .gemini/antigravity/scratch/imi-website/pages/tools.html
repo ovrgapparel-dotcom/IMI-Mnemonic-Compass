@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Tools | I MAKE IMAGE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/global.css">
+    <style>
+        .tool-detail {
+            max-width: var(--container);
+            margin: 100px auto;
+            background: var(--graphite);
+            border: 1px solid rgba(255,255,255,.05);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+        }
+        .tool-detail-content {
+            padding: 60px;
+        }
+        .tool-detail-content h3 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        .tool-detail-content h3 span {
+            color: var(--gold-light);
+        }
+        .tool-detail-content p {
+            color: var(--silver);
+            margin-bottom: 25px;
+        }
+        .tool-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .tool-features div {
+            background: rgba(255,255,255,.02);
+            padding: 15px;
+            border-left: 2px solid var(--gold);
+            font-size: .8rem;
+            color: var(--silver);
+        }
+        .tool-detail-visual {
+            background: #111;
+            height: 100%;
+            min-height: 400px;
+            display: grid;
+            place-items: center;
+            border-left: 1px solid rgba(255,255,255,.05);
+            position: relative;
+            overflow: hidden;
+        }
+        @media (max-width: 900px) {
+            .tool-detail {
+                grid-template-columns: 1fr;
+            }
+            .tool-detail-visual {
+                border-left: none;
+                border-bottom: 1px solid rgba(255,255,255,.05);
+                order: -1;
+            }
+            .tool-features {
+                grid-template-columns: 1fr;
+            }
+            .tool-detail-content {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header class="site-header" id="siteHeader">
+    <a href="../index.html" class="brand">
+        <div class="brand-mark">iM</div>
+        <div class="brand-name">
+            <strong>I MAKE IMAGE</strong>
+            <span>STRATEGIC BUSINESS ECOSYSTEM</span>
+        </div>
+    </a>
+    <nav class="desktop-nav">
+        <a href="solutions.html">Solutions</a>
+        <a href="cmo-services.html">Services</a>
+        <a href="learning.html">Learn</a>
+        <a href="power-hours.html">Workshops</a>
+        <a href="tools.html" style="color:var(--gold-light);">Tools</a>
+        <a href="news.html">News</a>
+        <a href="solo-corp.html">Solo Corp</a>
+        <a href="core-tribe.html">Core Tribe</a>
+        <a href="about.html">About</a>
+    </nav>
+    <div class="nav-actions">
+        <a href="booking.html" class="nav-button">Book a Session</a>
+        <a href="login.html" class="login-link">Login</a>
+    </div>
+    <button class="mobile-menu-button" id="mobileMenuButton">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a>
+    <div class="mobile-menu-group">
+        <span>Solutions</span>
+        <a href="solutions.html">Business Solutions</a>
+        <a href="services.html">Marketing Services</a>
+        <a href="booking.html">Book a Session</a>
+    </div>
+    <div class="mobile-menu-group">
+        <span>Learn</span>
+        <a href="learning.html">Learning Center</a>
+        <a href="courses.html">Courses</a>
+        <a href="workshops.html">Workshops</a>
+        <a href="resources.html">Resources</a>
+    </div>
+    <div class="mobile-menu-group">
+        <span style="color:var(--gold-light);">Tools</span>
+        <a href="compass.html">IMI Compass</a>
+        <a href="time-command.html">iM Time Command</a>
+        <a href="commander-bundle.html">Commander Bundle</a>
+    </div>
+    <a href="core-tribe.html">Core Tribe</a>
+    <a href="about.html">About</a>
+    <a href="login.html">Login</a>
+    <a href="booking.html" class="mobile-cta">Book a Session</a>
+</div>
+<main>
+<section class="hero" style="min-height: 50vh; padding-top: 150px; padding-bottom: 50px;">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+        <div class="eyebrow">IMI DIGITAL TOOLS</div>
+        <h1>
+            Tools built for<br>
+            <span>the journey.</span>
+        </h1>
+        <p>Software and digital utilities designed to coordinate, assess, and execute your strategy with precision.</p>
+    </div>
+</section>
+
+<section class="tools-section section-black" style="padding-top: 20px;">
+    
+    <!-- Compass -->
+    <article class="tool-detail">
+        <div class="tool-detail-content">
+            <div class="section-label">STRATEGIC NAVIGATION</div>
+            <h3>IMI <span>Compass</span></h3>
+            <p>You can't determine your destination if you don't know your current coordinates. IMI Compass is an interactive assessment tool that analyzes your current marketing infrastructure, identifies critical gaps, and provides a customized strategic roadmap.</p>
+            <div class="tool-features">
+                <div>Comprehensive 50-point brand & marketing diagnostic.</div>
+                <div>Instant customized action plan generation.</div>
+                <div>Visual plotting of your business maturity.</div>
+                <div>Benchmarking against industry standards.</div>
+            </div>
+            <div class="tool-price" style="margin-bottom: 20px;">$9.99 <span>ONE-TIME</span></div>
+            <a href="compass.html" class="button button-outline">PURCHASE COMPASS</a>
+        </div>
+        <div class="tool-detail-visual compass-visual">
+            <div class="tool-ring"></div>
+            <div class="tool-ring inner"></div>
+            <div class="tool-center">iM</div>
+        </div>
+    </article>
+
+    <!-- Time Command -->
+    <article class="tool-detail">
+        <div class="tool-detail-visual clock-visual">
+            <div class="clock-face">
+                <span class="clock-number top">12</span>
+                <span class="clock-number right">3</span>
+                <span class="clock-number bottom">6</span>
+                <span class="clock-number left">9</span>
+                <div class="clock-hand hour"></div>
+                <div class="clock-hand minute"></div>
+                <div class="clock-center"></div>
+            </div>
+        </div>
+        <div class="tool-detail-content">
+            <div class="section-label">GLOBAL EXECUTION</div>
+            <h3>iM <span>Time Command</span></h3>
+            <p>Remote teams and global operations require precise timing. iM Time Command is a dedicated utility for coordinating global time zones, managing client meeting logistics, and maintaining operational rhythm without the math.</p>
+            <div class="tool-features">
+                <div>Visual mapping of global team availability.</div>
+                <div>One-click timezone conversions for client calls.</div>
+                <div>Focus blocking and strategic scheduling.</div>
+                <div>Direct integration with your daily workflows.</div>
+            </div>
+            <div class="tool-price" style="margin-bottom: 20px;">$7.99 <span>ONE-TIME</span></div>
+            <a href="time-command.html" class="button button-outline">PURCHASE TIME COMMAND</a>
+        </div>
+    </article>
+    
+    <div class="bundle-card">
+        <div class="bundle-copy">
+            <span class="tool-label">IMI COMMANDER BUNDLE</span>
+            <h3>Navigate Your Strategy.<br>Command Your Execution.</h3>
+            <p>Get both IMI Compass + iM Time Command for one discounted price.</p>
+        </div>
+        <div class="bundle-price">
+            <strong>$14.99</strong>
+            <span>ONE-TIME</span>
+        </div>
+        <a href="commander-bundle.html" class="button button-gold">Get The Bundle</a>
+    <div id="tools-custom-sections-container"></div>
+</main>
+<footer class="site-footer">
+    <div class="footer-brand">
+        <div class="brand-mark">iM</div>
+        <h3>I MAKE IMAGE</h3>
+        <p>Build Your Brand.<br>Command Your Marketing.<br>Grow Your Business.</p>
+    </div>
+    <div class="footer-column">
+        <h4>EXPLORE</h4>
+        <a href="solutions.html">Solutions</a>
+        <a href="learning.html">Learn</a>
+        <a href="tools.html">Tools</a>
+        <a href="core-tribe.html">Core Tribe</a>
+        <a href="about.html">About</a>
+    </div>
+    <div class="footer-column">
+        <h4>PRODUCTS</h4>
+        <a href="solo-corp.html">Solo Corp 101</a>
+        <a href="compass.html">IMI Compass</a>
+        <a href="time-command.html">iM Time Command</a>
+        <a href="commander-bundle.html">Commander Bundle</a>
+        <a href="core-elite.html">Core Elite</a>
+    </div>
+    <div class="footer-column">
+        <h4>SUPPORT</h4>
+        <a href="resources.html">Resources</a>
+        <a href="support.html">Support Center</a>
+        <a href="booking.html">Book A Session</a>
+        <a href="login.html">Member Login</a>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 I MAKE IMAGE</span>
+        <div><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../js/config.js?v=20261001_v55"></script>
+<script src="../js/auth-client.js?v=20261001_v55"></script>
+<script src="../js/main.js?v=20261001_v55"></script>
+</body>
+</html>
+
+
+

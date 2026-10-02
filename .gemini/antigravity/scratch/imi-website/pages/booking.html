@@ -1,0 +1,1125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Session | I MAKE IMAGE</title>
+    <meta name="description" content="Book a Power Hour Sprint, Strategy Session, CMO Consultation, or Workshop with I MAKE IMAGE. Pay via PayPal, Wise, or Wave.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --gold: #c9a227;
+            --gold-light: #e8c547;
+            --gold-dim: rgba(201,162,39,0.15);
+            --bg: #080808;
+            --bg2: #0f0f0f;
+            --surface: #141414;
+            --surface2: #1a1a1a;
+            --border: rgba(255,255,255,0.07);
+            --border-gold: rgba(201,162,39,0.3);
+            --text: #ffffff;
+            --text-muted: rgba(255,255,255,0.45);
+            --text-sub: rgba(255,255,255,0.65);
+            --green: #22c55e;
+            --red: #ef4444;
+            --font-body: 'Inter', sans-serif;
+            --font-head: 'Outfit', sans-serif;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            min-height: 100vh;
+        }
+
+        /* ── HEADER ── */
+        .site-header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            height: 68px; padding: 0 5vw;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(8,8,8,0.94); backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .brand-mark {
+            width: 36px; height: 36px; background: var(--gold); border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-head); font-weight: 800; font-size: .9rem; color: #000;
+        }
+        .brand-name strong { display: block; font-family: var(--font-head); font-size: .85rem; font-weight: 800; color: #fff; letter-spacing: .05em; }
+        .brand-name span { font-size: .6rem; color: var(--text-muted); letter-spacing: .12em; text-transform: uppercase; }
+        .desktop-nav { display: flex; gap: 26px; }
+        .desktop-nav a { font-size: .82rem; color: var(--text-muted); text-decoration: none; transition: color .2s; }
+        .desktop-nav a:hover { color: #fff; }
+        .nav-login { font-size: .82rem; color: var(--text-muted); text-decoration: none; }
+        @media(max-width:768px){ .desktop-nav { display: none; } }
+
+        /* ── PAGE LAYOUT ── */
+        .page-wrap {
+            max-width: 1140px; margin: 0 auto;
+            padding: 100px 5vw 80px;
+        }
+        .page-header { text-align: center; margin-bottom: 60px; }
+        .eyebrow {
+            font-family: var(--font-head); font-size: .65rem; letter-spacing: .22em;
+            color: var(--gold); text-transform: uppercase; margin-bottom: 14px;
+        }
+        .page-header h1 {
+            font-family: var(--font-head); font-size: clamp(2rem,4vw,3rem);
+            font-weight: 800; line-height: 1.1; margin-bottom: 14px;
+        }
+        .page-header h1 span { color: var(--gold-light); }
+        .page-header p { color: var(--text-muted); font-size: .95rem; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+        /* ── PROGRESS STEPS ── */
+        .progress-bar {
+            display: flex; align-items: center; justify-content: center;
+            gap: 0; margin-bottom: 50px; flex-wrap: wrap; row-gap: 12px;
+        }
+        .prog-step {
+            display: flex; align-items: center; gap: 8px;
+            font-size: .72rem; font-family: var(--font-head); font-weight: 600;
+            letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted);
+            transition: color .3s;
+        }
+        .prog-step.active { color: var(--gold-light); }
+        .prog-step.done { color: var(--green); }
+        .prog-dot {
+            width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: .75rem; font-weight: 800; border: 1.5px solid currentColor;
+            background: transparent; flex-shrink: 0; transition: all .3s;
+        }
+        .prog-step.active .prog-dot { background: var(--gold); color: #000; border-color: var(--gold); }
+        .prog-step.done .prog-dot { background: var(--green); color: #000; border-color: var(--green); }
+        .prog-connector { width: 32px; height: 1px; background: var(--border); flex-shrink: 0; }
+        @media(max-width:600px){ .prog-connector { width: 14px; } .prog-step span { display: none; } }
+
+        /* ── BOOKING GRID ── */
+        .booking-grid {
+            display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start;
+        }
+        @media(max-width:960px){ .booking-grid { grid-template-columns: 1fr; } }
+
+        /* ── PANEL ── */
+        .panel {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 32px;
+        }
+        .panel-title {
+            font-family: var(--font-head); font-size: 1rem; font-weight: 700;
+            color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+        }
+        .panel-title .step-badge {
+            width: 22px; height: 22px; background: var(--gold); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: .65rem; font-weight: 800; color: #000;
+        }
+        .panel-sub { font-size: .82rem; color: var(--text-muted); margin-bottom: 24px; }
+        .section-gap { height: 20px; }
+
+        /* ── SERVICE CARDS ── */
+        .service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media(max-width:600px){ .service-grid { grid-template-columns: 1fr; } }
+        .service-card {
+            background: var(--surface2); border: 1.5px solid var(--border);
+            border-radius: 10px; padding: 18px 16px; cursor: pointer;
+            transition: all .25s; position: relative; overflow: hidden;
+        }
+        .service-card:hover { border-color: var(--border-gold); }
+        .service-card.selected { border-color: var(--gold); background: rgba(201,162,39,0.06); }
+        .service-card.selected::before {
+            content: '✓'; position: absolute; top: 10px; right: 12px;
+            color: var(--gold); font-weight: 800; font-size: .8rem;
+        }
+        .service-cat {
+            font-family: var(--font-head); font-size: .58rem; letter-spacing: .18em;
+            color: var(--gold); text-transform: uppercase; margin-bottom: 6px;
+        }
+        .service-name {
+            font-family: var(--font-head); font-size: .9rem; font-weight: 700;
+            color: #fff; margin-bottom: 4px;
+        }
+        .service-detail { font-size: .75rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5; }
+        .service-price {
+            font-family: var(--font-head); font-size: 1.2rem; font-weight: 800;
+            color: var(--gold-light);
+        }
+        .service-price-note { font-size: .68rem; color: var(--text-muted); margin-top: 2px; }
+
+        /* ── CALENDAR ── */
+        .calendar-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .cal-nav-btn {
+            width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border);
+            background: transparent; color: var(--text-muted); cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 1rem;
+            transition: all .2s;
+        }
+        .cal-nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .cal-month {
+            font-family: var(--font-head); font-size: .9rem; font-weight: 700; color: #fff;
+        }
+        .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; }
+        .cal-day-label {
+            text-align: center; font-size: .65rem; color: var(--text-muted);
+            font-weight: 600; letter-spacing: .06em; padding: 6px 0; text-transform: uppercase;
+        }
+        .cal-cell {
+            aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+            border-radius: 8px; font-size: .82rem; cursor: pointer; transition: all .2s;
+            color: var(--text-sub); border: 1px solid transparent;
+        }
+        .cal-cell:hover:not(.empty):not(.past) { background: var(--gold-dim); border-color: var(--border-gold); }
+        .cal-cell.today { border-color: var(--border-gold); color: var(--gold); font-weight: 700; }
+        .cal-cell.selected { background: var(--gold); color: #000; font-weight: 800; border-color: var(--gold); }
+        .cal-cell.past { color: rgba(255,255,255,0.18); cursor: default; pointer-events: none; }
+        .cal-cell.empty { cursor: default; pointer-events: none; }
+
+        /* ── TIME SLOTS ── */
+        .time-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 16px; }
+        @media(max-width:500px){ .time-grid { grid-template-columns: repeat(3,1fr); } }
+        .time-slot {
+            background: var(--surface2); border: 1px solid var(--border);
+            border-radius: 7px; padding: 9px 6px; text-align: center;
+            font-size: .78rem; color: var(--text-sub); cursor: pointer; transition: all .2s;
+        }
+        .time-slot:hover { border-color: var(--border-gold); color: var(--gold); }
+        .time-slot.selected { background: var(--gold); color: #000; font-weight: 700; border-color: var(--gold); }
+        .time-slot.booked { color: rgba(255,255,255,0.2); cursor: not-allowed; text-decoration: line-through; }
+        .timezone-note { font-size: .72rem; color: var(--text-muted); margin-top: 10px; }
+
+        /* ── FORM INPUTS ── */
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media(max-width:500px){ .form-row { grid-template-columns: 1fr; } }
+        .form-group { margin-bottom: 16px; }
+        .form-label { font-size: .75rem; font-weight: 600; color: var(--text-sub); margin-bottom: 7px; display: block; letter-spacing: .04em; }
+        .form-input, .form-select, .form-textarea {
+            width: 100%; background: var(--surface2); border: 1.5px solid var(--border);
+            border-radius: 8px; padding: 11px 14px;
+            color: var(--text); font-family: var(--font-body); font-size: .85rem;
+            outline: none; transition: border-color .2s;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
+        .form-select option { background: #1a1a1a; }
+        .form-textarea { resize: vertical; min-height: 80px; }
+
+        /* ── PAYMENT OPTIONS ── */
+        .payment-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        .pay-option {
+            background: var(--surface2); border: 1.5px solid var(--border);
+            border-radius: 10px; padding: 16px 12px; cursor: pointer;
+            transition: all .25s; text-align: center;
+        }
+        .pay-option:hover { border-color: var(--border-gold); }
+        .pay-option.selected { border-color: var(--gold); background: var(--gold-dim); }
+        .pay-logo { font-size: 1.4rem; margin-bottom: 6px; }
+        .pay-name { font-family: var(--font-head); font-size: .78rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .pay-detail { font-size: .65rem; color: var(--text-muted); }
+        .pay-instructions {
+            background: rgba(201,162,39,0.06); border: 1px solid var(--border-gold);
+            border-radius: 8px; padding: 16px; margin-top: 14px; display: none;
+        }
+        .pay-instructions.visible { display: block; }
+        .pay-instructions h5 { font-family: var(--font-head); font-size: .82rem; color: var(--gold-light); margin-bottom: 8px; }
+        .pay-instructions p { font-size: .8rem; color: var(--text-sub); line-height: 1.6; margin-bottom: 6px; }
+        .pay-address {
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+            border-radius: 6px; padding: 10px 12px; font-size: .8rem; color: var(--gold-light);
+            font-family: monospace; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+        }
+        .copy-btn {
+            background: var(--gold); color: #000; border: none; border-radius: 4px;
+            padding: 4px 10px; font-size: .68rem; font-weight: 700; cursor: pointer;
+            font-family: var(--font-head); transition: background .2s; white-space: nowrap;
+        }
+        .copy-btn:hover { background: var(--gold-light); }
+
+        /* ── ORDER SUMMARY (SIDEBAR) ── */
+        .summary-card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 28px; position: sticky; top: 90px;
+        }
+        .summary-title {
+            font-family: var(--font-head); font-size: .75rem; font-weight: 700;
+            letter-spacing: .12em; color: var(--text-muted); text-transform: uppercase;
+            margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+        }
+        .summary-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; gap: 10px; }
+        .summary-row .sr-label { font-size: .8rem; color: var(--text-muted); line-height: 1.5; }
+        .summary-row .sr-val { font-size: .82rem; color: var(--text); font-weight: 600; text-align: right; white-space: nowrap; }
+        .summary-row .sr-val.gold { color: var(--gold-light); }
+        .summary-divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+        .summary-total { display: flex; justify-content: space-between; align-items: center; }
+        .summary-total .label { font-family: var(--font-head); font-size: .85rem; font-weight: 700; color: #fff; }
+        .summary-total .amount { font-family: var(--font-head); font-size: 1.6rem; font-weight: 800; color: var(--gold-light); }
+        .summary-empty { text-align: center; padding: 24px 0; color: var(--text-muted); font-size: .82rem; line-height: 1.7; }
+
+        /* ── SUBMIT ── */
+        .submit-section { margin-top: 28px; }
+        .btn-primary {
+            width: 100%; background: var(--gold); color: #000; border: none;
+            font-family: var(--font-head); font-weight: 800; font-size: .9rem;
+            letter-spacing: .06em; text-transform: uppercase; padding: 16px;
+            border-radius: 8px; cursor: pointer; transition: all .25s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,162,39,0.25); }
+        .btn-primary:disabled { opacity: .4; cursor: not-allowed; transform: none; box-shadow: none; }
+        .terms-note { font-size: .72rem; color: var(--text-muted); text-align: center; margin-top: 12px; line-height: 1.6; }
+
+        /* ── CONFIRMATION ── */
+        .confirm-screen {
+            display: none; text-align: center; padding: 60px 20px;
+            background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+        }
+        .confirm-icon {
+            width: 72px; height: 72px; background: rgba(34,197,94,0.1); border: 2px solid var(--green);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; margin: 0 auto 24px; animation: pulse-green 1.5s ease infinite;
+        }
+        @keyframes pulse-green {
+            0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.3); }
+            50% { box-shadow: 0 0 0 12px rgba(34,197,94,0); }
+        }
+        .confirm-title { font-family: var(--font-head); font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; }
+        .confirm-sub { color: var(--text-muted); font-size: .9rem; max-width: 400px; margin: 0 auto 30px; line-height: 1.7; }
+        .confirm-details {
+            background: var(--surface2); border: 1px solid var(--border-gold);
+            border-radius: 10px; padding: 20px 24px; text-align: left; max-width: 420px; margin: 0 auto 30px;
+        }
+        .cd-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: .83rem; }
+        .cd-row:last-child { border-bottom: none; }
+        .cd-row .label { color: var(--text-muted); }
+        .cd-row .val { color: var(--text); font-weight: 600; }
+        .btn-secondary {
+            display: inline-block; background: transparent; border: 1.5px solid var(--gold);
+            color: var(--gold); font-family: var(--font-head); font-weight: 700; font-size: .85rem;
+            padding: 12px 28px; border-radius: 8px; text-decoration: none; cursor: pointer; transition: all .25s;
+        }
+        .btn-secondary:hover { background: var(--gold); color: #000; }
+
+        /* ── FOOTER ── */
+        .page-footer {
+            background: var(--bg2); border-top: 1px solid var(--border);
+            padding: 30px 5vw; display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 12px;
+        }
+        .page-footer span { font-size: .75rem; color: var(--text-muted); }
+        .page-footer a { font-size: .75rem; color: var(--text-muted); text-decoration: none; }
+        .page-footer a:hover { color: var(--gold); }
+
+        /* ── ALERT ── */
+        .alert { padding: 12px 16px; border-radius: 8px; font-size: .82rem; margin-top: 14px; display: none; }
+        .alert.success { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.3); color: #4ade80; }
+        .alert.error { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); color: #f87171; }
+        .alert.visible { display: block; }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+    <a href="../index.html" class="brand">
+        <div class="brand-mark">iM</div>
+        <div class="brand-name">
+            <strong>I MAKE IMAGE</strong>
+            <span>Strategic Business Ecosystem</span>
+        </div>
+    </a>
+    <nav class="desktop-nav">
+        <a href="solutions.html">Solutions</a>
+        <a href="cmo-services.html">Services</a>
+        <a href="learning.html">Learn</a>
+        <a href="power-hours.html">Workshops</a>
+        <a href="tools.html">Tools</a>
+        <a href="news.html">News</a>
+        <a href="solo-corp.html">Solo Corp</a>
+        <a href="core-tribe.html">Core Tribe</a>
+        <a href="about.html">About</a>
+    </nav>
+    <a href="login.html" class="nav-login">Login</a>
+</header>
+
+<!-- MAIN -->
+<main class="page-wrap">
+
+    <!-- Header -->
+    <div class="page-header">
+        <div class="eyebrow">WORK WITH IMI</div>
+        <h1>Book Your <span>Session</span></h1>
+        <p>Choose your service, pick your date and time, and complete payment. We'll confirm your session within 24 hours.</p>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="prog-step active" data-step="1">
+            <div class="prog-dot">1</div><span>Service</span>
+        </div>
+        <div class="prog-connector"></div>
+        <div class="prog-step" data-step="2">
+            <div class="prog-dot">2</div><span>Schedule</span>
+        </div>
+        <div class="prog-connector"></div>
+        <div class="prog-step" data-step="3">
+            <div class="prog-dot">3</div><span>Details</span>
+        </div>
+        <div class="prog-connector"></div>
+        <div class="prog-step" data-step="4">
+            <div class="prog-dot">4</div><span>Payment</span>
+        </div>
+        <div class="prog-connector"></div>
+        <div class="prog-step" data-step="5">
+            <div class="prog-dot">5</div><span>Confirm</span>
+        </div>
+    </div>
+
+    <!-- BOOKING GRID -->
+    <div class="booking-grid">
+
+        <!-- LEFT: STEPS -->
+        <div id="formArea">
+
+            <!-- ── STEP 1: SELECT SERVICE ── -->
+            <div id="step1" class="step-panel">
+                <div class="panel">
+                    <div class="panel-title">
+                        <div class="step-badge">1</div>
+                        Select a Service
+                    </div>
+                    <div class="panel-sub">Choose the session type that fits your current need.</div>
+
+                    <div class="service-grid">
+
+                        <!-- POWER HOUR -->
+                        <div class="service-card" data-service="starter-sprint" data-price="75" data-label="Starter Sprint" data-duration="3 Hours" onclick="selectService(this)">
+                            <div class="service-cat">âš¡ Power Hour Workshop</div>
+                            <div class="service-name">Starter Sprint</div>
+                            <div class="service-detail">Quick fixes, form setup, simple builds. Ideal for fast turnarounds.</div>
+                            <div class="service-price">$75</div>
+                            <div class="service-price-note">Flat rate &bull; 3 Hours</div>
+                        </div>
+
+                        <div class="service-card" data-service="build-sprint" data-price="25" data-label="Build Sprint" data-duration="6&rdquo;“24 Hours" data-perhr="true" onclick="selectService(this)">
+                            <div class="service-cat">âš¡ Power Hour Workshop</div>
+                            <div class="service-name">Build Sprint</div>
+                            <div class="service-detail">Landing pages, funnels, small systems. From idea to deployed asset.</div>
+                            <div class="service-price">$25<span style="font-size:.8rem;color:var(--text-muted);font-weight:400;"> / hr</span></div>
+                            <div class="service-price-note">Per hour &bull; 6&rdquo;“24 Hours</div>
+                        </div>
+
+                        <div class="service-card" data-service="imi-intensive" data-price="25" data-label="IMI Intensive Workshop" data-duration="Up to 72 Hours" data-perhr="true" onclick="selectService(this)">
+                            <div class="service-cat">âš¡ Power Hour Workshop</div>
+                            <div class="service-name">IMI Intensive</div>
+                            <div class="service-detail">Priority execution, deep build, full deployment. 8-hour shifts up to 72 hours.</div>
+                            <div class="service-price">$25<span style="font-size:.8rem;color:var(--text-muted);font-weight:400;"> / hr</span></div>
+                            <div class="service-price-note">Per hour &bull; Up to 72 Hours</div>
+                        </div>
+
+                        <!-- CONSULTATIONS -->
+                        <div class="service-card" data-service="strategy-consultation" data-price="0" data-label="Free Strategy Consultation" data-duration="30 Min" onclick="selectService(this)">
+                            <div class="service-cat">ðŸ’¬ Consultation</div>
+                            <div class="service-name">Free Strategy Call</div>
+                            <div class="service-detail">A focused 30-min conversation about your business, direction, and next steps.</div>
+                            <div class="service-price" style="color:var(--green);">FREE</div>
+                            <div class="service-price-note">30 Minutes &bull; No obligation</div>
+                        </div>
+
+                        <div class="service-card" data-service="cmo-consultation" data-price="150" data-label="CMO Strategy Session" data-duration="60 Min" onclick="selectService(this)">
+                            <div class="service-cat">ðŸ“‹ CMO Services</div>
+                            <div class="service-name">CMO Strategy Session</div>
+                            <div class="service-detail">Deep-dive marketing strategy, brand positioning, and growth planning session.</div>
+                            <div class="service-price">$150</div>
+                            <div class="service-price-note">Flat rate &bull; 60 Minutes</div>
+                        </div>
+
+                        <div class="service-card" data-service="brand-audit" data-price="200" data-label="Brand Audit & Roadmap" data-duration="90 Min" onclick="selectService(this)">
+                            <div class="service-cat">ðŸ“‹ CMO Services</div>
+                            <div class="service-name">Brand Audit &amp; Roadmap</div>
+                            <div class="service-detail">Full brand assessment, positioning analysis, and a 90-day marketing roadmap.</div>
+                            <div class="service-price">$200</div>
+                            <div class="service-price-note">Flat rate &bull; 90 Minutes</div>
+                        </div>
+
+                        <div class="service-card" data-service="core-elite-session" data-price="49.99" data-label="Core Elite Onboarding" data-duration="60 Min" onclick="selectService(this)">
+                            <div class="service-cat">â­ Core Elite</div>
+                            <div class="service-name">Core Elite Onboarding</div>
+                            <div class="service-detail">Begin your Core Elite membership with a dedicated onboarding and strategy mapping session.</div>
+                            <div class="service-price">$49.99</div>
+                            <div class="service-price-note">First month &bull; Ongoing $49.99/mo</div>
+                        </div>
+
+                        <div class="service-card" data-service="webinar" data-price="0" data-label="Free Webinar Registration" data-duration="Varies" onclick="selectService(this)">
+                            <div class="service-cat">ðŸ“¡ Webinar</div>
+                            <div class="service-name">Webinar Registration</div>
+                            <div class="service-detail">Register for an upcoming free IMI webinar. Practical, framework-driven sessions.</div>
+                            <div class="service-price" style="color:var(--green);">FREE</div>
+                            <div class="service-price-note">Register your spot</div>
+                        </div>
+
+                    </div>
+
+                    <!-- Duration selector for per-hour services -->
+                    <div id="durationSelector" style="display:none; margin-top:20px; padding:18px; background:var(--surface2); border:1px solid var(--border-gold); border-radius:10px;">
+                        <label class="form-label" for="sessionHours">How many hours do you need?</label>
+                        <div style="display:flex; align-items:center; gap:14px;">
+                            <input type="range" id="sessionHours" min="1" max="72" value="6" step="1"
+                                style="flex:1; accent-color:var(--gold);" oninput="updateHours(this.value)">
+                            <div style="font-family:var(--font-head); font-weight:800; color:var(--gold-light); min-width:80px; text-align:right;">
+                                <span id="hoursDisplay">6</span> hrs
+                            </div>
+                        </div>
+                        <div style="margin-top:10px; display:flex; justify-content:space-between; font-size:.75rem; color:var(--text-muted);">
+                            <span>Min: 1 hr</span>
+                            <span>Estimated: <strong id="hourlyTotal" style="color:var(--gold-light);">$150</strong></span>
+                            <span>Max: 72 hrs</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:24px; text-align:right;">
+                        <button class="btn-primary" id="nextBtn1" style="width:auto; padding:12px 28px;" disabled onclick="goToStep(2)">
+                            Next: Choose Date &amp; Time &rarr;
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── STEP 2: CALENDAR ── -->
+            <div id="step2" class="step-panel" style="display:none;">
+                <div class="panel">
+                    <div class="panel-title">
+                        <div class="step-badge">2</div>
+                        Choose Date &amp; Time
+                    </div>
+                    <div class="panel-sub">Select an available date, then pick your preferred time slot. All times shown in Eastern Time (ET).</div>
+
+                    <!-- Calendar -->
+                    <div class="calendar-header">
+                        <button class="cal-nav-btn" onclick="changeMonth(-1)">&rdquo;¹</button>
+                        <div class="cal-month" id="calMonthLabel"></div>
+                        <button class="cal-nav-btn" onclick="changeMonth(1)">&rdquo;º</button>
+                    </div>
+                    <div class="cal-grid">
+                        <div class="cal-day-label">Su</div>
+                        <div class="cal-day-label">Mo</div>
+                        <div class="cal-day-label">Tu</div>
+                        <div class="cal-day-label">We</div>
+                        <div class="cal-day-label">Th</div>
+                        <div class="cal-day-label">Fr</div>
+                        <div class="cal-day-label">Sa</div>
+                    </div>
+                    <div class="cal-grid" id="calGrid" style="margin-top:4px;"></div>
+
+                    <!-- Time Slots -->
+                    <div id="timeSection" style="margin-top:28px; display:none;">
+                        <div class="panel-sub" style="margin-bottom:0;">Available times for <strong id="selectedDateLabel" style="color:#fff;"></strong></div>
+                        <div class="time-grid" id="timeGrid"></div>
+                        <div class="timezone-note">â° Times shown in Eastern Time (ET). We accommodate global schedules &rdquo;” note your timezone in the details step.</div>
+                    </div>
+
+                    <div style="margin-top:24px; display:flex; gap:12px; justify-content:space-between;">
+                        <button class="btn-secondary" onclick="goToStep(1)">&rarr; Back</button>
+                        <button class="btn-primary" id="nextBtn2" style="width:auto; padding:12px 28px;" disabled onclick="goToStep(3)">
+                            Next: Your Details &rarr;
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── STEP 3: CLIENT DETAILS ── -->
+            <div id="step3" class="step-panel" style="display:none;">
+                <div class="panel">
+                    <div class="panel-title">
+                        <div class="step-badge">3</div>
+                        Your Details
+                    </div>
+                    <div class="panel-sub">Tell us about you and what you need so we're fully prepared.</div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="firstName">First Name *</label>
+                            <input class="form-input" id="firstName" type="text" placeholder="Your first name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lastName">Last Name *</label>
+                            <input class="form-input" id="lastName" type="text" placeholder="Your last name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address *</label>
+                        <input class="form-input" id="email" type="email" placeholder="your@email.com" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone / WhatsApp</label>
+                            <input class="form-input" id="phone" type="tel" placeholder="+1 (000) 000-0000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="timezone">Your Timezone</label>
+                            <select class="form-select" id="timezone">
+                                <option value="ET">Eastern Time (ET)</option>
+                                <option value="CT">Central Time (CT)</option>
+                                <option value="MT">Mountain Time (MT)</option>
+                                <option value="PT">Pacific Time (PT)</option>
+                                <option value="GMT">GMT / London</option>
+                                <option value="CET">CET / Europe</option>
+                                <option value="WAT">WAT / West Africa</option>
+                                <option value="EAT">EAT / East Africa</option>
+                                <option value="CAT">CAT / Central Africa</option>
+                                <option value="IST">IST / India</option>
+                                <option value="SGT">SGT / Singapore</option>
+                                <option value="AEST">AEST / Australia East</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="businessName">Business / Brand Name</label>
+                        <input class="form-input" id="businessName" type="text" placeholder="Your business or brand name">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="sessionGoal">What do you want to accomplish in this session? *</label>
+                        <textarea class="form-textarea" id="sessionGoal" placeholder="Describe your goal, what you're working on, and any specific challenges you'd like to address..." rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="heardAbout">How did you hear about IMI?</label>
+                        <select class="form-select" id="heardAbout">
+                            <option value="">Select one</option>
+                            <option>Instagram</option>
+                            <option>TikTok</option>
+                            <option>Facebook</option>
+                            <option>LinkedIn</option>
+                            <option>YouTube</option>
+                            <option>X / Twitter</option>
+                            <option>Word of mouth / Referral</option>
+                            <option>Google Search</option>
+                            <option>IMI Core Tribe</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div style="display:flex; gap:12px; justify-content:space-between; margin-top:8px;">
+                        <button class="btn-secondary" onclick="goToStep(2)">&rarr; Back</button>
+                        <button class="btn-primary" style="width:auto; padding:12px 28px;" onclick="validateStep3()">
+                            Next: Payment &rarr;
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── STEP 4: PAYMENT ── -->
+            <div id="step4" class="step-panel" style="display:none;">
+                <div class="panel">
+                    <div class="panel-title">
+                        <div class="step-badge">4</div>
+                        Complete Payment
+                    </div>
+                    <div class="panel-sub">Select your payment method and complete your payment to secure your booking.</div>
+
+                    <div id="freeSessionNotice" style="display:none; background:rgba(34,197,94,0.07); border:1px solid rgba(34,197,94,0.3); border-radius:8px; padding:16px; margin-bottom:20px;">
+                        <strong style="color:#4ade80; font-family:var(--font-head);">✓ Free Session &rdquo;” No Payment Required</strong>
+                        <p style="color:var(--text-muted); font-size:.82rem; margin-top:6px;">This is a complimentary session. Simply confirm your booking below.</p>
+                    </div>
+
+                    <div id="paymentMethods">
+                        <label class="form-label" style="margin-bottom:14px;">Choose Payment Method</label>
+                        <div class="payment-grid">
+                            <div class="pay-option" data-method="paypal" onclick="selectPayment(this)">
+                                <div class="pay-logo">ðŸ…¿ï¸</div>
+                                <div class="pay-name">PayPal</div>
+                                <div class="pay-detail">Send to IMI account</div>
+                            </div>
+                            <div class="pay-option" data-method="wise" onclick="selectPayment(this)">
+                                <div class="pay-logo">ðŸŒ</div>
+                                <div class="pay-name">Wise</div>
+                                <div class="pay-detail">Global transfers</div>
+                            </div>
+                            <div class="pay-option" data-method="wave" onclick="selectPayment(this)">
+                                <div class="pay-logo">ðŸŒŠ</div>
+                                <div class="pay-name">Wave</div>
+                                <div class="pay-detail">Africa & global</div>
+                            </div>
+                        </div>
+
+                        <!-- PAYPAL INSTRUCTIONS -->
+                        <div class="pay-instructions" id="paypal-instructions">
+                            <h5>PayPal Payment Instructions</h5>
+                            <p>Send your payment to the IMI PayPal account below. Include your name and session type in the payment note.</p>
+                            <div class="pay-address">
+                                <span id="paypal-address">payments@imakeimage.com</span>
+                                <button class="copy-btn" onclick="copyText('paypal-address')">Copy</button>
+                            </div>
+                            <p style="margin-top:10px; font-size:.75rem; color:var(--text-muted);">
+                                âš ï¸ Important: In the PayPal note, write your full name + session type (e.g., "John Smith &rdquo;” Build Sprint").<br>
+                                Send as "Friends &amp; Family" to avoid transaction fees. After sending, click Confirm Booking below.
+                            </p>
+                        </div>
+
+                        <!-- WISE INSTRUCTIONS -->
+                        <div class="pay-instructions" id="wise-instructions">
+                            <h5>Wise Payment Instructions</h5>
+                            <p>Send your payment via Wise to the IMI account. Reference your name and service in the transfer note.</p>
+                            <div class="pay-address">
+                                <span id="wise-email">payments@imakeimage.com</span>
+                                <button class="copy-btn" onclick="copyText('wise-email')">Copy</button>
+                            </div>
+                            <p style="margin-top:10px; font-size:.75rem; color:var(--text-muted);">
+                                ðŸ’¡ Wise supports USD, GBP, EUR, CAD, NGN, GHS, KES, ZAR, and 40+ currencies. Choose whichever is easiest for your location.<br>
+                                Include your name and session in the reference. Click Confirm Booking once sent.
+                            </p>
+                        </div>
+
+                        <!-- WAVE INSTRUCTIONS -->
+                        <div class="pay-instructions" id="wave-instructions">
+                            <h5>Wave Payment Instructions</h5>
+                            <p>Send your payment via Wave. This option is ideal for clients in West and Central Africa.</p>
+                            <div class="pay-address">
+                                <span id="wave-phone">+1 (000) 000-0000</span>
+                                <button class="copy-btn" onclick="copyText('wave-phone')">Copy</button>
+                            </div>
+                            <p style="margin-top:10px; font-size:.75rem; color:var(--text-muted);">
+                                ðŸŒŠ Wave is available in Senegal, C d'Ivoire, Mali, Uganda, Burkina Faso, and more.<br>
+                                Include your full name in the note. Click Confirm Booking after sending.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Reference Number -->
+                    <div style="margin-top:20px; padding:16px; background:var(--surface2); border:1px solid var(--border); border-radius:8px;">
+                        <label class="form-label">Your Payment Reference Number</label>
+                        <p style="font-size:.8rem; color:var(--text-muted); margin-bottom:10px;">Include this reference in your payment note so we can quickly verify your booking.</p>
+                        <div style="font-family:monospace; font-size:1.1rem; color:var(--gold-light); background:rgba(201,162,39,0.06); border:1px solid var(--border-gold); border-radius:6px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
+                            <span id="payRefNum">IMI-XXXXXXXX</span>
+                            <button class="copy-btn" onclick="copyText('payRefNum')">Copy</button>
+                        </div>
+                    </div>
+
+                    <div id="payAlert" class="alert"></div>
+
+                    <div style="display:flex; gap:12px; justify-content:space-between; margin-top:20px;">
+                        <button class="btn-secondary" onclick="goToStep(3)">&rarr; Back</button>
+                        <button class="btn-primary" id="confirmBtn" style="width:auto; padding:12px 28px;" onclick="confirmBooking()">
+                            ✓ Confirm My Booking
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── STEP 5: CONFIRMATION ── -->
+            <div id="step5" class="step-panel" style="display:none;">
+                <div class="confirm-screen" id="confirmScreen" style="display:block;">
+                    <div class="confirm-icon">✓</div>
+                    <div class="confirm-title">Booking Confirmed!</div>
+                    <div class="confirm-sub">Your session has been submitted. We'll verify your payment and send a confirmation to your email within 24 hours.</div>
+                    <div class="confirm-details" id="confirmDetails"></div>
+                    <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+                        <a href="../index.html" class="btn-secondary">&rarr; Back to Home</a>
+                        <a href="core-tribe.html" class="btn-primary" style="text-decoration:none; width:auto; padding:12px 28px;">Join Core Tribe &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- / formArea -->
+
+        <!-- RIGHT: ORDER SUMMARY -->
+        <div>
+            <div class="summary-card" id="orderSummary">
+                <div class="summary-title">ðŸ“‹ Booking Summary</div>
+
+                <div id="summaryEmpty" class="summary-empty">
+                    Select a service to see your booking details here.
+                </div>
+
+                <div id="summaryContent" style="display:none;">
+                    <div class="summary-row">
+                        <span class="sr-label">Service</span>
+                        <span class="sr-val gold" id="sumService">&rdquo;”</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="sr-label">Duration</span>
+                        <span class="sr-val" id="sumDuration">&rdquo;”</span>
+                    </div>
+                    <div class="summary-row" id="sumDateRow" style="display:none;">
+                        <span class="sr-label">Date</span>
+                        <span class="sr-val" id="sumDate">&rdquo;”</span>
+                    </div>
+                    <div class="summary-row" id="sumTimeRow" style="display:none;">
+                        <span class="sr-label">Time (ET)</span>
+                        <span class="sr-val" id="sumTime">&rdquo;”</span>
+                    </div>
+                    <div class="summary-row" id="sumClientRow" style="display:none;">
+                        <span class="sr-label">Client</span>
+                        <span class="sr-val" id="sumClient">&rdquo;”</span>
+                    </div>
+                    <div class="summary-row" id="sumPayRow" style="display:none;">
+                        <span class="sr-label">Payment via</span>
+                        <span class="sr-val" id="sumPay">&rdquo;”</span>
+                    </div>
+                    <hr class="summary-divider">
+                    <div class="summary-total">
+                        <span class="label">Total</span>
+                        <span class="amount" id="sumTotal">$0</span>
+                    </div>
+                    <div id="perHourNote" style="display:none; margin-top:6px; font-size:.72rem; color:var(--text-muted); text-align:right;">* Estimate based on selected hours. Final amount confirmed before session.</div>
+                </div>
+
+                <div id="summaryPayNote" style="display:none; margin-top:18px; padding:12px; background:rgba(201,162,39,0.06); border:1px solid var(--border-gold); border-radius:8px;">
+                    <p style="font-size:.75rem; color:var(--text-muted); line-height:1.6;">
+                        ðŸ’³ Payment is completed externally via your selected method (PayPal, Wise, or Wave). Booking is confirmed once payment is verified.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- / booking-grid -->
+
+</main>
+
+<footer class="page-footer">
+    <span>&copy; 2026 I MAKE IMAGE &rdquo;” All rights reserved.</span>
+    <div style="display:flex; gap:20px;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="about.html">About IMI</a>
+    </div>
+</footer>
+
+<script>
+// ── STATE ──
+let currentStep = 1;
+let selectedService = null;
+let selectedDate = null;
+let selectedTime = null;
+let selectedPayment = null;
+let sessionHours = 6;
+let calYear, calMonth;
+
+// Services with payment amounts
+const SERVICES = {
+    'starter-sprint':      { label:'Starter Sprint',           price:75,     perHour:false, cat:'Power Hour Workshop',  duration:'3 Hours' },
+    'build-sprint':        { label:'Build Sprint',             price:25,     perHour:true,  cat:'Power Hour Workshop',  duration:'6&rdquo;“24 Hours' },
+    'imi-intensive':       { label:'IMI Intensive Workshop',   price:25,     perHour:true,  cat:'Power Hour Workshop',  duration:'Up to 72 Hours' },
+    'strategy-consultation':{ label:'Free Strategy Call',      price:0,      perHour:false, cat:'Consultation',         duration:'30 Min' },
+    'cmo-consultation':    { label:'CMO Strategy Session',     price:150,    perHour:false, cat:'CMO Services',         duration:'60 Min' },
+    'brand-audit':         { label:'Brand Audit & Roadmap',    price:200,    perHour:false, cat:'CMO Services',         duration:'90 Min' },
+    'core-elite-session':  { label:'Core Elite Onboarding',    price:49.99,  perHour:false, cat:'Core Elite',           duration:'60 Min' },
+    'webinar':             { label:'Free Webinar Registration',price:0,      perHour:false, cat:'Webinar',              duration:'Varies' }
+};
+
+// Time slots available
+const TIME_SLOTS = ['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM'];
+// Simulate some booked slots
+const BOOKED_SLOTS = { /* 'YYYY-MM-DD': ['10:00 AM', '2:00 PM'] */ };
+
+// ── STEP NAVIGATION ──
+function goToStep(n) {
+    document.querySelectorAll('.step-panel').forEach(p => p.style.display = 'none');
+    document.getElementById('step' + n).style.display = 'block';
+    currentStep = n;
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (n === 2) renderCalendar();
+}
+
+function updateProgress() {
+    document.querySelectorAll('.prog-step').forEach(el => {
+        const s = parseInt(el.dataset.step);
+        el.classList.remove('active','done');
+        if (s < currentStep) el.classList.add('done');
+        if (s === currentStep) el.classList.add('active');
+    });
+    // Update done checkmarks
+    document.querySelectorAll('.prog-step.done .prog-dot').forEach(d => d.textContent = '✓');
+    document.querySelectorAll('.prog-step:not(.done) .prog-dot').forEach(d => {
+        d.textContent = d.closest('.prog-step').dataset.step;
+    });
+}
+
+// ── SERVICE SELECTION ──
+function selectService(el) {
+    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    const key = el.dataset.service;
+    selectedService = SERVICES[key];
+    const isPerHr = el.dataset.perhr === 'true';
+
+    // Duration selector
+    document.getElementById('durationSelector').style.display = isPerHr ? 'block' : 'none';
+    if (!isPerHr) sessionHours = 1;
+
+    // Update summary
+    updateSummary();
+    document.getElementById('nextBtn1').disabled = false;
+}
+
+function updateHours(val) {
+    sessionHours = parseInt(val);
+    document.getElementById('hoursDisplay').textContent = val;
+    if (selectedService) {
+        const est = (selectedService.price * sessionHours).toFixed(2);
+        document.getElementById('hourlyTotal').textContent = '$' + est;
+        updateSummary();
+    }
+}
+
+function updateSummary() {
+    if (!selectedService) return;
+    document.getElementById('summaryEmpty').style.display = 'none';
+    document.getElementById('summaryContent').style.display = 'block';
+    document.getElementById('summaryPayNote').style.display = 'block';
+    document.getElementById('sumService').textContent = selectedService.label;
+    document.getElementById('sumDuration').textContent = selectedService.perHour
+        ? sessionHours + ' hrs (' + selectedService.duration + ')'
+        : selectedService.duration;
+
+    const total = selectedService.perHour
+        ? selectedService.price * sessionHours
+        : selectedService.price;
+
+    document.getElementById('sumTotal').textContent = total === 0 ? 'FREE' : '$' + total.toFixed(2);
+    document.getElementById('perHourNote').style.display = selectedService.perHour ? 'block' : 'none';
+
+    if (selectedDate) {
+        document.getElementById('sumDateRow').style.display = 'flex';
+        document.getElementById('sumDate').textContent = selectedDate;
+    }
+    if (selectedTime) {
+        document.getElementById('sumTimeRow').style.display = 'flex';
+        document.getElementById('sumTime').textContent = selectedTime;
+    }
+    const fn = document.getElementById('firstName')?.value;
+    const ln = document.getElementById('lastName')?.value;
+    if (fn || ln) {
+        document.getElementById('sumClientRow').style.display = 'flex';
+        document.getElementById('sumClient').textContent = (fn+' '+ln).trim();
+    }
+    if (selectedPayment) {
+        document.getElementById('sumPayRow').style.display = 'flex';
+        document.getElementById('sumPay').textContent = selectedPayment.charAt(0).toUpperCase() + selectedPayment.slice(1);
+    }
+}
+
+// ── CALENDAR ──
+function initCalendar() {
+    const now = new Date();
+    calYear = now.getFullYear();
+    calMonth = now.getMonth();
+}
+
+function changeMonth(dir) {
+    calMonth += dir;
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+    renderCalendar();
+}
+
+function renderCalendar() {
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('calMonthLabel').textContent = months[calMonth] + ' ' + calYear;
+
+    const grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    // Empty cells
+    for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'cal-cell empty';
+        grid.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+        const cell = document.createElement('div');
+        cell.className = 'cal-cell';
+        cell.textContent = d;
+        const cellDate = new Date(calYear, calMonth, d);
+        cellDate.setHours(0,0,0,0);
+
+        const dateStr = calYear + '-' + String(calMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+
+        if (cellDate < today) {
+            cell.classList.add('past');
+        } else {
+            if (cellDate.getTime() === today.getTime()) cell.classList.add('today');
+            if (selectedDate === dateStr) cell.classList.add('selected');
+
+            cell.onclick = () => {
+                document.querySelectorAll('.cal-cell.selected').forEach(c => c.classList.remove('selected'));
+                cell.classList.add('selected');
+                selectedDate = dateStr;
+                showTimeSlots(dateStr);
+                updateSummary();
+            };
+        }
+        grid.appendChild(cell);
+    }
+}
+
+function showTimeSlots(dateStr) {
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const parts = dateStr.split('-');
+    const d = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+    const label = d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+
+    document.getElementById('selectedDateLabel').textContent = label;
+    document.getElementById('timeSection').style.display = 'block';
+
+    const grid = document.getElementById('timeGrid');
+    grid.innerHTML = '';
+    const bookedToday = BOOKED_SLOTS[dateStr] || [];
+
+    TIME_SLOTS.forEach(time => {
+        const slot = document.createElement('div');
+        slot.className = 'time-slot';
+        slot.textContent = time;
+        if (bookedToday.includes(time)) {
+            slot.classList.add('booked');
+        } else {
+            slot.onclick = () => {
+                document.querySelectorAll('.time-slot.selected').forEach(s => s.classList.remove('selected'));
+                slot.classList.add('selected');
+                selectedTime = time;
+                document.getElementById('nextBtn2').disabled = false;
+                updateSummary();
+            };
+        }
+        if (selectedTime === time) slot.classList.add('selected');
+        grid.appendChild(slot);
+    });
+}
+
+// ── STEP 3 VALIDATION ──
+function validateStep3() {
+    const first = document.getElementById('firstName').value.trim();
+    const last = document.getElementById('lastName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const goal = document.getElementById('sessionGoal').value.trim();
+
+    if (!first || !last) return alert('Please enter your full name.');
+    if (!email || !email.includes('@')) return alert('Please enter a valid email address.');
+    if (!goal) return alert('Please describe your session goal.');
+
+    updateSummary();
+    goToStep(4);
+    setupPaymentStep();
+}
+
+function setupPaymentStep() {
+    const isFree = !selectedService || selectedService.price === 0;
+    document.getElementById('freeSessionNotice').style.display = isFree ? 'block' : 'none';
+    document.getElementById('paymentMethods').style.display = isFree ? 'none' : 'block';
+    document.getElementById('confirmBtn').disabled = !isFree;
+    if (isFree) selectedPayment = 'none';
+
+    // Generate reference number
+    const ref = 'IMI-' + Math.random().toString(36).substring(2,10).toUpperCase();
+    document.getElementById('payRefNum').textContent = ref;
+}
+
+// ── PAYMENT SELECTION ──
+function selectPayment(el) {
+    document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedPayment = el.dataset.method;
+
+    ['paypal','wise','wave'].forEach(m => {
+        const el = document.getElementById(m + '-instructions');
+        if (el) el.classList.remove('visible');
+    });
+    const instr = document.getElementById(selectedPayment + '-instructions');
+    if (instr) instr.classList.add('visible');
+
+    document.getElementById('confirmBtn').disabled = false;
+    document.getElementById('sumPayRow').style.display = 'flex';
+    document.getElementById('sumPay').textContent = selectedPayment.charAt(0).toUpperCase() + selectedPayment.slice(1);
+}
+
+// ── CONFIRM BOOKING ──
+async function confirmBooking() {
+    const btn = document.getElementById('confirmBtn');
+    btn.disabled = true;
+    btn.textContent = 'â³ Submitting...';
+
+    // Simulate a brief delay
+    await new Promise(r => setTimeout(r, 1200));
+
+    // Build confirmation details HTML
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const total = selectedService.perHour
+        ? '$' + (selectedService.price * sessionHours).toFixed(2)
+        : (selectedService.price === 0 ? 'FREE' : '$' + selectedService.price.toFixed(2));
+
+    document.getElementById('confirmDetails').innerHTML = `
+        <div class="cd-row"><span class="label">Name</span><span class="val">${firstName} ${lastName}</span></div>
+        <div class="cd-row"><span class="label">Email</span><span class="val">${email}</span></div>
+        <div class="cd-row"><span class="label">Service</span><span class="val">${selectedService.label}</span></div>
+        <div class="cd-row"><span class="label">Duration</span><span class="val">${selectedService.perHour ? sessionHours + ' hrs' : selectedService.duration}</span></div>
+        ${selectedDate ? `<div class="cd-row"><span class="label">Date</span><span class="val">${selectedDate}</span></div>` : ''}
+        ${selectedTime ? `<div class="cd-row"><span class="label">Time (ET)</span><span class="val">${selectedTime}</span></div>` : ''}
+        <div class="cd-row"><span class="label">Total</span><span class="val" style="color:var(--gold-light);font-size:1rem;">${total}</span></div>
+        ${selectedPayment && selectedPayment !== 'none' ? `<div class="cd-row"><span class="label">Payment via</span><span class="val">${selectedPayment.charAt(0).toUpperCase()+selectedPayment.slice(1)}</span></div>` : ''}
+        <div class="cd-row"><span class="label">Reference</span><span class="val" style="font-family:monospace;color:var(--gold-light);">${document.getElementById('payRefNum').textContent}</span></div>
+    `;
+
+    // Try to save to Supabase if available
+    try {
+        if (typeof IMI_AUTH !== 'undefined' && IMI_AUTH.supabase) {
+            await IMI_AUTH.supabase.from('bookings').insert({
+                client_name: firstName + ' ' + lastName,
+                client_email: email,
+                service_name: selectedService.label,
+                service_key: Object.keys(SERVICES).find(k => SERVICES[k].label === selectedService.label),
+                session_date: selectedDate,
+                session_time: selectedTime,
+                duration: selectedService.perHour ? sessionHours + ' hrs' : selectedService.duration,
+                total_amount: selectedService.perHour ? selectedService.price * sessionHours : selectedService.price,
+                payment_method: selectedPayment,
+                payment_reference: document.getElementById('payRefNum').textContent,
+                notes: document.getElementById('sessionGoal').value.trim(),
+                timezone: document.getElementById('timezone').value,
+                status: 'pending',
+                payment_status: selectedService.price === 0 ? 'free' : 'pending_verification'
+            });
+        }
+    } catch(e) { /* fail silently &rdquo;” form still confirms */ }
+
+    goToStep(5);
+}
+
+// ── COPY HELPER ──
+function copyText(id) {
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = event.target;
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+}
+
+// ── INIT ──
+initCalendar();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../js/config.js?v=20261001_v55"></script>
+<script src="../js/auth-client.js?v=20261001_v55"></script>
+</body>
+</html>
+
+

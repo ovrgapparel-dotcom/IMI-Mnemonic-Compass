@@ -418,7 +418,8 @@
         <li><a href="#" data-panel="classroom"><i class="fa-solid fa-chalkboard-user"></i> Classroom <span class="tier-lock-badge" style="display:none; font-size:0.58rem; color:#e5c45a; background:rgba(229,196,90,0.12); padding:2px 6px; border-radius:3px; margin-left:auto; border:1px solid rgba(229,196,90,0.3);"><i class="fa-solid fa-lock"></i> PRO</span></a></li>
         <li><a href="#" data-panel="tools"><i class="fa-solid fa-compass"></i> My Tools <span class="tier-lock-badge" style="display:none; font-size:0.58rem; color:#e5c45a; background:rgba(229,196,90,0.12); padding:2px 6px; border-radius:3px; margin-left:auto; border:1px solid rgba(229,196,90,0.3);"><i class="fa-solid fa-lock"></i> PRO</span></a></li>
         <li><a href="#" data-panel="resources"><i class="fa-solid fa-folder-open"></i> Resources <span class="tier-lock-badge" style="display:none; font-size:0.58rem; color:#e5c45a; background:rgba(229,196,90,0.12); padding:2px 6px; border-radius:3px; margin-left:auto; border:1px solid rgba(229,196,90,0.3);"><i class="fa-solid fa-lock"></i> PRO</span></a></li>
-        <li><a href="#" data-panel="messages"><i class="fa-solid fa-comments"></i> Messages <span class="tier-lock-badge" style="display:none; font-size:0.58rem; color:#e5c45a; background:rgba(229,196,90,0.12); padding:2px 6px; border-radius:3px; margin-left:auto; border:1px solid rgba(229,196,90,0.3);"><i class="fa-solid fa-lock"></i> PRO</span></a></li>
+        <li><a href="#" data-panel="messages"><i class="fa-solid fa-comments"></i> Messages</a></li>
+        <li><a href="#" data-panel="community"><i class="fa-solid fa-users"></i> Community Board</a></li>
         <li><a href="#" data-panel="account"><i class="fa-solid fa-user"></i> Account</a></li>
       </ul>
 
@@ -1011,32 +1012,107 @@
 
       
       <div id="panel-community" style="display:none;">
-        <h2 style="font-size:1.5rem; text-transform:uppercase; color:#fff; margin-bottom:8px;">Core Tribe Community Nodes</h2>
-        <p style="color:var(--text-secondary); margin-bottom:25px;">Connect with fellow founders, participate in live workshops, and collaborate.</p>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+          <div>
+            <span class="status-badge" style="color:var(--gold); border-color:var(--gold-border);">MEMBER INTERACTION NODE</span>
+            <h2 style="font-size:1.5rem; text-transform:uppercase; color:#fff; margin-top:4px;">Community Exchange &amp; Chat Board</h2>
+          </div>
+          <button onclick="document.getElementById('comm-post-composer').style.display = document.getElementById('comm-post-composer').style.display === 'none' ? 'block' : 'none'" class="btn btn-primary" style="font-size:0.8rem; padding:8px 18px;">
+            <i class="fa-solid fa-plus" style="margin-right:6px;"></i>Start Discussion
+          </button>
+        </div>
+        <p style="color:var(--text-secondary); margin-bottom:25px;">Connect with fellow founders, share milestones, exchange branding perspectives, and collaborate across the IMI ecosystem.</p>
 
-        <div class="portal-grid portal-grid-3">
-          <div class="portal-card">
-            <div class="portal-card-icon"><i class="fa-brands fa-patreon" style="color:#ff424d;"></i></div>
-            <div class="portal-card-title" id="comm-patreon-title">Patreon Classroom</div>
-            <div class="portal-card-desc" id="comm-patreon-desc">Core Tribe live classroom, Q&A sessions, and exclusive monthly briefings.</div>
-            <a href="https://www.patreon.com/c/IMICREATIVELABCLASSROOM" id="comm-patreon-url" target="_blank" class="btn btn-primary" style="font-size:0.75rem; margin-top:15px; width:100%; text-align:center;">Enter Patreon &rarr;</a>
+        <!-- EXTERNAL COMMUNITY HUBS -->
+        <div class="portal-grid portal-grid-3" style="margin-bottom:28px;">
+          <div class="portal-card" style="padding:18px;">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+              <div class="portal-card-icon" style="margin:0; font-size:1.4rem;"><i class="fa-brands fa-patreon" style="color:#ff424d;"></i></div>
+              <div class="portal-card-title" style="margin:0; font-size:0.95rem;">Patreon Classroom</div>
+            </div>
+            <p style="color:var(--text-secondary); font-size:0.78rem; line-height:1.5; margin:0 0 12px 0;">Core Tribe live masterclasses, Q&amp;A sessions, and exclusive monthly briefings.</p>
+            <a href="https://www.patreon.com/c/IMICREATIVELABCLASSROOM" target="_blank" class="btn btn-primary" style="font-size:0.72rem; padding:6px 12px; width:100%; text-align:center;">Enter Patreon &rarr;</a>
           </div>
 
-          <div class="portal-card">
-            <div class="portal-card-icon"><i class="fa-solid fa-chalkboard-user" style="color:var(--gold);"></i></div>
-            <div class="portal-card-title" id="comm-nowsite-title">Nowsite Collaborative Node</div>
-            <div class="portal-card-desc" id="comm-nowsite-desc">AI-powered marketing automation classroom and team workspace.</div>
-            <a href="https://nowsite.team/47krhRZLzk" id="comm-nowsite-url" target="_blank" class="btn btn-secondary" style="font-size:0.75rem; margin-top:15px; width:100%; text-align:center;">Launch Workspace &rarr;</a>
+          <div class="portal-card" style="padding:18px;">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+              <div class="portal-card-icon" style="margin:0; font-size:1.4rem;"><i class="fa-solid fa-chalkboard-user" style="color:var(--gold);"></i></div>
+              <div class="portal-card-title" style="margin:0; font-size:0.95rem;">Nowsite Node</div>
+            </div>
+            <p style="color:var(--text-secondary); font-size:0.78rem; line-height:1.5; margin:0 0 12px 0;">AI-powered marketing automation classroom and team collaborative workspace.</p>
+            <a href="https://nowsite.team/47krhRZLzk" target="_blank" class="btn btn-secondary" style="font-size:0.72rem; padding:6px 12px; width:100%; text-align:center;">Launch Workspace &rarr;</a>
           </div>
 
-          <div class="portal-card">
-            <div class="portal-card-icon"><i class="fa-brands fa-facebook" style="color:#1877f2;"></i></div>
-            <div class="portal-card-title" id="comm-facebook-title">Facebook Community Group</div>
-            <div class="portal-card-desc" id="comm-facebook-desc">Connect with tribe members, share wins, and collaborate on growth strategies.</div>
-            <a href="https://www.facebook.com/imakeimage/" id="comm-facebook-url" target="_blank" class="btn btn-secondary" style="font-size:0.75rem; margin-top:15px; width:100%; text-align:center;">Join Group &rarr;</a>
+          <div class="portal-card" style="padding:18px;">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+              <div class="portal-card-icon" style="margin:0; font-size:1.4rem;"><i class="fa-brands fa-facebook" style="color:#1877f2;"></i></div>
+              <div class="portal-card-title" style="margin:0; font-size:0.95rem;">Facebook Group</div>
+            </div>
+            <p style="color:var(--text-secondary); font-size:0.78rem; line-height:1.5; margin:0 0 12px 0;">Connect with tribe members, share wins, and collaborate on growth strategies.</p>
+            <a href="https://www.facebook.com/imakeimage/" target="_blank" class="btn btn-secondary" style="font-size:0.72rem; padding:6px 12px; width:100%; text-align:center;">Join Group &rarr;</a>
           </div>
         </div>
-        <div id="portal-custom-communitys-grid" class="portal-grid portal-grid-3" style="margin-top:20px;"></div>
+
+        <!-- NEW DISCUSSION COMPOSER (COLLAPSIBLE) -->
+        <div id="comm-post-composer" style="display:none; background:#141414; border:1px solid rgba(201,162,39,0.35); border-radius:10px; padding:22px; margin-bottom:28px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <h4 style="margin:0; font-size:1.1rem; color:var(--gold-metallic); font-family:var(--font-heading);">
+              <i class="fa-solid fa-pen-to-square" style="color:var(--gold); margin-right:6px;"></i> Start a Community Discussion
+            </h4>
+            <button onclick="document.getElementById('comm-post-composer').style.display='none'" style="background:none; border:none; color:var(--text-secondary); font-size:1.2rem; cursor:pointer;">&times;</button>
+          </div>
+
+          <div style="display:grid; grid-template-columns:2fr 1fr; gap:12px; margin-bottom:12px;">
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-secondary); display:block; margin-bottom:4px; font-weight:600;">Discussion Topic / Title *</label>
+              <input class="form-input" id="comm-post-title" placeholder="e.g. My key takeaway from the Solo Corp primer..." style="width:100%; background:#1c1c1c; border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:10px 14px; color:#fff; font-family:inherit; box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-secondary); display:block; margin-bottom:4px; font-weight:600;">Category</label>
+              <select class="form-input" id="comm-post-category" style="width:100%; background:#1c1c1c; border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:10px 14px; color:#fff; font-family:inherit; box-sizing:border-box;">
+                <option value="Brand Strategy">Brand Strategy</option>
+                <option value="Wins & Milestones">Wins &amp; Milestones</option>
+                <option value="Introductions">Introductions</option>
+                <option value="Q&A / Feedback">Q&amp;A / Feedback</option>
+                <option value="General">General Discussion</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <label style="font-size:0.75rem; color:var(--text-secondary); display:block; margin-bottom:4px; font-weight:600;">Discussion Details *</label>
+            <textarea class="form-input" id="comm-post-content" rows="4" placeholder="Share your perspective, ask for feedback, or post a prompt for other members..." style="width:100%; background:#1c1c1c; border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:12px; color:#fff; font-family:inherit; box-sizing:border-box; resize:vertical;"></textarea>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:10px;">
+            <button type="button" onclick="document.getElementById('comm-post-composer').style.display='none'" class="btn btn-secondary" style="font-size:0.8rem; padding:8px 16px;">Cancel</button>
+            <button type="button" onclick="publishCommunityPost()" class="btn btn-primary" id="comm-post-submit-btn" style="font-size:0.8rem; padding:8px 20px;">
+              <i class="fa-solid fa-paper-plane" style="margin-right:6px;"></i>Publish Discussion
+            </button>
+          </div>
+        </div>
+
+        <!-- CATEGORY FILTERS & SEARCH -->
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:14px;">
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span style="font-size:0.75rem; color:var(--text-secondary); font-weight:600; margin-right:4px;">Filter:</span>
+            <button class="comm-filter-btn active" onclick="filterCommunityPosts('all', this)" style="background:rgba(201,162,39,0.15); border:1px solid var(--gold); color:var(--gold); font-size:0.72rem; padding:4px 10px; border-radius:4px; cursor:pointer;">All Topics</button>
+            <button class="comm-filter-btn" onclick="filterCommunityPosts('Brand Strategy', this)" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); color:#bbb; font-size:0.72rem; padding:4px 10px; border-radius:4px; cursor:pointer;">Brand Strategy</button>
+            <button class="comm-filter-btn" onclick="filterCommunityPosts('Wins & Milestones', this)" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); color:#bbb; font-size:0.72rem; padding:4px 10px; border-radius:4px; cursor:pointer;">Wins &amp; Milestones</button>
+            <button class="comm-filter-btn" onclick="filterCommunityPosts('Introductions', this)" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); color:#bbb; font-size:0.72rem; padding:4px 10px; border-radius:4px; cursor:pointer;">Introductions</button>
+            <button class="comm-filter-btn" onclick="filterCommunityPosts('Q&A / Feedback', this)" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); color:#bbb; font-size:0.72rem; padding:4px 10px; border-radius:4px; cursor:pointer;">Q&amp;A</button>
+          </div>
+          <button onclick="renderCommunityBoard()" class="btn btn-secondary" style="font-size:0.72rem; padding:4px 10px;">
+            <i class="fa-solid fa-rotate"></i> Refresh Feed
+          </button>
+        </div>
+
+        <!-- COMMUNITY POSTS FEED -->
+        <div id="comm-posts-feed">
+          <div style="text-align:center; padding:30px; color:var(--text-secondary); font-size:0.85rem;">
+            <i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading community discussions...
+          </div>
+        </div>
       </div><!-- end panel-community -->
 
       <!-- PANEL: BOOKINGS & CONSULTATIONS -->
@@ -1265,21 +1341,75 @@
 
       
       <div id="panel-messages" style="display:none;">
-        <h2 style="font-size:1.5rem; text-transform:uppercase; color:#fff; margin-bottom:8px;">Messaging Hub & System Alerts</h2>
-        <p style="color:var(--text-secondary); margin-bottom:25px;">History of admin broadcasts, email campaigns, billing alerts, and strategy messages.</p>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+          <div>
+            <span class="status-badge" style="color:var(--gold); border-color:var(--gold-border);">DIRECT EXECUTIVE CHANNEL</span>
+            <h2 style="font-size:1.5rem; text-transform:uppercase; color:#fff; margin-top:4px;">Messages &amp; Strategy Inquiries</h2>
+          </div>
+          <button onclick="document.getElementById('portal-msg-composer')?.scrollIntoView({behavior:'smooth'})" class="btn btn-primary" style="font-size:0.8rem; padding:8px 18px;">
+            <i class="fa-solid fa-paper-plane" style="margin-right:6px;"></i>New Inquiry
+          </button>
+        </div>
+        <p style="color:var(--text-secondary); margin-bottom:25px;">Direct communication channel between you and the IMI Strategy Advisory Team. All sent inquiries and official admin responses appear here in real time.</p>
 
-        <!-- SEND DIRECT MESSAGE TO ADMIN -->
-        <div style="background:var(--surface-color, #141414); border:1px solid var(--border-color); border-radius:10px; padding:24px; margin-bottom:30px;">
-          <h4 style="color:var(--gold-metallic); margin-bottom:12px; font-family:var(--font-heading);"><i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i>Send Direct Message to IMI Strategy Team</h4>
-          <textarea class="form-input" id="portal-msg-input" placeholder="Type your strategic question, campaign link, or review request..." rows="4" style="width:100%; background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:12px; color:#fff; font-family:inherit; margin-bottom:14px;"></textarea>
-          <button class="btn btn-primary" onclick="sendMemberDirectMessage()" style="font-size:0.85rem; padding:10px 22px;">Send Strategic Message</button>
+        <!-- SEND DIRECT MESSAGE TO ADMIN COMPOSER -->
+        <div id="portal-msg-composer" style="background:var(--surface-color, #141414); border:1px solid rgba(201,162,39,0.3); border-radius:10px; padding:24px; margin-bottom:30px;">
+          <h4 style="color:var(--gold-metallic); margin-bottom:14px; font-family:var(--font-heading); display:flex; align-items:center; gap:8px;">
+            <i class="fa-solid fa-paper-plane" style="color:var(--gold);"></i>Send Direct Message to IMI Strategy &amp; Admin Team
+          </h4>
+
+          <div style="display:grid; grid-template-columns:2fr 1fr; gap:12px; margin-bottom:12px;">
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-secondary); display:block; margin-bottom:4px; font-weight:600;">Inquiry Subject</label>
+              <input class="form-input" id="portal-msg-subject" placeholder="e.g. Brand Positioning Review / Solo Corp Roadmap Question" style="width:100%; background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:10px 14px; color:#fff; font-family:inherit; box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-secondary); display:block; margin-bottom:4px; font-weight:600;">Category / Priority</label>
+              <select class="form-input" id="portal-msg-priority" style="width:100%; background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:10px 14px; color:#fff; font-family:inherit; box-sizing:border-box;">
+                <option value="Strategy">Strategy &amp; Branding</option>
+                <option value="Consultation">Consultation Request</option>
+                <option value="Account">Account &amp; Membership</option>
+                <option value="General">General Inquiry</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <label style="font-size:0.75rem; color:var(--text-secondary); display:block; margin-bottom:4px; font-weight:600;">Message Content *</label>
+            <textarea class="form-input" id="portal-msg-input" placeholder="Type your strategic question, campaign link, review request, or partnership inquiry..." rows="4" style="width:100%; background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:12px; color:#fff; font-family:inherit; box-sizing:border-box; resize:vertical;"></textarea>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <span style="font-size:0.72rem; color:var(--text-secondary);">Direct Cloud Delivery &middot; Synced to Admin Command Center</span>
+            <button class="btn btn-primary" id="portal-msg-send-btn" onclick="sendMemberDirectMessage()" style="font-size:0.85rem; padding:10px 24px; display:inline-flex; align-items:center; gap:8px;">
+              <i class="fa-solid fa-paper-plane"></i> Send Inbound Message
+            </button>
+          </div>
         </div>
 
-        <!-- ADMIN BROADCASTS & BILLING NOTIFICATIONS TIMELINE -->
+        <!-- CONVERSATIONS & INQUIRY HISTORY -->
+        <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border-color); border-radius:10px; padding:24px; margin-bottom:30px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid var(--border-color); padding-bottom:12px; flex-wrap:wrap; gap:10px;">
+            <h3 style="font-size:1rem; color:#fff; text-transform:uppercase; margin:0; display:flex; align-items:center; gap:8px;">
+              <i class="fa-solid fa-comments" style="color:var(--gold);"></i> My Direct Conversations with Admin
+            </h3>
+            <button onclick="renderMemberMessagesTimeline()" class="btn btn-secondary" style="font-size:0.75rem; padding:4px 10px;">
+              <i class="fa-solid fa-rotate"></i> Refresh Messages
+            </button>
+          </div>
+
+          <div id="portal-conversations-list">
+            <div style="text-align:center; padding:24px; color:var(--text-secondary); font-size:0.85rem;">
+              <i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading your conversations...
+            </div>
+          </div>
+        </div>
+
+        <!-- ADMIN BROADCASTS & NOTIFICATIONS -->
         <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border-color); border-radius:10px; padding:24px;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid var(--border-color); padding-bottom:12px;">
-            <h3 style="font-size:1rem; color:#fff; text-transform:uppercase; margin:0;"><i class="fa-solid fa-inbox" style="color:var(--gold); margin-right:8px;"></i> Admin Broadcasts &amp; Alerts History</h3>
-            <span class="status-badge" style="color:var(--gold); border-color:var(--gold-border);">LIVE MESSAGING LOG</span>
+            <h3 style="font-size:1rem; color:#fff; text-transform:uppercase; margin:0;"><i class="fa-solid fa-bullhorn" style="color:var(--gold); margin-right:8px;"></i> Admin Broadcasts &amp; Ecosystem Alerts</h3>
+            <span class="status-badge" style="color:var(--gold); border-color:var(--gold-border);">LIVE DISPATCH LOG</span>
           </div>
 
           <div id="portal-messages-timeline"></div>
@@ -1602,9 +1732,9 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="../js/i18n.js?v=20261001_v54"></script>
-  <script src="../js/config.js?v=20261001_v54"></script>
-  <script src="../js/auth-client.js?v=20261001_v54"></script>
+  <script src="../js/i18n.js?v=20261001_v55"></script>
+  <script src="../js/config.js?v=20261001_v55"></script>
+  <script src="../js/auth-client.js?v=20261001_v55"></script>
   <script>
     // Immediate Synchronous Role Detection (prevents flash of unrestricted access)
     let syncRole = 'free';
@@ -1812,7 +1942,7 @@
       const userRole = (window.currentUserRole || 'free').toLowerCase();
       const isPaidTier = userRole === 'admin' || userRole === 'core_elite' || userRole === 'core_tribe';
       const isFreeTier = !isPaidTier;
-      const freeAllowedPanels = ['overview', 'videos', 'bookings', 'account', 'upgrade-gate'];
+      const freeAllowedPanels = ['overview', 'videos', 'bookings', 'messages', 'community', 'account', 'upgrade-gate'];
 
       // If user is Free Tier and attempting to access a locked feature
       if (isFreeTier && !freeAllowedPanels.includes(targetPanel)) {
@@ -1874,6 +2004,12 @@
       if (sidebar) sidebar.classList.remove('open');
       window.location.hash = targetPanel;
 
+      if (targetPanel === 'messages' && window.renderMemberMessagesTimeline) {
+        window.renderMemberMessagesTimeline();
+      }
+      if (targetPanel === 'community' && window.renderCommunityBoard) {
+        window.renderCommunityBoard();
+      }
       if (targetPanel === 'account' && window.hydrateAccountPanel && window.IMI_AUTH) {
         Promise.all([window.IMI_AUTH.getProfile(), window.IMI_AUTH.getSession()]).then(([prof, sess]) => {
           window.hydrateAccountPanel(prof, sess);
@@ -1916,7 +2052,7 @@
       const hash = window.location.hash.replace('#', '');
       const userRole = (window.currentUserRole || 'free').toLowerCase();
       const isPaid = userRole === 'admin' || userRole === 'core_elite' || userRole === 'core_tribe';
-      const freeAllowedPanels = ['overview', 'videos', 'bookings', 'account', 'upgrade-gate'];
+      const freeAllowedPanels = ['overview', 'videos', 'bookings', 'messages', 'community', 'account', 'upgrade-gate'];
 
       if (hash && allPanels.includes(hash)) {
         if (!isPaid && !freeAllowedPanels.includes(hash)) {
@@ -2737,61 +2873,374 @@
       }
     };
 
-    window.renderMemberMessagesTimeline = () => {
-      const container = document.getElementById('portal-messages-timeline');
-      if (!container) return;
+    window.renderMemberMessagesTimeline = async () => {
+      const convList = document.getElementById('portal-conversations-list');
+      const timelineContainer = document.getElementById('portal-messages-timeline');
 
-      let dispatches = [];
-      try { dispatches = JSON.parse(localStorage.getItem('imi_admin_dispatches') || '[]'); } catch(e) {}
+      let currentEmail = '';
+      try {
+        const sess = await (window.IMI_AUTH && window.IMI_AUTH.getSession ? window.IMI_AUTH.getSession() : null);
+        const prof = await (window.IMI_AUTH && window.IMI_AUTH.getProfile ? window.IMI_AUTH.getProfile() : null);
+        currentEmail = (prof?.email || sess?.email || '').toLowerCase();
+      } catch(e) {}
 
-      const defaultAlerts = [
-        {
-          type: 'DISPATCH',
-          subject: 'Welcome to IMI Member Command Center',
-          date: new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }),
-          body: 'Your member portal account is active. You have full access to branding blueprints, ecosystem software tools, live video classroom sessions, and direct consulting.'
-        },
-        {
-          type: 'BILLING',
-          subject: 'Core Tribe Membership Status: Active',
-          date: new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }),
-          body: 'Your subscription status is verified. All 4 Blueprint course modules, iM Time Command, and IMI Compass apps are unlocked.'
+      // 1. Fetch live member messages
+      if (convList) {
+        try {
+          const allMsgs = (window.IMI_AUTH && window.IMI_AUTH.fetchMemberMessages)
+            ? await window.IMI_AUTH.fetchMemberMessages()
+            : JSON.parse(localStorage.getItem('imi_member_messages') || '[]');
+
+          // Filter by this member unless admin
+          const isAdmin = window.currentUserRole === 'admin';
+          const myMessages = allMsgs.filter(m => {
+            if (isAdmin) return true;
+            return (m.member_email || '').toLowerCase() === currentEmail;
+          });
+
+          if (myMessages.length === 0) {
+            convList.innerHTML = `
+              <div style="text-align:center; padding:28px; background:rgba(255,255,255,0.02); border:1px dashed rgba(255,255,255,0.1); border-radius:8px; color:var(--text-secondary);">
+                <i class="fa-solid fa-paper-plane" style="font-size:1.6rem; color:var(--gold); margin-bottom:8px; display:block;"></i>
+                <div style="font-size:0.85rem; color:#fff; font-weight:600; margin-bottom:4px;">No inquiries sent yet</div>
+                <div style="font-size:0.75rem;">Use the form above to send your first direct question or strategy review request to the IMI Team.</div>
+              </div>`;
+          } else {
+            convList.innerHTML = myMessages.map(m => {
+              const isUnread = (m.status || 'unread') === 'unread';
+              const replies = Array.isArray(m.replies) ? m.replies : [];
+              const statusPill = isUnread
+                ? `<span style="background:rgba(34,197,94,0.12); color:#22c55e; border:1px solid rgba(34,197,94,0.3); font-size:0.7rem; padding:2px 8px; border-radius:4px; font-weight:700;"><i class="fa-solid fa-circle" style="font-size:0.45rem; margin-right:4px;"></i> SENT &mdash; AWAITING REVIEW</span>`
+                : `<span style="background:rgba(201,162,39,0.12); color:var(--gold); border:1px solid rgba(201,162,39,0.3); font-size:0.7rem; padding:2px 8px; border-radius:4px; font-weight:700;"><i class="fa-solid fa-reply" style="margin-right:4px;"></i> ADMIN REPLIED</span>`;
+
+              const repliesHtml = replies.map(r => `
+                <div style="background:rgba(201,162,39,0.06); border-left:3px solid var(--gold); border-radius:4px; padding:12px 14px; margin-top:12px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <span style="font-size:0.75rem; font-weight:700; color:var(--gold); display:flex; align-items:center; gap:6px;">
+                      <i class="fa-solid fa-shield-halved"></i> ${r.sender_name || 'IMI Administrator'}
+                    </span>
+                    <span style="font-size:0.7rem; color:var(--text-secondary);">${r.created_at ? new Date(r.created_at).toLocaleString() : 'Recent'}</span>
+                  </div>
+                  <p style="margin:0; font-size:0.82rem; color:#eee; line-height:1.6;">${r.text}</p>
+                </div>
+              `).join('');
+
+              return `
+                <div style="background:rgba(22,22,22,0.85); border:1px solid var(--border-color); border-radius:8px; padding:18px; margin-bottom:16px;">
+                  <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+                    <div>
+                      <div style="font-size:0.95rem; font-weight:700; color:#fff; margin-bottom:2px;">${m.subject || 'Direct Inquiry'}</div>
+                      <div style="font-size:0.72rem; color:var(--text-secondary);">Sent on ${m.created_at ? new Date(m.created_at).toLocaleString() : 'Recent'} &middot; Category: ${m.priority || 'Strategy'}</div>
+                    </div>
+                    <div>${statusPill}</div>
+                  </div>
+
+                  <p style="font-size:0.85rem; color:#ddd; line-height:1.6; background:rgba(0,0,0,0.3); padding:12px; border-radius:6px; border:1px solid rgba(255,255,255,0.04); margin:0 0 10px 0;">${m.body}</p>
+
+                  ${repliesHtml}
+
+                  <!-- Follow-up reply box -->
+                  <div style="margin-top:12px; display:flex; gap:8px;">
+                    <input id="member-reply-input-${m.id}" placeholder="Reply to this thread..." style="flex:1; background:#121212; border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:8px 12px; color:#fff; font-size:0.78rem;">
+                    <button onclick="sendMemberFollowUpReply('${m.id}')" class="btn btn-secondary" style="font-size:0.75rem; padding:8px 14px; white-space:nowrap;">
+                      <i class="fa-solid fa-paper-plane"></i> Reply
+                    </button>
+                  </div>
+                </div>`;
+            }).join('');
+          }
+        } catch(err) {
+          console.error('Error rendering conversations:', err);
         }
-      ];
+      }
 
-      const allMessages = [...dispatches, ...defaultAlerts];
+      // 2. Fetch admin broadcasts / dispatches
+      if (timelineContainer) {
+        let dispatches = [];
+        try {
+          const sc = (window.IMI_AUTH && window.IMI_AUTH.fetchSiteContent) ? await window.IMI_AUTH.fetchSiteContent() : {};
+          if (sc['admin_dispatches']) {
+            dispatches = typeof sc['admin_dispatches'] === 'string' ? JSON.parse(sc['admin_dispatches']) : sc['admin_dispatches'];
+          }
+          if (!Array.isArray(dispatches) || dispatches.length === 0) {
+            dispatches = JSON.parse(localStorage.getItem('imi_admin_dispatches') || '[]');
+          }
+        } catch(e) {}
 
-      const html = allMessages.map(msg => {
-        const badgeColor = msg.type === 'BILLING' ? '#00c853' : (msg.type === 'BROADCAST' ? '#00e5ff' : 'var(--gold)');
-        return `
-          <div style="background:rgba(22,22,22,0.8); border:1px solid var(--border-color); border-radius:8px; padding:18px; margin-bottom:14px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
-              <div style="display:flex; align-items:center; gap:10px;">
-                <span style="font-size:0.68rem; font-weight:bold; color:${badgeColor}; background:${badgeColor}18; border:1px solid ${badgeColor}55; padding:3px 8px; border-radius:4px; text-transform:uppercase;">${msg.type || 'ADMIN BROADCAST'}</span>
-                <strong style="color:#fff; font-size:0.95rem;">${msg.subject || 'Admin Broadcast Update'}</strong>
+        const defaultAlerts = [
+          {
+            type: 'DISPATCH',
+            subject: 'Welcome to IMI Member Command Center',
+            date: new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }),
+            body: 'Your member portal account is active. You have full access to branding blueprints, ecosystem software tools, live video classroom sessions, and direct consulting.'
+          },
+          {
+            type: 'BILLING',
+            subject: 'Core Tribe Membership Status: Active',
+            date: new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }),
+            body: 'Your subscription status is verified. All 4 Blueprint course modules, iM Time Command, and IMI Compass apps are unlocked.'
+          }
+        ];
+
+        const allMessages = [...dispatches, ...defaultAlerts];
+
+        timelineContainer.innerHTML = allMessages.map(msg => {
+          const badgeColor = msg.type === 'BILLING' ? '#00c853' : (msg.type === 'BROADCAST' ? '#00e5ff' : 'var(--gold)');
+          return `
+            <div style="background:rgba(22,22,22,0.8); border:1px solid var(--border-color); border-radius:8px; padding:18px; margin-bottom:14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <span style="font-size:0.68rem; font-weight:bold; color:${badgeColor}; background:${badgeColor}18; border:1px solid ${badgeColor}55; padding:3px 8px; border-radius:4px; text-transform:uppercase;">${msg.type || 'ADMIN BROADCAST'}</span>
+                  <strong style="color:#fff; font-size:0.95rem;">${msg.subject || 'Admin Broadcast Update'}</strong>
+                </div>
+                <span style="font-size:0.75rem; color:var(--text-secondary);">${msg.date || 'Recent'}</span>
               </div>
-              <span style="font-size:0.75rem; color:var(--text-secondary);">${msg.date || 'Recent'}</span>
-            </div>
-            <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.6; margin:0;">${msg.body || ''}</p>
-          </div>`;
-      }).join('');
-
-      container.innerHTML = html;
+              <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.6; margin:0;">${msg.body || ''}</p>
+            </div>`;
+        }).join('');
+      }
     };
 
-    window.sendMemberDirectMessage = () => {
+    window.sendMemberDirectMessage = async () => {
+      const subjInput = document.getElementById('portal-msg-subject');
+      const priorInput = document.getElementById('portal-msg-priority');
       const input = document.getElementById('portal-msg-input');
+      const sendBtn = document.getElementById('portal-msg-send-btn');
+
+      const subject = subjInput?.value?.trim() || 'Strategy & Advisory Inquiry';
+      const priority = priorInput?.value || 'Strategy';
       const text = input?.value?.trim();
-      if (!text) return alert('Please enter your message text!');
 
-      let msgs = [];
-      try { msgs = JSON.parse(localStorage.getItem('imi_member_outbox') || '[]'); } catch(e) {}
-      msgs.unshift({ text, date: new Date().toISOString() });
-      localStorage.setItem('imi_member_outbox', JSON.stringify(msgs));
+      if (!text) {
+        if (window.imiToast) window.imiToast('Please enter your message text!', 'warning');
+        else alert('Please enter your message text!');
+        return;
+      }
 
-      if (input) input.value = '';
-      alert('Your message has been logged and sent to the IMI Strategy Team!');
-      renderMemberMessagesTimeline();
+      if (sendBtn) {
+        sendBtn.disabled = true;
+        sendBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+      }
+
+      try {
+        if (window.IMI_AUTH && window.IMI_AUTH.sendMemberDirectMessage) {
+          const res = await window.IMI_AUTH.sendMemberDirectMessage({ subject, body: text, priority });
+          if (res.success) {
+            if (window.imiToast) window.imiToast('Inquiry delivered live to the IMI Strategy Team!', 'success');
+            if (input) input.value = '';
+            if (subjInput) subjInput.value = '';
+            await renderMemberMessagesTimeline();
+          } else {
+            alert(res.error || 'Failed to send message.');
+          }
+        }
+      } catch(err) {
+        console.error('Send message error:', err);
+        alert('Could not deliver message. Please try again.');
+      } finally {
+        if (sendBtn) {
+          sendBtn.disabled = false;
+          sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Inbound Message';
+        }
+      }
+    };
+
+    window.sendMemberFollowUpReply = async (msgId) => {
+      const input = document.getElementById('member-reply-input-' + msgId);
+      const text = input ? input.value.trim() : '';
+      if (!text) return;
+
+      try {
+        if (window.IMI_AUTH && window.IMI_AUTH.replyToDirectMessage) {
+          const res = await window.IMI_AUTH.replyToDirectMessage(msgId, text, 'member');
+          if (res.success) {
+            if (window.imiToast) window.imiToast('Reply posted to conversation thread!', 'success');
+            if (input) input.value = '';
+            await renderMemberMessagesTimeline();
+          }
+        }
+      } catch(err) {
+        console.error('Reply error:', err);
+      }
+    };
+
+    // ── Community Board Logic ─────────────────────────────────────────────
+    let _communityCurrentFilter = 'all';
+
+    window.filterCommunityPosts = (cat, btn) => {
+      _communityCurrentFilter = cat;
+      document.querySelectorAll('.comm-filter-btn').forEach(b => {
+        b.style.background = '#1a1a1a';
+        b.style.borderColor = 'rgba(255,255,255,0.1)';
+        b.style.color = '#bbb';
+      });
+      if (btn) {
+        btn.style.background = 'rgba(201,162,39,0.15)';
+        btn.style.borderColor = 'var(--gold)';
+        btn.style.color = 'var(--gold)';
+      }
+      renderCommunityBoard();
+    };
+
+    window.renderCommunityBoard = async () => {
+      const feed = document.getElementById('comm-posts-feed');
+      if (!feed) return;
+
+      try {
+        const posts = (window.IMI_AUTH && window.IMI_AUTH.fetchCommunityPosts)
+          ? await window.IMI_AUTH.fetchCommunityPosts()
+          : JSON.parse(localStorage.getItem('imi_community_board') || '[]');
+
+        let currentEmail = '';
+        try {
+          const sess = await (window.IMI_AUTH && window.IMI_AUTH.getSession ? window.IMI_AUTH.getSession() : null);
+          currentEmail = sess?.email || '';
+        } catch(e) {}
+
+        const filtered = _communityCurrentFilter === 'all'
+          ? posts
+          : posts.filter(p => (p.category || '').toLowerCase() === _communityCurrentFilter.toLowerCase());
+
+        if (filtered.length === 0) {
+          feed.innerHTML = `
+            <div style="text-align:center; padding:36px; background:#141414; border:1px dashed rgba(255,255,255,0.1); border-radius:8px; color:var(--text-secondary);">
+              <i class="fa-solid fa-comments" style="font-size:2rem; color:var(--gold); margin-bottom:10px; display:block;"></i>
+              <p style="margin:0; font-size:0.9rem;">No community posts found in this category yet. Be the first to start a discussion!</p>
+            </div>`;
+          return;
+        }
+
+        feed.innerHTML = filtered.map(p => {
+          const comments = Array.isArray(p.comments) ? p.comments : [];
+          const hasLiked = Array.isArray(p.liked_by) && p.liked_by.includes(currentEmail);
+          const roleBadge = p.author_role === 'admin'
+            ? '<span style="color:#E5C45A; border:1px solid #E5C45A55; background:#E5C45A15; font-size:0.65rem; padding:2px 6px; border-radius:4px; font-weight:700;">ADMIN</span>'
+            : (p.author_role === 'core_tribe'
+              ? '<span style="color:#B8BCC2; border:1px solid #B8BCC255; background:#B8BCC215; font-size:0.65rem; padding:2px 6px; border-radius:4px; font-weight:700;">TRIBE</span>'
+              : '<span style="color:#60a5fa; border:1px solid #60a5fa55; background:#60a5fa15; font-size:0.65rem; padding:2px 6px; border-radius:4px; font-weight:700;">MEMBER</span>');
+
+          const commentsHtml = comments.map(c => `
+            <div style="background:rgba(255,255,255,0.02); border-left:2px solid var(--gold); border-radius:4px; padding:10px 12px; margin-top:8px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <strong style="font-size:0.75rem; color:#fff;">${c.author_name || 'Member'}</strong>
+                <span style="font-size:0.68rem; color:var(--text-secondary);">${c.created_at ? new Date(c.created_at).toLocaleString() : 'Recent'}</span>
+              </div>
+              <p style="margin:0; font-size:0.78rem; color:#ccc; line-height:1.5;">${c.text}</p>
+            </div>
+          `).join('');
+
+          return `
+            <div class="portal-card" style="margin-bottom:18px; padding:22px; background:rgba(20,20,20,0.9); border:1px solid rgba(255,255,255,0.08);">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <div style="width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg, var(--gold), #7a5f10); color:#000; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:15px; overflow:hidden; flex-shrink:0;">
+                    ${p.author_avatar ? `<img src="${p.author_avatar}" style="width:100%;height:100%;object-fit:cover;">` : (p.author_name ? p.author_name[0].toUpperCase() : 'M')}
+                  </div>
+                  <div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <strong style="color:#fff; font-size:0.95rem;">${p.author_name || 'Member'}</strong>
+                      ${roleBadge}
+                    </div>
+                    <div style="font-size:0.72rem; color:var(--text-secondary);">${p.created_at ? new Date(p.created_at).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }) : 'Recent'} &middot; <span style="color:var(--gold);">${p.category || 'General'}</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <h3 style="margin:0 0 8px 0; font-size:1.1rem; color:#fff; font-family:var(--font-heading);">${p.title}</h3>
+              <p style="font-size:0.85rem; color:#ccc; line-height:1.6; margin:0 0 16px 0;">${p.content}</p>
+
+              <!-- Social actions: Like and Comment count -->
+              <div style="display:flex; align-items:center; gap:16px; border-top:1px solid rgba(255,255,255,0.06); padding-top:12px; margin-bottom:12px;">
+                <button onclick="togglePostLike('${p.id}')" style="background:none; border:none; color:${hasLiked ? '#ef4444' : 'var(--text-secondary)'}; font-size:0.82rem; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+                  <i class="${hasLiked ? 'fa-solid' : 'fa-regular'} fa-heart"></i> <span>${p.likes || 0} Likes</span>
+                </button>
+                <span style="color:var(--text-secondary); font-size:0.82rem; display:inline-flex; align-items:center; gap:6px;">
+                  <i class="fa-regular fa-comment"></i> ${comments.length} Comments
+                </span>
+              </div>
+
+              <!-- Comments feed -->
+              <div id="comm-comments-${p.id}" style="margin-bottom:12px;">
+                ${commentsHtml}
+              </div>
+
+              <!-- Comment input -->
+              <div style="display:flex; gap:8px;">
+                <input id="comm-comment-input-${p.id}" placeholder="Write a supportive comment or perspective..." style="flex:1; background:#121212; border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:8px 12px; color:#fff; font-size:0.78rem;">
+                <button onclick="addCommunityPostComment('${p.id}')" class="btn btn-primary" style="font-size:0.75rem; padding:8px 14px; white-space:nowrap;">
+                  Comment
+                </button>
+              </div>
+            </div>`;
+        }).join('');
+      } catch(err) {
+        console.error('Error rendering community board:', err);
+      }
+    };
+
+    window.publishCommunityPost = async () => {
+      const titleInput = document.getElementById('comm-post-title');
+      const catInput = document.getElementById('comm-post-category');
+      const contentInput = document.getElementById('comm-post-content');
+      const submitBtn = document.getElementById('comm-post-submit-btn');
+
+      const title = titleInput?.value?.trim();
+      const category = catInput?.value || 'General';
+      const content = contentInput?.value?.trim();
+
+      if (!title || !content) {
+        if (window.imiToast) window.imiToast('Please provide both discussion title and details!', 'warning');
+        else alert('Please provide both title and details!');
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Publishing...';
+      }
+
+      try {
+        if (window.IMI_AUTH && window.IMI_AUTH.createCommunityPost) {
+          const res = await window.IMI_AUTH.createCommunityPost({ title, category, content });
+          if (res.success) {
+            if (window.imiToast) window.imiToast('Discussion published to Community Board!', 'success');
+            if (titleInput) titleInput.value = '';
+            if (contentInput) contentInput.value = '';
+            document.getElementById('comm-post-composer').style.display = 'none';
+            await renderCommunityBoard();
+          } else {
+            alert(res.error || 'Failed to publish post');
+          }
+        }
+      } catch(err) {
+        console.error('Publish error:', err);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Publish Discussion';
+        }
+      }
+    };
+
+    window.togglePostLike = async (postId) => {
+      if (window.IMI_AUTH && window.IMI_AUTH.likeCommunityPost) {
+        await window.IMI_AUTH.likeCommunityPost(postId);
+        renderCommunityBoard();
+      }
+    };
+
+    window.addCommunityPostComment = async (postId) => {
+      const input = document.getElementById('comm-comment-input-' + postId);
+      const text = input ? input.value.trim() : '';
+      if (!text) return;
+
+      if (window.IMI_AUTH && window.IMI_AUTH.commentOnCommunityPost) {
+        const res = await window.IMI_AUTH.commentOnCommunityPost(postId, text);
+        if (res.success) {
+          if (input) input.value = '';
+          renderCommunityBoard();
+        }
+      }
     };
 
     window.renderClassroomCalendar = (bookings = []) => {
@@ -3029,7 +3478,7 @@
 
           // Immediate enforcement: if user landed on or navigated to a restricted panel, immediately redirect to upgrade gate
           const currentHash = window.location.hash.replace('#', '');
-          const freeAllowed = ['overview', 'videos', 'bookings', 'account', 'upgrade-gate'];
+          const freeAllowed = ['overview', 'videos', 'bookings', 'messages', 'community', 'account', 'upgrade-gate'];
           if (currentHash && !freeAllowed.includes(currentHash)) {
             window.showPanel('upgrade-gate');
           }

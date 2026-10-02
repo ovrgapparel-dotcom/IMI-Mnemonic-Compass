@@ -1,0 +1,911 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My IMI Progress Tracker | High-Trust Doer Cockpit</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1A1A1A 0%, #2d2d2d 100%);
+  color: #FAFAFA;
+  min-height: 100vh;
+  padding: 2rem;
+}
+.container { max-width: 1400px; margin: 0 auto; }
+.welcome-screen {
+  max-width: 700px;
+  margin: 4rem auto;
+  background: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(41, 121, 255, 0.3);
+  border: 2px solid #2979FF;
+  text-align: center;
+}
+.welcome-screen h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #2979FF 0%, #FF5C57 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+.welcome-screen p { color: #B0B0B0; font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6; }
+.header {
+  background: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(41, 121, 255, 0.3);
+  border: 2px solid #2979FF;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.profile-section { display: flex; align-items: center; gap: 2rem; flex: 1; }
+.profile-pic {
+  width: 100px; height: 100px; border-radius: 50%;
+  border: 4px solid #2979FF; object-fit: cover;
+  box-shadow: 0 8px 24px rgba(41, 121, 255, 0.5);
+  background: linear-gradient(135deg, #2979FF 0%, #FF5C57 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem; color: white; font-weight: 700; flex-shrink: 0;
+}
+.member-info h1 {
+  font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
+  background: linear-gradient(135deg, #2979FF 0%, #FF5C57 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+.level-display { display: flex; align-items: center; gap: 1rem; margin-top: 0.5rem; }
+.level-icon { font-size: 2rem; }
+.level-name { font-size: 1.1rem; color: #2979FF; font-weight: 600; }
+.action-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn {
+  background: linear-gradient(135deg, #2979FF 0%, #1e5fc7 100%);
+  color: white; border: none; padding: 0.7rem 1.2rem;
+  border-radius: 8px; cursor: pointer; font-family: 'Poppins', sans-serif;
+  font-weight: 600; transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(41, 121, 255, 0.3); white-space: nowrap; font-size: 0.9rem;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(41, 121, 255, 0.5); }
+.btn-secondary { background: linear-gradient(135deg, #B0B0B0 0%, #909090 100%); box-shadow: 0 4px 15px rgba(176, 176, 176, 0.2); }
+.btn-success { background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3); }
+.btn-danger { background: linear-gradient(135deg, #FF5C57 0%, #e54a45 100%); box-shadow: 0 4px 15px rgba(255, 92, 87, 0.3); }
+.btn-small { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+.tabs-container {
+  background: rgba(26, 26, 26, 0.95); backdrop-filter: blur(10px);
+  border-radius: 20px; box-shadow: 0 8px 32px rgba(41, 121, 255, 0.3);
+  border: 2px solid #2979FF; overflow: hidden;
+}
+.tabs-header { display: flex; background: rgba(0, 0, 0, 0.3); border-bottom: 2px solid #2979FF; overflow-x: auto; }
+.tab-btn {
+  flex: 1; min-width: 150px; padding: 1rem 1.5rem; background: transparent;
+  border: none; color: #B0B0B0; font-family: 'Poppins', sans-serif;
+  font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+}
+.tab-btn:hover { background: rgba(41, 121, 255, 0.1); color: #FAFAFA; }
+.tab-btn.active { color: #2979FF; background: rgba(41, 121, 255, 0.15); border-bottom-color: #2979FF; }
+.tab-content { padding: 2rem; min-height: 400px; }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+.stat-card { background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(41, 121, 255, 0.2); text-align: center; }
+.stat-number { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; color: #2979FF; }
+.stat-label { color: #B0B0B0; font-size: 0.9rem; margin-top: 0.5rem; }
+.xp-progress { margin: 2rem 0; }
+.xp-stats { display: flex; justify-content: space-between; margin-bottom: 1rem; align-items: baseline; }
+.xp-current { font-size: 2.5rem; font-family: 'Space Grotesk', sans-serif; color: #2979FF; }
+.xp-target { font-size: 1.2rem; color: #B0B0B0; }
+.xp-bar-container { background: rgba(0, 0, 0, 0.3); height: 20px; border-radius: 10px; overflow: hidden; position: relative; }
+.xp-bar { height: 100%; background: linear-gradient(90deg, #2979FF 0%, #FF5C57 100%); border-radius: 10px; transition: width 0.5s ease; box-shadow: 0 0 10px rgba(41, 121, 255, 0.5); }
+.xp-percentage { text-align: center; margin-top: 0.5rem; color: #2979FF; font-weight: 600; }
+.excel-table { width: 100%; background: rgba(0, 0, 0, 0.3); border-radius: 12px; overflow: hidden; border: 1px solid rgba(41, 121, 255, 0.2); }
+.excel-table-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; background: rgba(41, 121, 255, 0.1); border-bottom: 2px solid #2979FF; }
+.excel-table-header h3 { font-family: 'Space Grotesk', sans-serif; color: #2979FF; font-size: 1.3rem; }
+.table-wrapper { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+thead { background: rgba(41, 121, 255, 0.15); position: sticky; top: 0; z-index: 10; }
+thead th { padding: 1rem; text-align: left; font-weight: 600; color: #2979FF; border-bottom: 2px solid #2979FF; white-space: nowrap; }
+tbody tr { border-bottom: 1px solid rgba(41, 121, 255, 0.1); transition: all 0.3s ease; }
+tbody tr:hover { background: rgba(41, 121, 255, 0.05); }
+tbody td { padding: 1rem; color: #FAFAFA; }
+.cell-actions { display: flex; gap: 0.5rem; }
+.milestone-grid { display: grid; gap: 1rem; }
+.milestone-row { display: grid; grid-template-columns: 50px 1fr 120px; gap: 1rem; align-items: center; padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border-left: 3px solid #2979FF; }
+.milestone-checkbox { width: 30px; height: 30px; border: 2px solid #2979FF; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; font-size: 1.2rem; }
+.milestone-checkbox.completed { background: #2979FF; color: white; }
+.milestone-checkbox.completed::after { content: '✓'; }
+.milestone-text { flex: 1; }
+.milestone-text.completed { text-decoration: line-through; color: #B0B0B0; }
+.milestone-status { padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; text-align: center; }
+.status-completed { background: rgba(76, 175, 80, 0.2); color: #4CAF50; border: 1px solid #4CAF50; }
+.status-progress { background: rgba(255, 152, 0, 0.2); color: #FF9800; border: 1px solid #FF9800; }
+.chart-container { position: relative; height: 350px; margin-top: 1rem; }
+.calendar-wrapper { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; margin-top: 1rem; }
+.calendar-day { aspect-ratio: 1; background: rgba(0, 0, 0, 0.3); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.85rem; border: 1px solid rgba(41, 121, 255, 0.2); }
+.calendar-day.has-activity { background: rgba(41, 121, 255, 0.3); border-color: #2979FF; box-shadow: 0 0 10px rgba(41, 121, 255, 0.5); }
+.calendar-day-number { font-weight: 600; font-size: 1rem; }
+.calendar-day-label { font-size: 0.65rem; color: #B0B0B0; }
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 1000; justify-content: center; align-items: center; padding: 2rem; overflow-y: auto; }
+.modal.active { display: flex; }
+.modal-content { background: linear-gradient(135deg, #1A1A1A 0%, #2d2d2d 100%); padding: 2.5rem; border-radius: 20px; max-width: 600px; width: 100%; border: 2px solid #2979FF; box-shadow: 0 20px 60px rgba(41, 121, 255, 0.3); margin: auto; max-height: 90vh; overflow-y: auto; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.modal-header h2 { font-family: 'Space Grotesk', sans-serif; color: #2979FF; }
+.close-btn { background: none; border: none; font-size: 2rem; cursor: pointer; color: #B0B0B0; }
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem; border: 2px solid rgba(41, 121, 255, 0.3); border-radius: 8px; background: rgba(255, 255, 255, 0.05); color: #FAFAFA; font-family: 'Poppins', sans-serif; }
+.profile-upload { text-align: center; margin-bottom: 2rem; }
+.profile-preview { width: 120px; height: 120px; border-radius: 50%; border: 4px solid #2979FF; margin: 0 auto 1rem; background: linear-gradient(135deg, #2979FF 0%, #FF5C57 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white; font-weight: 700; }
+.level-selector { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem; margin: 1rem 0; }
+.level-option { background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(41, 121, 255, 0.3); border-radius: 12px; padding: 1rem; text-align: center; cursor: pointer; transition: all 0.3s ease; }
+.level-option.selected { border-color: #2979FF; background: rgba(41, 121, 255, 0.2); box-shadow: 0 0 15px rgba(41, 121, 255, 0.5); }
+.level-option .icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.level-option .name { font-weight: 600; font-size: 0.9rem; color: #FAFAFA; }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="container">
+<!-- Welcome Screen -->
+<div class="welcome-screen" id="welcomeScreen">
+<h1>ðŸ§­ Welcome to Your IMI Progress Tracker!</h1>
+<p>Let's set up your profile to start tracking your journey in the IMI Core Tribe.</p>
+<button class="btn" onclick="openSetupModal()" style="font-size: 1.1rem; padding: 1rem 2rem;">Get Started</button>
+</div>
+
+<!-- Main Dashboard -->
+<div id="mainDashboard" class="hidden">
+<div class="header">
+<div class="profile-section">
+<div class="profile-pic" id="profilePic">?</div>
+<div class="member-info">
+<h1 id="memberName">Member Name</h1>
+<div class="level-display">
+<span class="level-icon" id="levelIcon">ðŸ•¯ï¸</span>
+<span class="level-name" id="levelName">Newbie - The Spark</span>
+</div>
+<p style="color: #B0B0B0; margin-top: 0.5rem; font-size: 0.9rem;">Member since: <span id="joinDate">N/A</span></p>
+</div>
+</div>
+<div class="action-buttons">
+<button class="btn" onclick="openProfileModal()">âš™ï¸ Edit Profile</button>
+<button class="btn btn-success" onclick="exportProgress()">ðŸ“¤ Export Excel</button>
+<button class="btn btn-secondary" onclick="openActivityModal()">âž• Add Activity</button>
+</div>
+</div>
+
+<!-- Tabbed Interface -->
+<div class="tabs-container">
+<div class="tabs-header">
+<button class="tab-btn active" onclick="switchTab('overview')">ðŸ“Š Overview</button>
+<button class="tab-btn" onclick="switchTab('activities')">ðŸ† Activities</button>
+<button class="tab-btn" onclick="switchTab('milestones')">ðŸŽ¯ Milestones</button>
+<button class="tab-btn" onclick="switchTab('growth')">ðŸ“ˆ Growth</button>
+<button class="tab-btn" onclick="switchTab('calendar')">ðŸ“… Calendar</button>
+</div>
+
+<div class="tab-content">
+<!-- Overview Tab -->
+<div class="tab-pane active" id="overviewTab">
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-number" id="currentXP">0</div>
+<div class="stat-label">Current XP</div>
+</div>
+<div class="stat-card">
+<div class="stat-number" id="targetXP">100</div>
+<div class="stat-label">XP to Next Level</div>
+</div>
+<div class="stat-card">
+<div class="stat-number" id="totalActivities">0</div>
+<div class="stat-label">Total Activities</div>
+</div>
+<div class="stat-card">
+<div class="stat-number" id="daysActive">0</div>
+<div class="stat-label">Days Active</div>
+</div>
+</div>
+
+<div class="xp-progress">
+<h3 style="color: #2979FF; margin-bottom: 1rem;">Level Progress</h3>
+<div class="xp-stats">
+<div class="xp-current" id="currentXP2">0</div>
+<div class="xp-target">/ <span id="targetXP2">100</span> XP</div>
+</div>
+<div class="xp-bar-container">
+<div class="xp-bar" id="xpBar" style="width: 0%"></div>
+</div>
+<div class="xp-percentage" id="xpPercentage">0% to next level</div>
+</div>
+</div>
+
+<!-- Activities Tab -->
+<div class="tab-pane" id="activitiesTab">
+<div class="excel-table">
+<div class="excel-table-header">
+<h3>ðŸ“‹ Activity Log</h3>
+<button class="btn btn-small" onclick="openActivityModal()">+ Add Activity</button>
+</div>
+<div class="table-wrapper">
+<table id="activitiesTable">
+<thead>
+<tr>
+<th>Date</th>
+<th>Activity Type</th>
+<th>XP Earned</th>
+<th>Notes</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="activitiesTableBody">
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- Milestones Tab -->
+<div class="tab-pane" id="milestonesTab">
+<div class="excel-table">
+<div class="excel-table-header">
+<h3>ðŸŽ¯ Level Milestones</h3>
+<span style="color: #B0B0B0;" id="milestoneProgress">0 / 3 Completed</span>
+</div>
+<div style="padding: 1.5rem;">
+<div class="milestone-grid" id="milestoneGrid"></div>
+</div>
+</div>
+</div>
+
+<!-- Growth Tab -->
+<div class="tab-pane" id="growthTab">
+<h3 style="color: #2979FF; margin-bottom: 1.5rem;">ðŸ“ˆ XP Growth Over Time</h3>
+<div class="chart-container">
+<canvas id="growthChart"></canvas>
+</div>
+</div>
+
+<!-- Calendar Tab -->
+<div class="tab-pane" id="calendarTab">
+<h3 style="color: #2979FF; margin-bottom: 1.5rem;">ðŸ“… Activity Calendar (Last 35 Days)</h3>
+<div class="calendar-wrapper" id="activityCalendar"></div>
+</div>
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 2rem;">
+<button class="btn btn-danger" onclick="resetTracker()">ðŸ”„ Reset All Data</button>
+</div>
+</div>
+</div>
+
+<!-- Setup/Profile Modal -->
+<div class="modal" id="setupModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="setupTitle">Set Up Your Profile</h2>
+<button class="close-btn" onclick="closeSetupModal()">&times;</button>
+</div>
+<form onsubmit="saveProfile(event)">
+<div class="profile-upload">
+<div class="profile-preview" id="profilePreview">?</div>
+<input type="file" id="profilePicInput" accept="image/*" onchange="handleProfilePic(event)" style="display: none;">
+<label for="profilePicInput" class="btn btn-secondary" style="display: inline-block; cursor: pointer;">Upload Photo</label>
+</div>
+
+<div class="form-group">
+<label>Full Name *</label>
+<input type="text" id="setupName" required placeholder="Enter your name">
+</div>
+
+<div class="form-group">
+<label>Email</label>
+<input type="email" id="setupEmail" placeholder="your.email@example.com">
+</div>
+
+<div class="form-group">
+<label>Phone / WhatsApp</label>
+<input type="tel" id="setupPhone" placeholder="+1234567890">
+</div>
+
+<div class="form-group">
+<label>Join Date</label>
+<input type="date" id="setupJoinDate">
+</div>
+
+<div class="form-group">
+<label>Starting Level *</label>
+<div class="level-selector" id="levelSelector">
+<div class="level-option" onclick="selectLevel('newbie')">
+<div class="icon">ðŸ•¯ï¸</div>
+<div class="name">Newbie</div>
+</div>
+<div class="level-option" onclick="selectLevel('beginner')">
+<div class="icon">ðŸ”¥</div>
+<div class="name">Beginner</div>
+</div>
+<div class="level-option" onclick="selectLevel('intermediate')">
+<div class="icon">âš¡</div>
+<div class="name">Intermediate</div>
+</div>
+<div class="level-option" onclick="selectLevel('elite')">
+<div class="icon">ðŸ’Ž</div>
+<div class="name">Elite</div>
+</div>
+<div class="level-option" onclick="selectLevel('leader')">
+<div class="icon">ðŸ‘‘</div>
+<div class="name">Leader</div>
+</div>
+</div>
+<input type="hidden" id="setupLevel" value="newbie">
+</div>
+
+<div class="form-group">
+<label>Current XP (Optional)</label>
+<input type="number" id="setupXP" value="0" min="0">
+</div>
+
+<div class="form-group">
+<label>Mentor (if applicable)</label>
+<input type="text" id="setupMentor" placeholder="Name of your mentor">
+</div>
+
+<div style="display: flex; gap: 1rem; margin-top: 2rem;">
+<button type="submit" class="btn" style="flex: 1;">Save Profile</button>
+<button type="button" class="btn btn-secondary" onclick="closeSetupModal()" style="flex: 1;">Cancel</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- Activity Modal -->
+<div class="modal" id="activityModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="activityModalTitle">Log New Activity</h2>
+<button class="close-btn" onclick="closeActivityModal()">&times;</button>
+</div>
+<form onsubmit="saveActivity(event)">
+<input type="hidden" id="editActivityIndex" value="">
+<div class="form-group">
+<label>Activity Type *</label>
+<select id="activityType" required>
+<option value="">Select activity...</option>
+<option value="session">Attend Tribe Session (10 XP)</option>
+<option value="training">Complete Training Module (15 XP)</option>
+<option value="mentor">Mentor a Member (25 XP)</option>
+<option value="host">Host a Group Call (30 XP)</option>
+<option value="content">Publish Strategy/Content (40 XP)</option>
+<option value="recruit">Recruit New Member (50 XP)</option>
+<option value="event">Lead Tribe Event (75 XP)</option>
+</select>
+</div>
+<div class="form-group">
+<label>Date *</label>
+<input type="date" id="activityDate" required>
+</div>
+<div class="form-group">
+<label>Notes</label>
+<textarea id="activityNotes" rows="3" placeholder="Additional details..."></textarea>
+</div>
+<div style="display: flex; gap: 1rem;">
+<button type="submit" class="btn" style="flex: 1;">Save Activity</button>
+<button type="button" class="btn btn-secondary" onclick="closeActivityModal()" style="flex: 1;">Cancel</button>
+</div>
+</form>
+</div>
+</div>
+
+<script>
+const LEVEL_CONFIG = {
+newbie: { icon: 'ðŸ•¯ï¸', name: 'Newbie', xpNeeded: 100, motto: 'The Spark' },
+beginner: { icon: 'ðŸ”¥', name: 'Beginner', xpNeeded: 300, motto: 'The Initiator' },
+intermediate: { icon: 'âš¡', name: 'Intermediate', xpNeeded: 600, motto: 'The Bridge' },
+elite: { icon: 'ðŸ’Ž', name: 'Elite', xpNeeded: 1000, motto: 'The Architect' },
+leader: { icon: 'ðŸ‘‘', name: 'Leader', xpNeeded: 9999, motto: 'Legacy Builder' }
+};
+
+const MILESTONES = {
+newbie: [
+'Attend 3 Tribe sessions',
+'Complete Solo Corp 101',
+'Create Core Profile'
+],
+beginner: [
+'Host or co-host 1 live session',
+'Create sales/recruitment funnel',
+'Build 50-100 engaged followers'
+],
+intermediate: [
+'Mentor at least 2 Newbies',
+'Present strategy on Tribe call',
+'Maintain 2 months consistency'
+],
+elite: [
+'Mentor 3+ to Connector level',
+'Develop Tribe system/resource',
+'Lead Tribe training'
+],
+leader: [
+'Lead major Tribe initiative',
+'Train/certify 5+ mentors',
+'6+ months active mentorship',
+'Receive peer endorsement'
+]
+};
+
+const XP_VALUES = {
+session: 10,
+training: 15,
+mentor: 25,
+host: 30,
+content: 40,
+recruit: 50,
+event: 75
+};
+
+let memberData = JSON.parse(localStorage.getItem('myProgressData')) || null;
+let growthChart = null;
+let selectedLevel = 'newbie';
+let currentTab = 'overview';
+
+function initializePage() {
+if (memberData) {
+document.getElementById('welcomeScreen').classList.add('hidden');
+document.getElementById('mainDashboard').classList.remove('hidden');
+updateDisplay();
+renderActivitiesTable();
+renderMilestonesGrid();
+renderCalendar();
+initGrowthChart();
+} else {
+document.getElementById('welcomeScreen').classList.remove('hidden');
+document.getElementById('mainDashboard').classList.add('hidden');
+}
+document.getElementById('activityDate').value = new Date().toISOString().split('T')[0];
+document.getElementById('setupJoinDate').value = new Date().toISOString().split('T')[0];
+}
+
+function switchTab(tabName) {
+currentTab = tabName;
+document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+
+event.target.classList.add('active');
+document.getElementById(tabName + 'Tab').classList.add('active');
+}
+
+function openSetupModal() {
+document.getElementById('setupModal').classList.add('active');
+document.getElementById('setupTitle').textContent = 'Set Up Your Profile';
+selectLevel('newbie');
+}
+
+function openProfileModal() {
+document.getElementById('setupModal').classList.add('active');
+document.getElementById('setupTitle').textContent = 'Edit Your Profile';
+document.getElementById('setupName').value = memberData.memberName;
+document.getElementById('setupEmail').value = memberData.email || '';
+document.getElementById('setupPhone').value = memberData.phone || '';
+document.getElementById('setupJoinDate').value = memberData.joinDate;
+document.getElementById('setupXP').value = memberData.currentXP;
+document.getElementById('setupMentor').value = memberData.mentor || '';
+selectedLevel = memberData.skillLevel;
+selectLevel(memberData.skillLevel);
+if (memberData.profilePicture) {
+const preview = document.getElementById('profilePreview');
+preview.style.backgroundImage = `url(${memberData.profilePicture})`;
+preview.style.backgroundSize = 'cover';
+preview.style.backgroundPosition = 'center';
+preview.textContent = '';
+}
+}
+
+function closeSetupModal() {
+document.getElementById('setupModal').classList.remove('active');
+}
+
+function selectLevel(level) {
+selectedLevel = level;
+document.getElementById('setupLevel').value = level;
+document.querySelectorAll('.level-option').forEach(opt => opt.classList.remove('selected'));
+const levelOptions = document.querySelectorAll('.level-option');
+levelOptions.forEach(opt => {
+const name = opt.querySelector('.name').textContent.toLowerCase();
+if (name === level) {
+opt.classList.add('selected');
+}
+});
+}
+
+function handleProfilePic(e) {
+const file = e.target.files[0];
+if (!file) return;
+if (file.size > 2 * 1024 * 1024) {
+alert('File size must be less than 2MB');
+return;
+}
+const u = URL.createObjectURL(file);
+const preview = document.getElementById('profilePreview');
+preview.style.backgroundImage = `url(${u})`;
+preview.style.backgroundSize = 'cover';
+preview.style.backgroundPosition = 'center';
+preview.textContent = '';
+}
+
+function saveProfile(e) {
+e.preventDefault();
+const preview = document.getElementById('profilePreview');
+const profilePicture = preview.style.backgroundImage ? 
+preview.style.backgroundImage.slice(5, -2) : '';
+
+if (!memberData) {
+memberData = {
+activities: [],
+completedMilestones: []
+};
+}
+
+memberData.memberName = document.getElementById('setupName').value;
+memberData.email = document.getElementById('setupEmail').value;
+memberData.phone = document.getElementById('setupPhone').value;
+memberData.joinDate = document.getElementById('setupJoinDate').value;
+memberData.skillLevel = selectedLevel;
+memberData.currentXP = parseInt(document.getElementById('setupXP').value) || 0;
+memberData.mentor = document.getElementById('setupMentor').value;
+memberData.profilePicture = profilePicture;
+
+localStorage.setItem('myProgressData', JSON.stringify(memberData));
+closeSetupModal();
+initializePage();
+}
+
+function updateDisplay() {
+const level = LEVEL_CONFIG[memberData.skillLevel];
+document.getElementById('memberName').textContent = memberData.memberName;
+document.getElementById('levelIcon').textContent = level.icon;
+document.getElementById('levelName').textContent = `${level.name} - ${level.motto}`;
+document.getElementById('joinDate').textContent = memberData.joinDate || 'N/A';
+document.getElementById('currentXP').textContent = memberData.currentXP;
+document.getElementById('currentXP2').textContent = memberData.currentXP;
+document.getElementById('targetXP').textContent = level.xpNeeded;
+document.getElementById('targetXP2').textContent = level.xpNeeded;
+
+const progress = (memberData.currentXP / level.xpNeeded) * 100;
+document.getElementById('xpBar').style.width = Math.min(progress, 100) + '%';
+document.getElementById('xpPercentage').textContent = Math.round(progress) + '% to next level';
+
+document.getElementById('totalActivities').textContent = memberData.activities?.length || 0;
+
+const uniqueDays = new Set(memberData.activities?.map(a => a.date.split('T')[0]) || []);
+document.getElementById('daysActive').textContent = uniqueDays.size;
+
+const profilePic = document.getElementById('profilePic');
+if (memberData.profilePicture) {
+profilePic.style.backgroundImage = `url(${memberData.profilePicture})`;
+profilePic.style.backgroundSize = 'cover';
+profilePic.style.backgroundPosition = 'center';
+profilePic.textContent = '';
+} else {
+const initials = memberData.memberName.split(' ').map(n => n[0]).join('').toUpperCase();
+profilePic.textContent = initials;
+profilePic.style.backgroundImage = 'none';
+}
+}
+
+function renderActivitiesTable() {
+const activities = memberData.activities || [];
+const sorted = [...activities].sort((a, b) => new Date(b.date) - new Date(a.date));
+const activityNames = {
+session: 'Tribe Session',
+training: 'Training Module',
+mentor: 'Mentoring',
+host: 'Group Call',
+content: 'Content Creation',
+recruit: 'Member Recruitment',
+event: 'Tribe Event'
+};
+
+const tbody = document.getElementById('activitiesTableBody');
+if (sorted.length === 0) {
+tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem; color: #B0B0B0;">No activities logged yet. Click "Add Activity" to get started!</td></tr>';
+return;
+}
+
+const html = sorted.map((activity, index) => `
+<tr>
+<td>${new Date(activity.date).toLocaleDateString()}</td>
+<td>${activityNames[activity.type] || activity.type}</td>
+<td style="color: #2979FF; font-weight: 600;">+${activity.xp} XP</td>
+<td>${activity.notes || '-'}</td>
+<td class="cell-actions">
+<button class="btn btn-small btn-secondary" onclick="editActivity(${activities.length - 1 - index})">Edit</button>
+<button class="btn btn-small btn-danger" onclick="deleteActivity(${activities.length - 1 - index})">Delete</button>
+</td>
+</tr>
+`).join('');
+tbody.innerHTML = html;
+}
+
+function renderMilestonesGrid() {
+const milestones = MILESTONES[memberData.skillLevel];
+const completed = memberData.completedMilestones || [];
+
+const html = milestones.map((milestone, index) => `
+<div class="milestone-row">
+<div class="milestone-checkbox ${completed.includes(index) ? 'completed' : ''}" 
+     onclick="toggleMilestone(${index})"></div>
+<div class="milestone-text ${completed.includes(index) ? 'completed' : ''}">${milestone}</div>
+<div class="milestone-status ${completed.includes(index) ? 'status-completed' : 'status-progress'}">
+${completed.includes(index) ? 'Completed' : 'In Progress'}
+</div>
+</div>
+`).join('');
+document.getElementById('milestoneGrid').innerHTML = html;
+document.getElementById('milestoneProgress').textContent = `${completed.length} / ${milestones.length} Completed`;
+}
+
+function toggleMilestone(index) {
+if (!memberData.completedMilestones) memberData.completedMilestones = [];
+const idx = memberData.completedMilestones.indexOf(index);
+if (idx > -1) {
+memberData.completedMilestones.splice(idx, 1);
+} else {
+memberData.completedMilestones.push(index);
+}
+saveData();
+renderMilestonesGrid();
+}
+
+function renderCalendar() {
+const today = new Date();
+const daysToShow = 35;
+const calendar = [];
+
+for (let i = daysToShow - 1; i >= 0; i--) {
+const date = new Date(today);
+date.setDate(date.getDate() - i);
+const dateStr = date.toISOString().split('T')[0];
+const hasActivity = memberData.activities?.some(a => a.date.split('T')[0] === dateStr);
+calendar.push({ date, dateStr, hasActivity });
+}
+
+const html = calendar.map(day => `
+<div class="calendar-day ${day.hasActivity ? 'has-activity' : ''}">
+<div class="calendar-day-number">${day.date.getDate()}</div>
+<div class="calendar-day-label">${day.date.toLocaleDateString('en', { month: 'short' })}</div>
+</div>
+`).join('');
+document.getElementById('activityCalendar').innerHTML = html;
+}
+
+function initGrowthChart() {
+const ctx = document.getElementById('growthChart').getContext('2d');
+const activities = memberData.activities || [];
+const sorted = [...activities].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+let cumulativeXP = 0;
+const chartData = sorted.map(activity => {
+cumulativeXP += activity.xp;
+return {
+x: new Date(activity.date),
+y: cumulativeXP
+};
+});
+
+if (chartData.length === 0) {
+chartData.push({ x: new Date(), y: 0 });
+}
+
+growthChart = new Chart(ctx, {
+type: 'line',
+data: {
+datasets: [{
+label: 'XP Growth',
+data: chartData,
+borderColor: '#2979FF',
+backgroundColor: 'rgba(41, 121, 255, 0.1)',
+borderWidth: 3,
+fill: true,
+tension: 0.4,
+pointRadius: 5,
+pointHoverRadius: 7,
+pointBackgroundColor: '#2979FF',
+pointBorderColor: '#FAFAFA',
+pointBorderWidth: 2
+}]
+},
+options: {
+responsive: true,
+maintainAspectRatio: false,
+plugins: {
+legend: { display: false }
+},
+scales: {
+x: {
+type: 'time',
+time: { unit: 'day' },
+ticks: { color: '#B0B0B0' },
+grid: { color: 'rgba(255, 255, 255, 0.1)' }
+},
+y: {
+beginAtZero: true,
+ticks: { color: '#B0B0B0', callback: function(value) { return value + ' XP'; } },
+grid: { color: 'rgba(255, 255, 255, 0.1)' }
+}
+}
+}
+});
+}
+
+function openActivityModal() {
+document.getElementById('activityModalTitle').textContent = 'Log New Activity';
+document.getElementById('editActivityIndex').value = '';
+document.getElementById('activityModal').classList.add('active');
+}
+
+function closeActivityModal() {
+document.getElementById('activityModal').classList.remove('active');
+document.querySelector('#activityModal form').reset();
+document.getElementById('activityDate').value = new Date().toISOString().split('T')[0];
+document.getElementById('editActivityIndex').value = '';
+}
+
+function editActivity(index) {
+const activity = memberData.activities[index];
+document.getElementById('activityModalTitle').textContent = 'Edit Activity';
+document.getElementById('editActivityIndex').value = index;
+document.getElementById('activityType').value = activity.type;
+document.getElementById('activityDate').value = activity.date;
+document.getElementById('activityNotes').value = activity.notes || '';
+document.getElementById('activityModal').classList.add('active');
+}
+
+function deleteActivity(index) {
+if (!confirm('Are you sure you want to delete this activity?')) return;
+const activity = memberData.activities[index];
+memberData.currentXP -= activity.xp;
+memberData.activities.splice(index, 1);
+saveData();
+updateDisplay();
+renderActivitiesTable();
+renderCalendar();
+updateGrowthChart();
+}
+
+function saveActivity(e) {
+e.preventDefault();
+const editIndex = document.getElementById('editActivityIndex').value;
+const activity = {
+type: document.getElementById('activityType').value,
+xp: XP_VALUES[document.getElementById('activityType').value],
+date: document.getElementById('activityDate').value,
+notes: document.getElementById('activityNotes').value
+};
+
+if (!memberData.activities) memberData.activities = [];
+
+if (editIndex !== '') {
+const oldActivity = memberData.activities[editIndex];
+memberData.currentXP -= oldActivity.xp;
+memberData.activities[editIndex] = activity;
+memberData.currentXP += activity.xp;
+} else {
+memberData.activities.push(activity);
+memberData.currentXP += activity.xp;
+}
+
+checkLevelUp();
+saveData();
+closeActivityModal();
+updateDisplay();
+renderActivitiesTable();
+renderCalendar();
+updateGrowthChart();
+}
+
+function checkLevelUp() {
+const levels = ['newbie', 'beginner', 'intermediate', 'elite', 'leader'];
+const currentIndex = levels.indexOf(memberData.skillLevel);
+const currentLevel = LEVEL_CONFIG[memberData.skillLevel];
+
+if (memberData.currentXP >= currentLevel.xpNeeded && currentIndex < levels.length - 1) {
+memberData.skillLevel = levels[currentIndex + 1];
+alert(`ðŸŽ‰ Congratulations! You've leveled up to ${LEVEL_CONFIG[memberData.skillLevel].name}!`);
+renderMilestonesGrid();
+}
+}
+
+function updateGrowthChart() {
+if (!growthChart) return;
+
+const activities = memberData.activities || [];
+const sorted = [...activities].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+let cumulativeXP = 0;
+const chartData = sorted.map(activity => {
+cumulativeXP += activity.xp;
+return {
+x: new Date(activity.date),
+y: cumulativeXP
+};
+});
+
+if (chartData.length === 0) {
+chartData.push({ x: new Date(), y: 0 });
+}
+
+growthChart.data.datasets[0].data = chartData;
+growthChart.update();
+}
+
+function exportProgress() {
+const wb = XLSX.utils.book_new();
+
+const level = LEVEL_CONFIG[memberData.skillLevel];
+const mainData = [{
+'Name': memberData.memberName,
+'Email': memberData.email || '',
+'Phone': memberData.phone || '',
+'Level': level.name,
+'XP': memberData.currentXP,
+'Mentor': memberData.mentor || '',
+'Join Date': memberData.joinDate
+}];
+const mainSheet = XLSX.utils.json_to_sheet(mainData);
+XLSX.utils.book_append_sheet(wb, mainSheet, 'Members');
+
+if (memberData.activities && memberData.activities.length > 0) {
+const activityNames = {
+session: 'Tribe Session',
+training: 'Training Module',
+mentor: 'Mentoring',
+host: 'Group Call',
+content: 'Content Creation',
+recruit: 'Member Recruitment',
+event: 'Tribe Event'
+};
+const actData = memberData.activities.map(a => ({
+'Member Name': memberData.memberName,
+'Date': new Date(a.date).toLocaleDateString(),
+'Activity Type': activityNames[a.type] || a.type,
+'XP Earned': a.xp,
+'Notes': a.notes || ''
+}));
+const actSheet = XLSX.utils.json_to_sheet(actData);
+XLSX.utils.book_append_sheet(wb, actSheet, 'Activities');
+}
+
+const fileName = `${memberData.memberName.replace(/\s+/g, '_')}_IMI_Progress.xlsx`;
+XLSX.writeFile(wb, fileName);
+}
+
+function resetTracker() {
+if (!confirm('âš ï¸ This will delete all your data and reset the tracker. Are you sure?')) return;
+localStorage.removeItem('myProgressData');
+memberData = null;
+location.reload();
+}
+
+function saveData() {
+localStorage.setItem('myProgressData', JSON.stringify(memberData));
+}
+
+initializePage();
+</script>
+</body>
+</html>
+
+

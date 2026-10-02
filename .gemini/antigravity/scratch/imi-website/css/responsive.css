@@ -1,0 +1,105 @@
+/* Responsive Styles & Media Queries */
+
+/* Tablet Viewports */
+@media (max-width: 1024px) {
+  section {
+    padding: 80px 0;
+  }
+
+  .bundle-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .tribal-section-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .tribal-visual {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+/* Landscape Phones & Small Tablets */
+@media (max-width: 768px) {
+  /* Navigation Header Toggle */
+  .nav-menu, .header-actions {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+
+  .main-header {
+    height: 70px;
+  }
+
+  .hero-section {
+    padding-top: 100px;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    gap: 12px;
+  }
+
+  .hero-ctas .btn {
+    width: 100%;
+  }
+
+  /* Systems connecting flow grid */
+  .system-grid {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .system-operator {
+    align-self: center;
+    transform: rotate(90deg);
+    margin: 5px 0;
+  }
+
+  .system-piece-card {
+    justify-content: center;
+  }
+
+  .free-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Portrait Mobile Devices */
+@media (max-width: 480px) {
+  html {
+    font-size: 15px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .section-header .section-tag {
+    letter-spacing: 0.15em;
+  }
+
+  .glass-card {
+    padding: 20px;
+  }
+
+  .modal-content {
+    padding: 30px 20px;
+  }
+}

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Webinars & Masterclasses | I MAKE IMAGE</title>
+  <meta name="description" content="Free entry-point webinars, live masterclasses, and strategy workshops by I MAKE IMAGE.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    .page-hero {
+      padding: 120px 0 60px;
+      text-align: center;
+      background: radial-gradient(circle at 50% 20%, rgba(201,162,39,0.08) 0%, rgba(8,8,8,1) 70%);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .webinar-card {
+      background: rgba(22,22,22,0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-container">
+      <a href="../index.html" class="logo">
+        <div class="brand-mark">IM</div>
+        <div class="brand-text">I MAKE IMAGE</div>
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="../index.html#solutions">Solutions</a></li>
+          <li><a href="cmo-services.html">CMO Services</a></li>
+          <li><a href="power-hours.html">Power Hours</a></li>
+          <li><a href="webinars.html" class="active">Webinars</a></li>
+          <li><a href="../index.html#tools">Tools</a></li>
+          <li><a href="portal.html">Member Portal</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-primary btn-nav-login">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="tech-label" style="color:var(--gold);" id="webinar-eyebrow">ENTRY-POINT EDUCATION</span>
+      <h1 class="hero-headline" style="font-size:2.8rem; margin:16px 0;" id="webinar-h1">Live Webinars & Implementation Masterclasses</h1>
+      <p style="max-width:720px; margin:0 auto 30px; color:var(--text-secondary); font-size:1.1rem;" id="webinar-desc">
+        Learn practical marketing frameworks, AI automation strategies, and system integration methods in our live interactive webinars.
+      </p>
+    </div>
+  </section>
+
+  <!-- Webinars Grid -->
+  <main class="container" style="padding: 60px 20px; max-width:1000px;">
+    <div class="webinar-card">
+      <div style="padding:30px;">
+        <span class="status-badge" style="background:rgba(0,200,83,0.1); color:#00c853; border-color:rgba(0,200,83,0.3); margin-bottom:12px; display:inline-block;">UPCOMING LIVE WEBINAR</span>
+        <h3 style="font-size:1.6rem; color:#fff; text-transform:uppercase; margin-bottom:10px;">The 4-Part Brand System Framework</h3>
+        <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:20px;">
+          Discover how to transition from fragmented marketing activities into a high-converting, systematic brand engine.
+        </p>
+        <a href="login.html?return=portal.html" class="btn btn-primary">Register Free for Next Session &rarr;</a>
+      </div>
+    </div>
+    <div id="webinars-custom-sections-container"></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/config.js?v=20261001_v55"></script>
+  <script src="../js/auth-client.js?v=20261001_v55"></script>
+  <script src="../js/main.js?v=20261001_v55"></script>
+</body>
+</html>
+
+
+

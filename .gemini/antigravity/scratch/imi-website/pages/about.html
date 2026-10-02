@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | I MAKE IMAGE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/global.css">
+    <style>
+        .about-grid {
+            max-width: 1000px;
+            margin: 80px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .about-text h3 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+        .about-text p {
+            color: var(--silver);
+            margin-bottom: 20px;
+            font-size: .95rem;
+        }
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,.1);
+            padding-top: 40px;
+        }
+        .stat-box h4 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--gold-light);
+            line-height: 1;
+        }
+        .stat-box span {
+            color: var(--muted);
+            font-size: .7rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+        .about-visual {
+            background: var(--graphite);
+            aspect-ratio: 4/5;
+            border: 1px solid rgba(255,255,255,.05);
+            display: grid;
+            place-items: center;
+            color: rgba(255,255,255,.1);
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            position: relative;
+        }
+        .about-visual::after {
+            content: "";
+            position: absolute;
+            inset: -15px;
+            border: 1px solid rgba(201,162,39,.2);
+            z-index: -1;
+        }
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .about-visual {
+                order: -1;
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header class="site-header" id="siteHeader">
+    <a href="../index.html" class="brand">
+        <div class="brand-mark">iM</div>
+        <div class="brand-name">
+            <strong>I MAKE IMAGE</strong>
+            <span>STRATEGIC BUSINESS ECOSYSTEM</span>
+        </div>
+    </a>
+    <nav class="desktop-nav">
+        <a href="solutions.html">Solutions</a>
+        <a href="cmo-services.html">Services</a>
+        <a href="learning.html">Learn</a>
+        <a href="power-hours.html">Workshops</a>
+        <a href="tools.html">Tools</a>
+        <a href="news.html">News</a>
+        <a href="solo-corp.html">Solo Corp</a>
+        <a href="core-tribe.html">Core Tribe</a>
+        <a href="about.html" style="color:var(--gold-light);">About</a>
+    </nav>
+    <div class="nav-actions">
+        <a href="booking.html" class="nav-button">Book a Session</a>
+        <a href="login.html" class="login-link">Login</a>
+    </div>
+    <button class="mobile-menu-button" id="mobileMenuButton">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a>
+    <div class="mobile-menu-group">
+        <span>Solutions</span>
+        <a href="solutions.html">Business Solutions</a>
+        <a href="services.html">Marketing Services</a>
+        <a href="booking.html">Book a Session</a>
+    </div>
+    <div class="mobile-menu-group">
+        <span>Learn</span>
+        <a href="learning.html">Learning Center</a>
+        <a href="courses.html">Courses</a>
+        <a href="workshops.html">Workshops</a>
+        <a href="resources.html">Resources</a>
+    </div>
+    <div class="mobile-menu-group">
+        <span>Tools</span>
+        <a href="compass.html">IMI Compass</a>
+        <a href="time-command.html">iM Time Command</a>
+        <a href="commander-bundle.html">Commander Bundle</a>
+    </div>
+    <a href="core-tribe.html">Core Tribe</a>
+    <a href="about.html" style="color:var(--gold-light);">About</a>
+    <a href="login.html">Login</a>
+    <a href="booking.html" class="mobile-cta">Book a Session</a>
+</div>
+<main>
+<section class="hero" style="min-height: 60vh; padding-top: 150px; padding-bottom: 50px;">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+        <div class="eyebrow">ABOUT I MAKE IMAGE</div>
+        <h1>
+            We build<br>
+            <span>growth systems.</span>
+        </h1>
+        <p>A strategic marketing agency, education platform, and technology provider designed for modern entrepreneurs.</p>
+    </div>
+</section>
+
+<section class="section-dark" style="padding: 50px 6vw 150px;">
+    <div class="about-grid">
+        <div class="about-visual">
+            <img src="../assets/logo/imi-gold-logo.jpg" alt="IMI Founder" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+        </div>
+        <div class="about-text">
+            <div class="section-label">OUR PHILOSOPHY</div>
+            <h3>Marketing is a system, not a tactic.</h3>
+            <p>At I MAKE IMAGE, we noticed a critical flaw in how modern businesses approach growth: they buy disjointed tactics instead of building unified systems.</p>
+            <p>Entrepreneurs were purchasing courses on ads, hiring agencies for SEO, and buying software they didn't know how to use—only to end up burned out and disconnected from their core brand message.</p>
+            <p>We built this ecosystem to solve that problem. We combine high-level strategic consulting (Solutions) with practical implementation training (Learning & Core Tribe) and custom digital utilities (Tools) so you have exactly what you need, when you need it.</p>
+            
+            <div class="about-stats">
+                <div class="stat-box">
+                    <h4>10+</h4>
+                    <span>Years Experience</span>
+                </div>
+                <div class="stat-box">
+                    <h4>360&deg;</h4>
+                    <span>Ecosystem Approach</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="system-intro section-black" style="padding: 100px 6vw;">
+    <div class="system-heading" style="margin: 0 auto; text-align: center; max-width: 800px;">
+        <h2>The gap between ideas and execution is where businesses fail.</h2>
+    </div>
+    <div class="system-conclusion" style="margin-top: 80px;">
+        <div class="connection-line"></div>
+        <h3>WE BRIDGE THE GAP.</h3>
+        <p>Strategy, education, technology and implementation working together.</p>
+        <a href="solutions.html" class="button button-gold" style="margin-top: 30px;">WORK WITH US</a>
+    </div>
+</section>
+
+<!-- ─── PORTFOLIO SECTION ──────────────────────────────────────────────── -->
+<section id="about-portfolio-section" style="padding: 80px 6vw 120px; background:#0a0a0a;">
+    <div style="max-width:1200px; margin:0 auto;">
+        <div class="section-label" style="text-align:center;">OUR WORK</div>
+        <h2 class="section-title" style="text-align:center; margin-bottom:10px;">Featured <span>Portfolio</span></h2>
+        <p style="text-align:center; color:rgba(255,255,255,0.5); max-width:620px; margin:0 auto 40px; font-size:0.9rem;">Websites, brand systems, digital products, media design, and strategic campaigns built for modern businesses.</p>
+
+        <!-- Tab Filter Bar -->
+        <div id="portfolio-tabs" style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:40px;">
+            <button class="portfolio-tab active" data-filter="all" onclick="filterPortfolio('all', this)">All Work</button>
+            <button class="portfolio-tab" data-filter="Website &amp; Links" onclick="filterPortfolio('Website &amp; Links', this)">Websites &amp; Links</button>
+            <button class="portfolio-tab" data-filter="App Projects" onclick="filterPortfolio('App Projects', this)">App Projects</button>
+            <button class="portfolio-tab" data-filter="Media Design" onclick="filterPortfolio('Media Design', this)">Media Design</button>
+            <button class="portfolio-tab" data-filter="Video Content" onclick="filterPortfolio('Video Content', this)">Video Content</button>
+            <button class="portfolio-tab" data-filter="Brand Strategy" onclick="filterPortfolio('Brand Strategy', this)">Brand Strategy</button>
+        </div>
+
+        <!-- Portfolio Grid -->
+        <div id="portfolio-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:24px;"></div>
+
+        <div id="portfolio-empty" style="display:none; text-align:center; padding:60px; color:rgba(255,255,255,0.3);">
+            <i class="fa-solid fa-briefcase" style="font-size:3rem; margin-bottom:16px; display:block;"></i>
+            <p>Portfolio coming soon. Check back for featured work and case studies.</p>
+        </div>
+    </div>
+</section>
+    <div id="about-custom-sections-container"></div>
+</main>
+
+<style>
+.portfolio-tab {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.5);
+    padding: 7px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: all 0.25s ease;
+}
+.portfolio-tab:hover { border-color: rgba(201,162,39,0.4); color: rgba(255,255,255,0.8); }
+.portfolio-tab.active { background: rgba(201,162,39,0.12); border-color: var(--gold, #c9a227); color: var(--gold, #c9a227); }
+.portfolio-card {
+    background: #121212;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    display: flex; flex-direction: column;
+}
+.portfolio-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(201,162,39,0.3);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+.portfolio-card-thumb {
+    width: 100%; height: 180px; object-fit: cover;
+    background: #1a1a1a;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.1); font-size: 2rem;
+}
+.portfolio-card-body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+.portfolio-card-cat { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold, #c9a227); margin-bottom: 6px; font-family: monospace; }
+.portfolio-card-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.portfolio-card-desc { font-size: 0.83rem; color: rgba(255,255,255,0.45); flex: 1; line-height: 1.5; }
+.portfolio-card-footer { margin-top: 14px; display: flex; justify-content: space-between; align-items: center; }
+.portfolio-card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.portfolio-card-tag { background: rgba(201,162,39,0.08); border: 1px solid rgba(201,162,39,0.2); border-radius: 20px; padding: 2px 9px; font-size: 0.68rem; color: var(--gold, #c9a227); }
+</style>
+
+<script>
+// ── Portfolio Data Renderer (About Page) ────────────────────────────────
+(async function() {
+  const DEFAULT_PORTFOLIO_ITEMS = [
+    {
+      title: 'IMI Ecosystem Website',
+      category: 'Website & Links',
+      description: 'Full strategic marketing platform with CMS, member portal, admin panel, and brand architecture.',
+      url: 'https://imi-website-one.vercel.app',
+      thumbnail: '../assets/logo/imi-gold-lockup.jpg',
+      tags: 'Web Design, CMS, Branding',
+      status: 'published'
+    },
+    {
+      title: 'IMI Compass Tool',
+      category: 'App Projects',
+      description: 'Brand positioning and market coordinates digital utility for modern entrepreneurs.',
+      url: 'https://mnemonic-compass.vercel.app/',
+      thumbnail: '../assets/products/mnemonic-compass-hud.jpg',
+      tags: 'SaaS, Strategy, Tool',
+      status: 'published'
+    },
+    {
+      title: 'Solo Corp 30-Day Blueprint',
+      category: 'Media Design',
+      description: 'Comprehensive brand and business launch guide with visual identity system and daily execution primer.',
+      url: 'solo-corp.html',
+      thumbnail: '../assets/products/solo-corp-book-cover.png',
+      tags: 'Design, Content, Brand',
+      status: 'published'
+    },
+    {
+      title: 'OVRG APPAREL E-STORE APP',
+      category: 'App Projects',
+      description: 'Mode streetwear premium à Abidjan. Boutique e-commerce officielle, catalogue produits et expérience client sur-mesure.',
+      url: 'https://ovrgapparel.com',
+      thumbnail: '../assets/products/time-command-hud.jpg',
+      tags: 'App, E-Commerce, Streetwear',
+      status: 'published'
+    },
+    {
+      title: 'iM Time Command Productivity Dashboard',
+      category: 'App Projects',
+      description: 'Executive task command, timeline scheduling, and timezone mappings utility.',
+      url: 'https://im-time-command.vercel.app/',
+      thumbnail: '../assets/products/time-command-hud.jpg',
+      tags: 'Productivity, SaaS, Dashboard',
+      status: 'published'
+    },
+    {
+      title: 'Core Tribe Strategic Network',
+      category: 'Brand Strategy',
+      description: 'Private mastermind community and live advisory workshops for high-trust operators.',
+      url: 'core-tribe.html',
+      thumbnail: '../assets/products/core-tribe-crown.jpg',
+      tags: 'Community, Strategy, Mastermind',
+      status: 'featured'
+    }
+  ];
+
+
+  // ── PHASE 1: Immediate render from localStorage (fast paint) ──────────────
+  function getLocalPortfolioItems() {
+    let items = [];
+    try {
+      const raw = localStorage.getItem('imi_portfolio_items');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) items = parsed;
+      }
+    } catch(e) {}
+    // Merge defaults for any missing core projects
+    const savedTitles = new Set(items.map(i => (i.title || '').toLowerCase().trim()));
+    const missing = DEFAULT_PORTFOLIO_ITEMS.filter(d => !savedTitles.has((d.title || '').toLowerCase().trim()));
+    return [...items, ...missing];
+  }
+
+  // Render immediately from localStorage so page isn't blank
+  window._portfolioAllItems = getLocalPortfolioItems().filter(i => i.status !== 'draft');
+  renderPortfolioGrid('all');
+
+
+  // ── PHASE 2: Direct Supabase REST fetch — independent of IMI_AUTH load order ──
+  // This runs via raw fetch so it works even before auth-client.js initializes.
+  const _SB_URL = 'https://vpdilgdelkrotatvwfhh.supabase.co';
+  const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwZGlsZ2RlbGtyb3RhdHZ3ZmhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcyNDM5MTgsImV4cCI6MjEwMjgxOTkxOH0.2SUPCcsv9D66uPbHEgnKIw5xH97LLQ2QW9U03ObWTQw';
+
+  async function refreshFromSupabase() {
+    try {
+      // Direct REST call to Supabase — works across browsers, incognito, no auth required for public read
+      const res = await fetch(
+        `${_SB_URL}/rest/v1/site_content?key=eq.portfolio_items&select=value_en`,
+        { headers: { 'apikey': _SB_KEY, 'Authorization': `Bearer ${_SB_KEY}` } }
+      );
+      if (!res.ok) return;
+      const rows = await res.json();
+      if (!Array.isArray(rows) || rows.length === 0 || !rows[0]?.value_en) return;
+
+      const dbItems = JSON.parse(rows[0].value_en);
+      if (!Array.isArray(dbItems) || dbItems.length === 0) return;
+
+      // Write into both localStorage keys so same-browser loads are fast next time
+      const json = rows[0].value_en;
+      localStorage.setItem('imi_portfolio_items', json);
+      try {
+        const sc_cache = JSON.parse(localStorage.getItem('imi_site_content') || '{}');
+        sc_cache['portfolio_items'] = json;
+        localStorage.setItem('imi_site_content', JSON.stringify(sc_cache));
+      } catch(e) {}
+
+      // Merge any default items not present in the DB list
+      const savedTitles = new Set(dbItems.map(i => (i.title || '').toLowerCase().trim()));
+      const missing = DEFAULT_PORTFOLIO_ITEMS.filter(d => !savedTitles.has((d.title || '').toLowerCase().trim()));
+      const merged = [...dbItems, ...missing].filter(i => i.status !== 'draft');
+
+      // Re-render only if content actually changed
+      if (JSON.stringify(merged) !== JSON.stringify(window._portfolioAllItems || [])) {
+        window._portfolioAllItems = merged;
+        renderPortfolioGrid(window._currentPortfolioFilter || 'all');
+      }
+    } catch(e) {}
+  }
+
+  // Run after page paints (no delay needed — direct fetch, not blocked by auth-client.js)
+  refreshFromSupabase();
+
+  // Re-run every 30 seconds so any admin edits appear without a page refresh
+  setInterval(refreshFromSupabase, 30000);
+
+  // Also refresh when admin saves from same browser tab
+  window.addEventListener('imi_content_updated', refreshFromSupabase);
+
+  // Cross-tab sync (same browser, admin in another tab)
+  window.addEventListener('storage', async (e) => {
+    if (e.key === 'imi_portfolio_items' || e.key === 'imi_site_content') {
+      await refreshFromSupabase();
+    }
+  });
+})();
+
+function renderPortfolioGrid(filter) {
+  const grid = document.getElementById('portfolio-grid');
+  const empty = document.getElementById('portfolio-empty');
+  if (!grid) return;
+  const all = window._portfolioAllItems || [];
+  
+  const cleanFilter = (filter || 'all').toLowerCase().trim();
+  const filtered = cleanFilter === 'all'
+    ? all
+    : all.filter(i => {
+        const cat = (i.category || '').toLowerCase().trim();
+        return cat === cleanFilter || cat.includes(cleanFilter) || cleanFilter.includes(cat);
+      });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    if (empty) empty.style.display = 'block';
+    return;
+  }
+  if (empty) empty.style.display = 'none';
+
+  grid.innerHTML = filtered.map(item => {
+    let thumbSrc = item.thumbnail || '';
+    if (thumbSrc && !thumbSrc.startsWith('http') && !thumbSrc.startsWith('data:') && !thumbSrc.startsWith('blob:') && !thumbSrc.startsWith('/') && !thumbSrc.startsWith('.')) {
+      thumbSrc = '../' + thumbSrc;
+    }
+
+    const hasThumb = Boolean(thumbSrc);
+    const thumb = hasThumb
+      ? `<img src="${thumbSrc}" alt="${item.title}" class="portfolio-card-thumb" style="width:100%;height:180px;object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+         <div class="portfolio-card-thumb" style="display:none;"><i class="fa-solid fa-image"></i></div>`
+      : `<div class="portfolio-card-thumb"><i class="fa-solid fa-image"></i></div>`;
+    
+    const tags = item.tags ? item.tags.split(',').map(t => `<span class="portfolio-card-tag">${t.trim()}</span>`).join('') : '';
+    const viewBtn = item.url && item.url !== '#'
+      ? `<a href="${item.url}" ${item.url.startsWith('http') ? 'target="_blank"' : ''} style="font-size:0.78rem; color:var(--gold,#c9a227); text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:4px;">View Project &rarr;</a>`
+      : '';
+    const featuredBadge = item.status === 'featured'
+      ? `<span style="background:var(--gold,#c9a227); color:#000; font-size:0.65rem; font-weight:800; padding:2px 8px; border-radius:20px; text-transform:uppercase; letter-spacing:0.08em;">Featured</span>`
+      : '';
+
+    return `
+      <div class="portfolio-card">
+        ${thumb}
+        <div class="portfolio-card-body">
+          <div class="portfolio-card-cat">${item.category || 'Work'} ${featuredBadge}</div>
+          <div class="portfolio-card-title">${item.title}</div>
+          <div class="portfolio-card-desc">${item.description || ''}</div>
+          <div class="portfolio-card-footer">
+            <div class="portfolio-card-tags">${tags}</div>
+            ${viewBtn}
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function filterPortfolio(filter, btn) {
+  document.querySelectorAll('.portfolio-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  window._currentPortfolioFilter = filter;
+  renderPortfolioGrid(filter);
+}
+
+// Ripple for this page's buttons
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.button, .btn, .portfolio-tab, [class*="button-"]').forEach(el => {
+    el.style.position = el.style.position || 'relative';
+    el.style.overflow = 'hidden';
+    el.addEventListener('click', function(e) {
+      const r = document.createElement('span');
+      const rect = el.getBoundingClientRect();
+      const sz = Math.max(rect.width, rect.height);
+      r.style.cssText = `position:absolute;width:${sz}px;height:${sz}px;left:${e.clientX-rect.left-sz/2}px;top:${e.clientY-rect.top-sz/2}px;background:rgba(255,255,255,0.15);border-radius:50%;transform:scale(0);animation:imi-ripple 0.55s linear forwards;pointer-events:none;z-index:10;`;
+      el.appendChild(r); setTimeout(() => r.remove(), 600);
+    });
+  });
+  if (!document.getElementById('imi-ripple-style')) {
+    const s = document.createElement('style');
+    s.id = 'imi-ripple-style';
+    s.textContent = '@keyframes imi-ripple { to { transform:scale(3); opacity:0; } }';
+    document.head.appendChild(s);
+  }
+});
+</script>
+
+<footer class="site-footer">
+    <div class="footer-brand">
+        <div class="brand-mark">iM</div>
+        <h3>I MAKE IMAGE</h3>
+        <p>Build Your Brand.<br>Command Your Marketing.<br>Grow Your Business.</p>
+    </div>
+    <div class="footer-column">
+        <h4>EXPLORE</h4>
+        <a href="solutions.html">Solutions</a>
+        <a href="learning.html">Learn</a>
+        <a href="tools.html">Tools</a>
+        <a href="core-tribe.html">Core Tribe</a>
+        <a href="about.html">About</a>
+    </div>
+    <div class="footer-column">
+        <h4>PRODUCTS</h4>
+        <a href="solo-corp.html">Solo Corp 101</a>
+        <a href="compass.html">IMI Compass</a>
+        <a href="time-command.html">iM Time Command</a>
+        <a href="commander-bundle.html">Commander Bundle</a>
+        <a href="core-elite.html">Core Elite</a>
+    </div>
+    <div class="footer-column">
+        <h4>SUPPORT</h4>
+        <a href="resources.html">Resources</a>
+        <a href="support.html">Support Center</a>
+        <a href="booking.html">Book A Session</a>
+        <a href="login.html">Member Login</a>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 I MAKE IMAGE</span>
+        <div><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../js/config.js?v=20261001_v55"></script>
+<script src="../js/auth-client.js?v=20261001_v55"></script>
+<script src="../js/main.js?v=20261001_v55"></script>
+</body>
+</html>
+
+
+

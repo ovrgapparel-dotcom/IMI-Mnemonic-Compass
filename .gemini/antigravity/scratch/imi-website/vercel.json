@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0"
+        }
+      ]
+    }
+  ],
+  "routes": [
+    { "src": "/pages/solutions", "dest": "/pages/solutions.html" },
+    { "src": "/pages/cmo-services", "dest": "/pages/cmo-services.html" },
+    { "src": "/pages/learning", "dest": "/pages/learning.html" },
+    { "src": "/pages/power-hours", "dest": "/pages/power-hours.html" },
+    { "src": "/pages/tools", "dest": "/pages/tools.html" },
+    { "src": "/pages/news", "dest": "/pages/news.html" },
+    { "src": "/news", "dest": "/pages/news.html" },
+    { "src": "/pages/solo-corp", "dest": "/pages/solo-corp.html" },
+    { "src": "/pages/core-tribe", "dest": "/pages/core-tribe.html" },
+    { "src": "/pages/about", "dest": "/pages/about.html" },
+    { "src": "/pages/booking", "dest": "/pages/booking.html" },
+    { "src": "/pages/portal", "dest": "/pages/portal.html" },
+    { "src": "/pages/admin", "dest": "/pages/admin.html" },
+    { "src": "/pages/login", "dest": "/pages/login.html" }
+  ]
+}

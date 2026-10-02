@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Centre & Market Intelligence | I MAKE IMAGE</title>
+    <meta name="description" content="Latest marketing intelligence, AI strategy articles, press releases, and embedded social newsfeed from I MAKE IMAGE.">
+    
+    <!-- Open Graph / Social Sharing Meta -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="News Centre & Market Intelligence | I MAKE IMAGE">
+    <meta property="og:description" content="Strategic market insights, brand positioning frameworks, and AI workflow intelligence from I MAKE IMAGE.">
+    <meta property="og:url" content="https://imi-website-one.vercel.app/pages/news.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="News Centre & Market Intelligence | I MAKE IMAGE">
+    <meta name="twitter:description" content="Strategic market insights, brand positioning frameworks, and AI workflow intelligence from I MAKE IMAGE.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --gold:#c9a227; --gold-light:#e8c547; --border:rgba(255,255,255,0.07); }
+        body { background:#080808; color:#fff; font-family:'Inter',sans-serif; margin:0; }
+        .page-hero { padding:130px 6vw 70px; text-align:center; background:radial-gradient(circle at 50% 0%, rgba(201,162,39,0.08) 0%, transparent 65%); border-bottom:1px solid rgba(255,255,255,0.05); }
+        .eyebrow { font-family:'Outfit',sans-serif; font-size:.65rem; letter-spacing:.22em; color:var(--gold); text-transform:uppercase; margin-bottom:16px; }
+        .page-hero h1 { font-family:'Outfit',sans-serif; font-size:clamp(1.25rem,2.6vw,1.9rem); font-weight:800; line-height:1.15; margin:0 0 16px; }
+        .page-hero h1 span { color:var(--gold-light); }
+        .page-hero p { max-width:640px; margin:0 auto 30px; color:rgba(255,255,255,0.6); font-size:1rem; line-height:1.6; }
+        
+        .news-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:24px; margin-top:40px; }
+        .news-card { background:#121212; border:1px solid rgba(255,255,255,0.07); border-radius:12px; overflow:hidden; transition:all .3s ease; }
+        .news-card:hover { border-color:var(--gold); transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,0.6); }
+        .news-card-body { padding:24px; }
+        .news-date { font-size:.72rem; color:var(--gold); letter-spacing:.12em; font-family:'Outfit',sans-serif; text-transform:uppercase; margin-bottom:8px; }
+        .news-card h3 { font-family:'Outfit',sans-serif; font-size:1.25rem; font-weight:700; color:#fff; margin:0 0 10px; line-height:1.3; }
+        .news-card p { font-size:.85rem; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:20px; }
+        .news-card a { font-family:'Outfit',sans-serif; font-size:.82rem; font-weight:700; color:var(--gold-light); text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
+
+        /* Social Share UI Components */
+        .social-share-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 12px 18px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(201,162,39,0.25);
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .social-share-bar .share-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-right: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .social-share-btn {
+            height: 36px;
+            padding: 0 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: #16181d;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            text-decoration: none;
+        }
+        .social-share-btn i { font-size: 0.95rem; }
+        .social-share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+            color: #fff;
+        }
+        .social-share-btn.share-linkedin:hover { background: #0A66C2; border-color: #0A66C2; }
+        .social-share-btn.share-facebook:hover { background: #1877F2; border-color: #1877F2; }
+        .social-share-btn.share-x:hover { background: #000; border-color: #fff; }
+        .social-share-btn.share-instagram:hover { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); border-color: #cc2366; }
+        .social-share-btn.share-tiktok:hover { background: #010101; border-color: #00f2fe; color: #fe2c55; box-shadow: 0 0 12px rgba(0,242,254,0.45); }
+        .social-share-btn.share-whatsapp:hover { background: #25D366; border-color: #25D366; }
+        .social-share-btn.share-copy:hover { background: var(--gold); border-color: var(--gold); color: #000; }
+
+        /* Compact In-Card Share Group */
+        .card-share-footer {
+            padding: 12px 20px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            background: rgba(0,0,0,0.25);
+        }
+        .card-share-buttons {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .card-share-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.7);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .card-share-btn:hover {
+            transform: translateY(-2px);
+            color: #fff;
+        }
+        .card-share-btn.share-linkedin:hover { background: #0A66C2; border-color: #0A66C2; }
+        .card-share-btn.share-facebook:hover { background: #1877F2; border-color: #1877F2; }
+        .card-share-btn.share-x:hover { background: #000; border-color: #fff; }
+        .card-share-btn.share-instagram:hover { background: #cc2366; border-color: #cc2366; }
+        .card-share-btn.share-tiktok:hover { background: #000; border-color: #00f2fe; color: #fe2c55; }
+        .card-share-btn.share-whatsapp:hover { background: #25D366; border-color: #25D366; }
+        .card-share-btn.share-copy:hover { background: var(--gold); border-color: var(--gold); color: #000; }
+
+        /* Social Newsfeed Embed Box */
+        .feed-container { background:#121212; border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:30px; margin-top:50px; }
+        .feed-header { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:16px; margin-bottom:24px; }
+        .feed-header h3 { font-family:'Outfit',sans-serif; font-size:1.2rem; font-weight:800; color:#fff; margin:0; }
+    </style>
+</head>
+<body>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0" nonce="IMI_FB_NONCE"></script>
+
+<!-- HEADER -->
+<header class="site-header" id="siteHeader">
+    <a href="../index.html" class="brand">
+        <div class="brand-mark">iM</div>
+        <div class="brand-name">
+            <strong>I MAKE IMAGE</strong>
+            <span>STRATEGIC BUSINESS ECOSYSTEM</span>
+        </div>
+    </a>
+    <nav class="desktop-nav">
+        <a href="solutions.html">Solutions</a>
+        <a href="cmo-services.html">Services</a>
+        <a href="learning.html">Learn</a>
+        <a href="power-hours.html">Workshops</a>
+        <a href="tools.html">Tools</a>
+        <a href="news.html" style="color:var(--gold-light);">News</a>
+        <a href="solo-corp.html">Solo Corp</a>
+        <a href="core-tribe.html">Core Tribe</a>
+        <a href="about.html">About</a>
+    </nav>
+    <div class="nav-actions">
+        <a href="booking.html" class="nav-button">Book a Session</a>
+        <a href="login.html" class="login-link">Login</a>
+    </div>
+    <button class="mobile-menu-button" id="mobileMenuButton">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a>
+    <div class="mobile-menu-group">
+        <span>Solutions &amp; Services</span>
+        <a href="solutions.html">Business Solutions</a>
+        <a href="cmo-services.html">CMO &amp; Marketing Services</a>
+        <a href="booking.html">Book a Session</a>
+    </div>
+    <div class="mobile-menu-group">
+        <span>Education &amp; News</span>
+        <a href="news.html" style="color:var(--gold-light);">News Centre</a>
+        <a href="learning.html">Learning Center</a>
+        <a href="power-hours.html">Power Hour Workshops</a>
+        <a href="solo-corp.html">Solo Corp 101</a>
+        <a href="core-tribe.html">Core Tribe</a>
+    </div>
+    <div class="mobile-menu-group">
+        <span>Tools &amp; Command</span>
+        <a href="tools.html">IMI Tools Engine</a>
+        <a href="portal.html">Member Portal</a>
+        <a href="admin.html">Admin Command Center</a>
+    </div>
+    <a href="about.html">About IMI</a>
+    <a href="login.html">Login</a>
+    <a href="booking.html" class="mobile-cta">Book a Session</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero" id="news-hero">
+    <div class="eyebrow" id="news-eyebrow">MARKET INTELLIGENCE &amp; NEWS CENTRE</div>
+    <h1 id="news-title">Strategic Insights <span>&amp; Ecosystem News</span></h1>
+    <p id="news-desc">Stay updated on brand positioning frameworks, marketing automation trends, and strategic announcements from I MAKE IMAGE.</p>
+</section>
+
+<!-- FIRST SECTION UNDER BANNER: NEWS INTRO -->
+<section style="background:#080808; border-bottom:1px solid rgba(201,162,39,0.15); padding:70px 6vw;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:48px; align-items:center; max-width:1200px; margin:0 auto;">
+        <div>
+            <div class="section-label" id="news-intro-eyebrow-text">INTELLIGENCE &amp; DISPATCH</div>
+            <h2 class="section-title" id="news-intro-h2-text">Stay Informed. <span>Stay Ahead.</span></h2>
+            <p id="news-intro-desc-text" style="color:rgba(255,255,255,0.7); font-size:1rem; line-height:1.7; margin-bottom:24px;">Our Market Intelligence dispatches deliver actionable strategy insights on brand, marketing systems, and ecosystem growth.</p>
+            <a href="../index.html#newsletter" id="news-intro-btn-text" class="btn-gold">Join The Insider Newsletter &rarr;</a>
+        </div>
+        <div id="news-intro-media-container" style="border-radius:16px; overflow:hidden; border:1px solid rgba(201,162,39,0.25); box-shadow:0 15px 40px rgba(0,0,0,0.8); background:#151515; min-height:240px; display:flex; align-items:center; justify-content:center;">
+            <img src="../assets/logo/imi-gold-logo.jpg" alt="News Centre" style="width:100%; height:100%; object-fit:cover; display:block; max-height:420px;">
+        </div>
+    </div>
+</section>
+
+<!-- MAIN NEWS CONTENT -->
+<section style="padding:60px 6vw;">
+    <div class="section-label">LATEST ARTICLES &amp; STRATEGY DISPATCHES</div>
+    <h2 class="section-title">Ecosystem <span>Dispatch Feed</span></h2>
+
+    <div class="news-grid" id="news-articles-grid">
+        <div class="news-card">
+            <div class="news-card-body">
+                <div class="news-date">August 2026 &bull; AI Operations</div>
+                <h3>Building Intentional Marketing Systems with AI Workflows</h3>
+                <p>How modern businesses move past disjointed tactics into coordinated lead generation and client acquisition engines.</p>
+                <a href="learning.html">Read Insight &rarr;</a>
+            </div>
+        </div>
+        <div class="news-card">
+            <div class="news-card-body">
+                <div class="news-date">August 2026 &bull; Brand Strategy</div>
+                <h3>The 30-Day Solo Corp Blueprint for Solopreneurs</h3>
+                <p>Establishing authority coordinates, pricing high-margin services, and automating client intake.</p>
+                <a href="solo-corp.html">Read Insight &rarr;</a>
+            </div>
+        </div>
+        <div class="news-card">
+            <div class="news-card-body">
+                <div class="news-date">August 2026 &bull; Executive Leadership</div>
+                <h3>When to Bring on a Fractional CMO vs Full-Time Agency</h3>
+                <p>Evaluating executive marketing oversight, strategic clarity, and ROI for scaling companies.</p>
+                <a href="cmo-services.html">Read Insight &rarr;</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOCIAL NEWSFEED EMBED CONTAINER -->
+    <div class="feed-container">
+        <div class="feed-header">
+            <h3><i class="fa-solid fa-rss" style="color:var(--gold); margin-right:8px;"></i> Live Social &amp; Broadcast Feed</h3>
+            <span style="font-size:0.75rem; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.1em;">UPDATED IN REAL TIME</span>
+        </div>
+        <div id="news-feed-embed-container">
+            <p style="color:rgba(255,255,255,0.5); font-size:0.88rem;">Official IMI social broadcasts, live video replays, and newsletter dispatches stream here.</p>
+        </div>
+    </div>
+
+    <!-- NEWSLETTER SIGNUP BOX -->
+    <div class="feed-container" style="background:linear-gradient(135deg, #141208, #0e0e0e); border:1px solid rgba(201,162,39,0.3); text-align:center; padding:50px 30px; margin-top:40px;">
+        <div style="font-family:'Outfit',sans-serif; font-size:0.72rem; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; margin-bottom:10px;">IMI INTELLIGENCE &amp; STRATEGY DISPATCH</div>
+        <h2 style="font-family:'Outfit',sans-serif; font-size:clamp(1.6rem, 3.5vw, 2.4rem); font-weight:800; color:#fff; margin:0 0 12px;">Get Weekly <span style="color:var(--gold-light);">Market Insights</span> Direct</h2>
+        <p style="color:rgba(255,255,255,0.6); font-size:0.95rem; max-width:540px; margin:0 auto 28px; line-height:1.6;">Join executive founders, solopreneurs, and marketing operators receiving strategic playbooks, AI automation setups, and private ecosystem dispatches.</p>
+        
+        <form class="newsletter-form" id="newsPageNewsletterForm" style="display:flex; gap:10px; max-width:560px; margin:0 auto; flex-wrap:wrap; justify-content:center;">
+            <input type="text" name="name" placeholder="First Name" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.12); color:#fff; padding:14px 18px; border-radius:8px; font-size:0.9rem; flex:1; min-width:180px; outline:none;" required>
+            <input type="email" name="email" placeholder="Your Email Address" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.12); color:#fff; padding:14px 18px; border-radius:8px; font-size:0.9rem; flex:1.4; min-width:220px; outline:none;" required>
+            <button type="submit" style="background:var(--gold); border:1px solid var(--gold); color:#000; padding:14px 28px; border-radius:8px; font-family:'Outfit',sans-serif; font-size:0.88rem; font-weight:800; cursor:pointer; text-transform:uppercase; letter-spacing:0.06em; transition:all 0.25s; min-width:160px;">Join Newsletter &rarr;</button>
+        </form>
+        <div class="newsletter-feedback" style="display:none; color:var(--gold-light); font-size:0.88rem; margin-top:14px; font-weight:600;"></div>
+        <div style="font-size:0.75rem; color:rgba(255,255,255,0.35); margin-top:14px;">No spam. One-click unsubscribe at any time. Verified through IMI Control Layer.</div>
+    </div>
+
+    <!-- DYNAMIC CUSTOM SECTIONS -->
+    <div id="news-custom-sections-container"></div>
+</section>
+
+<!-- ARTICLE READER POP-UP MODAL -->
+<div id="modal-article-reader" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.88); backdrop-filter:blur(10px); align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#111; border:1px solid rgba(201,162,39,0.3); border-radius:14px; max-width:860px; width:100%; max-height:88vh; overflow-y:auto; padding:36px; position:relative; box-shadow:0 25px 60px rgba(0,0,0,0.9);">
+        <button onclick="closeArticleModal()" style="position:absolute; top:20px; right:20px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#fff; width:36px; height:36px; border-radius:50%; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s;">✕</button>
+        
+        <div id="modal-article-tag" style="font-family:'Outfit',sans-serif; font-size:0.75rem; letter-spacing:0.16em; color:var(--gold); text-transform:uppercase; margin-bottom:10px;">August 2026 · AI Operations</div>
+        <h2 id="modal-article-title" style="font-family:'Outfit',sans-serif; font-size:clamp(1.5rem, 3vw, 2.2rem); font-weight:800; color:#fff; line-height:1.25; margin-bottom:16px;">Article Title</h2>
+        
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.08); font-size:0.8rem; color:rgba(255,255,255,0.5); flex-wrap:wrap;">
+            <div style="width:28px; height:28px; background:var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#000; font-weight:800; font-size:0.7rem;">iM</div>
+            <span>Published by <strong>IMI Editorial &amp; Strategy Node</strong></span>
+            <span>•</span>
+            <span id="modal-article-readtime">5 Min Read</span>
+        </div>
+
+        <!-- TOP SOCIAL SHARE BAR -->
+        <div class="social-share-bar">
+            <span class="share-label"><i class="fa-solid fa-share-nodes"></i> Share:</span>
+            <button onclick="shareActiveArticle('linkedin')" class="social-share-btn share-linkedin" title="Share to LinkedIn"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</button>
+            <button onclick="shareActiveArticle('facebook')" class="social-share-btn share-facebook" title="Share to Facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</button>
+            <button onclick="shareActiveArticle('x')" class="social-share-btn share-x" title="Share to X (Twitter)"><i class="fa-brands fa-x-twitter"></i> X</button>
+            <button onclick="shareActiveArticle('instagram')" class="social-share-btn share-instagram" title="Share / Copy for Instagram"><i class="fa-brands fa-instagram"></i> Instagram</button>
+            <button onclick="shareActiveArticle('tiktok')" class="social-share-btn share-tiktok" title="Share / Copy for TikTok"><i class="fa-brands fa-tiktok"></i> TikTok</button>
+            <button onclick="shareActiveArticle('whatsapp')" class="social-share-btn share-whatsapp" title="Share via WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            <button onclick="shareActiveArticle('copy')" class="social-share-btn share-copy" title="Copy Direct Article Link"><i class="fa-solid fa-link"></i> Copy Link</button>
+            <button onclick="shareActiveArticle('native')" class="social-share-btn" style="background:#222630;" title="More Device Share Options"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
+        </div>
+
+        <div id="modal-article-img-box" style="margin-bottom:24px; border-radius:10px; overflow:hidden; display:none;">
+            <img id="modal-article-img" src="" alt="Cover" style="width:100%; max-height:360px; object-fit:cover; border-radius:10px; border:1px solid rgba(255,255,255,0.08);">
+        </div>
+
+        <div id="modal-article-video-box" style="margin-bottom:24px; border-radius:10px; overflow:hidden; display:none; background:#000; border:1px solid rgba(201,162,39,0.3);">
+            <!-- Embedded video / YouTube player will load here -->
+        </div>
+
+        <div id="modal-article-body" style="color:rgba(255,255,255,0.85); font-size:0.98rem; line-height:1.8; margin-bottom:30px;">
+            <!-- Full article content loaded dynamically -->
+        </div>
+
+        <!-- BOTTOM SOCIAL SHARE BAR -->
+        <div class="social-share-bar" style="margin-bottom:24px;">
+            <span class="share-label"><i class="fa-solid fa-bullhorn"></i> Spread Strategy:</span>
+            <button onclick="shareActiveArticle('linkedin')" class="social-share-btn share-linkedin" title="Share to LinkedIn"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</button>
+            <button onclick="shareActiveArticle('facebook')" class="social-share-btn share-facebook" title="Share to Facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</button>
+            <button onclick="shareActiveArticle('x')" class="social-share-btn share-x" title="Share to X (Twitter)"><i class="fa-brands fa-x-twitter"></i> X</button>
+            <button onclick="shareActiveArticle('instagram')" class="social-share-btn share-instagram" title="Share / Copy for Instagram"><i class="fa-brands fa-instagram"></i> Instagram</button>
+            <button onclick="shareActiveArticle('tiktok')" class="social-share-btn share-tiktok" title="Share / Copy for TikTok"><i class="fa-brands fa-tiktok"></i> TikTok</button>
+            <button onclick="shareActiveArticle('whatsapp')" class="social-share-btn share-whatsapp" title="Share via WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            <button onclick="shareActiveArticle('copy')" class="social-share-btn share-copy" title="Copy Direct Article Link"><i class="fa-solid fa-link"></i> Copy Link</button>
+        </div>
+
+        <div style="background:rgba(201,162,39,0.06); border:1px solid rgba(201,162,39,0.2); border-radius:10px; padding:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+            <div>
+                <h4 style="color:#fff; margin:0 0 4px; font-size:1rem;">Ready to deploy this framework in your business?</h4>
+                <p style="color:rgba(255,255,255,0.5); font-size:0.82rem; margin:0;">Book a 1-on-1 strategy node consultation or explore CMO services.</p>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <a id="modal-article-cta" href="booking.html" class="button button-gold" style="padding:10px 22px; font-size:0.85rem; font-weight:700; text-decoration:none; display:inline-block; border-radius:6px;">Work With IMI →</a>
+                <button onclick="closeArticleModal()" class="button button-outline" style="padding:10px 18px; font-size:0.85rem; border-radius:6px; cursor:pointer;">Close Article</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="footer-brand">
+        <div class="brand-mark" style="width:36px;height:36px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:Outfit,sans-serif;font-weight:800;font-size:.9rem;color:#000;margin-bottom:12px;">iM</div>
+        <h3>I MAKE IMAGE</h3>
+        <p>Build Your Brand.<br>Command Your Marketing.<br>Grow Your Business.</p>
+    </div>
+    <div class="footer-column">
+        <h4>EXPLORE</h4>
+        <a href="solutions.html">Solutions</a>
+        <a href="cmo-services.html">Services</a>
+        <a href="learning.html">Learn</a>
+        <a href="news.html">News Centre</a>
+        <a href="about.html">About</a>
+    </div>
+    <div class="footer-column">
+        <h4>PRODUCTS</h4>
+        <a href="solo-corp.html">Solo Corp 101</a>
+        <a href="tools.html">IMI Compass</a>
+        <a href="tools.html">iM Time Command</a>
+        <a href="core-tribe.html">Core Tribe</a>
+    </div>
+    <div class="footer-column">
+        <h4>SUPPORT</h4>
+        <a href="resources.html">Resources</a>
+        <a href="booking.html">Book A Session</a>
+        <a href="login.html">Member Login</a>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 I MAKE IMAGE</span>
+        <div><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../js/config.js?v=20261001_v55"></script>
+<script src="../js/auth-client.js?v=20261001_v55"></script>
+<script src="../js/main.js?v=20261001_v55"></script>
+</body>
+</html>
+
+

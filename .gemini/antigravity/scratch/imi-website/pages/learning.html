@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Center | I MAKE IMAGE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/global.css">
+    <style>
+        .learning-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px auto;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+            max-width: var(--container);
+        }
+        .learning-tab {
+            background: none;
+            border: none;
+            color: var(--silver);
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            padding: 15px 30px;
+            cursor: pointer;
+            position: relative;
+        }
+        .learning-tab.active {
+            color: var(--gold-light);
+        }
+        .learning-tab.active::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gold);
+        }
+        .learning-section {
+            display: none;
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 40px 0 100px;
+        }
+        .learning-section.active {
+            display: block;
+        }
+        .course-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        .course-item {
+            background: var(--graphite);
+            border: 1px solid rgba(201,162,39,.15);
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            transition: var(--transition);
+        }
+        .course-item:hover {
+            border-color: var(--gold);
+        }
+        .course-visual {
+            background: #111;
+            display: grid;
+            place-items: center;
+            border-right: 1px solid rgba(255,255,255,.05);
+            color: rgba(255,255,255,.1);
+            font-family: var(--font-heading);
+            font-size: 3rem;
+        }
+        .course-content {
+            padding: 40px;
+        }
+        .course-content h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .course-content p {
+            color: var(--silver);
+            font-size: .9rem;
+            margin-bottom: 20px;
+            max-width: 600px;
+        }
+        .course-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            font-size: .75rem;
+            color: var(--muted);
+            letter-spacing: .05em;
+        }
+        @media (max-width: 768px) {
+            .course-item {
+                grid-template-columns: 1fr;
+            }
+            .course-visual {
+                height: 200px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,.05);
+            }
+            .learning-tabs {
+                flex-direction: column;
+                border-bottom: none;
+            }
+            .learning-tab {
+                border-bottom: 1px solid rgba(255,255,255,.1);
+            }
+            .learning-tab.active::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+    <a href="../index.html" class="brand">
+        <div class="brand-mark">iM</div>
+        <div class="brand-name">
+            <strong>I MAKE IMAGE</strong>
+            <span>STRATEGIC BUSINESS ECOSYSTEM</span>
+        </div>
+    </a>
+    <nav class="desktop-nav">
+        <a href="solutions.html">Solutions</a>
+        <a href="cmo-services.html">Services</a>
+        <a href="learning.html" style="color:var(--gold-light);">Learn</a>
+        <a href="power-hours.html">Workshops</a>
+        <a href="tools.html">Tools</a>
+        <a href="news.html">News</a>
+        <a href="solo-corp.html">Solo Corp</a>
+        <a href="core-tribe.html">Core Tribe</a>
+        <a href="about.html">About</a>
+    </nav>
+    <div class="nav-actions">
+        <a href="booking.html" class="nav-button">Book a Session</a>
+        <a href="login.html" class="login-link">Login</a>
+    </div>
+    <button class="mobile-menu-button" id="mobileMenuButton">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a>
+    <div class="mobile-menu-group">
+        <span>Solutions</span>
+        <a href="solutions.html">Business Solutions</a>
+        <a href="services.html">Marketing Services</a>
+        <a href="booking.html">Book a Session</a>
+    </div>
+    <div class="mobile-menu-group">
+        <span style="color:var(--gold-light);">Learn</span>
+        <a href="learning.html">Learning Center</a>
+        <a href="courses.html">Courses</a>
+        <a href="workshops.html">Workshops</a>
+        <a href="resources.html">Resources</a>
+    </div>
+    <div class="mobile-menu-group">
+        <span>Tools</span>
+        <a href="compass.html">IMI Compass</a>
+        <a href="time-command.html">iM Time Command</a>
+        <a href="commander-bundle.html">Commander Bundle</a>
+    </div>
+    <a href="core-tribe.html">Core Tribe</a>
+    <a href="about.html">About</a>
+    <a href="login.html">Login</a>
+    <a href="booking.html" class="mobile-cta">Book a Session</a>
+</div>
+
+<main>
+<section class="hero" style="min-height: 50vh; padding-top: 150px; padding-bottom: 50px;">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+        <div class="eyebrow">IMI LEARNING</div>
+        <h1>
+            Learn it.<br>
+            <span>Apply it. Build it.</span>
+        </h1>
+        <p>Knowledge should lead to action. Explore our structured programs, workshops, and resources designed for implementation.</p>
+    </div>
+</section>
+
+<section class="learning-directory section-black">
+    
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:48px; align-items:center; max-width:1200px; margin:0 auto 50px;">
+        <div>
+            <div class="section-label" id="learn-intro-eyebrow-text" style="margin-bottom:12px;">STRUCTURED EDUCATION &amp; ACTION</div>
+            <h2 id="learn-intro-h2-text" style="font-family:var(--font-heading); font-size:clamp(1.35rem, 2.4vw, 1.85rem); color:var(--gold-light);">
+                MASTER THE SYSTEM.<br>
+                <span>EXECUTE THE STRATEGY.</span>
+            </h2>
+            <p id="learn-intro-desc-text" style="margin: 20px 0 0; color:var(--silver); font-size:1rem; line-height:1.7;">Explore our structured curriculum, high-impact workshops, and practical resources designed for direct implementation.</p>
+        </div>
+
+        <!-- CMS Learning Center Intro Media (displayed immediately, updated via CMS) -->
+        <div id="learn-intro-media-container" style="border-radius:16px; overflow:hidden; border:1px solid rgba(201,162,39,0.25); box-shadow:0 15px 40px rgba(0,0,0,0.8); background:#151515; min-height:240px; display:flex; align-items:center; justify-content:center;">
+            <img src="../assets/logo/imi-gold-logo.jpg" alt="Learning Center" style="width:100%; height:100%; object-fit:cover; display:block; max-height:420px;">
+        </div>
+    </div>
+
+    <div class="learning-tabs">
+        <button class="learning-tab active" onclick="switchTab('courses')">COURSES</button>
+        <button class="learning-tab" onclick="switchTab('workshops')">WORKSHOPS</button>
+        <button class="learning-tab" onclick="switchTab('resources')">RESOURCES</button>
+    </div>
+
+    <!-- COURSES -->
+    <div class="learning-section active" id="sec-courses">
+        <div class="section-label" style="text-align: center;">STRUCTURED PROGRAMS</div>
+        <h2 style="text-align: center; font-family: var(--font-heading); font-size: 1.45rem; margin-bottom: 35px;">Master the System</h2>
+        
+        <div class="course-list">
+            
+            <article class="course-item">
+                <div class="course-visual">01</div>
+                <div class="course-content">
+                    <h3>Solo Corp 101</h3>
+                    <div class="course-meta">
+                        <span>4 MODULES</span>
+                        <span>SELF-PACED</span>
+                        <span>BEGINNER</span>
+                    </div>
+                    <p>Build the personal foundation for discipline, clarity, intention and action. Before you can construct a business system, you must construct a personal system.</p>
+                    <a href="courses.html?id=solo-corp" class="button button-outline">View Course</a>
+                </div>
+            </article>
+
+            <article class="course-item">
+                <div class="course-visual">02</div>
+                <div class="course-content">
+                    <h3>D.R.I.V.E. Marketing Architecture</h3>
+                    <div class="course-meta">
+                        <span>8 MODULES</span>
+                        <span>CORE TRIBE EXCLUSIVE</span>
+                        <span>INTERMEDIATE</span>
+                    </div>
+                    <p>The definitive framework for structuring a modern marketing ecosystem. Learn how to connect your brand, offer, content, and distribution into a unified growth engine.</p>
+                    <a href="core-tribe.html" class="button button-gold">Join Core Tribe to Access</a>
+                </div>
+            </article>
+
+            <article class="course-item">
+                <div class="course-visual">03</div>
+                <div class="course-content">
+                    <h3>Content Command Systems</h3>
+                    <div class="course-meta">
+                        <span>5 MODULES</span>
+                        <span>SELF-PACED</span>
+                        <span>ALL LEVELS</span>
+                    </div>
+                    <p>Stop guessing what to post. Learn how to architect a content generation system that automatically feeds your marketing channels with high-value assets without burning out.</p>
+                    <a href="courses.html?id=content-command" class="button button-outline">View Course</a>
+                </div>
+            </article>
+
+        </div>
+    </div>
+
+    <!-- WORKSHOPS -->
+    <div class="learning-section" id="sec-workshops">
+        <div class="section-label" style="text-align: center;">LIVE IMPLEMENTATION &amp; SPRINTS</div>
+        <h2 style="text-align: center; font-family: var(--font-heading); font-size: 1.45rem; margin-bottom: 35px;">Workshops &amp; Sprints</h2>
+        
+        <!-- FLAGSHIP INTENSIVE WORKSHOP FEATURE BLOCK -->
+        <div class="flagship-banner" id="learn-intensive-flagship-block" style="background:linear-gradient(135deg,#1a0d00,#0d0d0d); border:1px solid rgba(201,162,39,0.3); border-radius:12px; padding:40px; display:flex; justify-content:space-between; align-items:center; gap:30px; flex-wrap:wrap; margin-bottom:40px;">
+            <div style="flex:1; min-width:300px;">
+                <div class="flagship-label" id="learn-intensive-eyebrow" style="font-family:'Outfit',sans-serif; font-size:.6rem; letter-spacing:.2em; color:#ff6400; text-transform:uppercase; background:rgba(255,100,0,0.1); border:1px solid rgba(255,100,0,0.3); padding:4px 12px; border-radius:4px; display:inline-block; margin-bottom:12px;">⚡ FLAGSHIP 3-DAY SPRINT</div>
+                <h3 id="learn-intensive-title" style="font-family:var(--font-heading); font-size:1.8rem; font-weight:800; margin:0 0 10px; color:#fff;">IMI Intensive Workshop</h3>
+                <p id="learn-intensive-desc" style="color:rgba(255,255,255,0.65); margin:0 0 16px; font-size:.9rem; line-height:1.6;">Our most powerful offering. 8-hour shifts, direct execution, full deployment from concept to live asset. Used for full business system builds, website deployments, and complete marketing infrastructure.</p>
+                <ul class="flagship-features" id="learn-intensive-features-list" style="list-style:none; padding:0; margin:0 0 20px;">
+                    <li style="font-size:.84rem; color:rgba(255,255,255,0.7); padding:4px 0; display:flex; align-items:center; gap:8px;"><span style="color:var(--gold); font-weight:700;">&check;</span> Priority execution from Day 1</li>
+                    <li style="font-size:.84rem; color:rgba(255,255,255,0.7); padding:4px 0; display:flex; align-items:center; gap:8px;"><span style="color:var(--gold); font-weight:700;">&check;</span> Deep build support throughout</li>
+                    <li style="font-size:.84rem; color:rgba(255,255,255,0.7); padding:4px 0; display:flex; align-items:center; gap:8px;"><span style="color:var(--gold); font-weight:700;">&check;</span> Full asset deployment &amp; handoff</li>
+                    <li style="font-size:.84rem; color:rgba(255,255,255,0.7); padding:4px 0; display:flex; align-items:center; gap:8px;"><span style="color:var(--gold); font-weight:700;">&check;</span> 8-hour shift structure for maximum output</li>
+                </ul>
+                <a href="power-hours.html" class="button button-gold" id="learn-intensive-btn">View Workshop Details &rarr;</a>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:16px; align-items:center; min-width:260px;">
+                <div id="learn-intensive-media-container" style="border-radius:12px; overflow:hidden; border:1px solid rgba(201,162,39,0.3); box-shadow:0 15px 40px rgba(0,0,0,0.8); background:#151515; width:100%; max-width:360px; height:220px; display:flex; align-items:center; justify-content:center;">
+                    <img src="../assets/logo/imi-gold-logo.jpg" alt="IMI Intensive Workshop" style="width:100%; height:100%; object-fit:cover; display:block;" class="imi-zoomable">
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-family:var(--font-heading); font-size:2.4rem; font-weight:800; color:var(--gold-light);" id="learn-intensive-price">$25<span style="font-size:.9rem; color:rgba(255,255,255,0.5);"> / HR</span></div>
+                    <div style="font-size:.75rem; color:var(--gold); font-weight:700; letter-spacing:0.1em;" id="learn-intensive-duration-note">UP TO 72 HOURS</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 60px 20px; border: 1px dashed rgba(255,255,255,.1); border-radius: 4px;">
+            <p style="color: var(--silver); margin-bottom: 20px;">Looking for bespoke team workshops or private group sprints? Join the IMI Insider newsletter or schedule a consultation.</p>
+            <a href="booking.html" class="button button-outline">Book a Consultation</a>
+        </div>
+    </div>
+
+    <!-- RESOURCES -->
+    <div class="learning-section" id="sec-resources">
+        <div class="section-label" style="text-align: center;">DOWNLOADS & ASSETS</div>
+        <h2 style="text-align: center; font-family: var(--font-heading); font-size: 1.45rem; margin-bottom: 35px;">Free Tools & Guides</h2>
+        
+        <div class="resource-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <a href="resources.html" class="resource-card" style="min-height: 200px;">
+                <span>01</span>
+                <h3>The Brand Positioning Canvas</h3>
+                <p>A one-page PDF framework to clarify your message before you spend money on ads.</p>
+                <strong>Download PDF &rarr;</strong>
+            </a>
+            <a href="resources.html" class="resource-card" style="min-height: 200px;">
+                <span>02</span>
+                <h3>Marketing Audit Checklist</h3>
+                <p>Identify the leaks in your current marketing funnel.</p>
+                <strong>Download Checklist &rarr;</strong>
+            </a>
+            <a href="resources.html" class="resource-card" style="min-height: 200px;">
+                <span>03</span>
+                <h3>System Architecture Map</h3>
+                <p>Visual diagram of a complete modern marketing tech stack.</p>
+                <strong>View Map &rarr;</strong>
+            </a>
+        </div>
+    </div>
+
+    <div id="learn-custom-sections-container"></div>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-brand">
+        <div class="brand-mark">iM</div>
+        <h3>I MAKE IMAGE</h3>
+        <p>Build Your Brand.<br>Command Your Marketing.<br>Grow Your Business.</p>
+    </div>
+    <div class="footer-column">
+        <h4>EXPLORE</h4>
+        <a href="solutions.html">Solutions</a>
+        <a href="learning.html">Learn</a>
+        <a href="tools.html">Tools</a>
+        <a href="core-tribe.html">Core Tribe</a>
+        <a href="about.html">About</a>
+    </div>
+    <div class="footer-column">
+        <h4>PRODUCTS</h4>
+        <a href="solo-corp.html">Solo Corp 101</a>
+        <a href="compass.html">IMI Compass</a>
+        <a href="time-command.html">iM Time Command</a>
+        <a href="commander-bundle.html">Commander Bundle</a>
+        <a href="core-elite.html">Core Elite</a>
+    </div>
+    <div class="footer-column">
+        <h4>SUPPORT</h4>
+        <a href="resources.html">Resources</a>
+        <a href="support.html">Support Center</a>
+        <a href="booking.html">Book A Session</a>
+        <a href="login.html">Member Login</a>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 I MAKE IMAGE</span>
+        <div><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+</footer>
+
+<script src="../js/config.js?v=20261001_v55"></script>
+<script src="../js/main.js?v=20261001_v55"></script>
+<script>
+    function switchTab(tabId) {
+        document.querySelectorAll('.learning-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.learning-section').forEach(s => s.classList.remove('active'));
+        
+        event.target.classList.add('active');
+        document.getElementById('sec-' + tabId).classList.add('active');
+    }
+</script>
+</body>
+</html>
+
+
+

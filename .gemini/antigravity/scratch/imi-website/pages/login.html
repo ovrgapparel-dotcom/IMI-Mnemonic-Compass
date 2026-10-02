@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Login | I Make Image</title>
+  <meta name="description" content="Sign in to access the IMI Member Portal &rdquo;” your courses, tools, resources, and community.">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/navigation.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* Login Page Specific Styles */
+    .login-page-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      position: relative;
+    }
+
+    /* Animated background radial beams */
+    .login-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(201,162,39,0.04) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(201,162,39,0.03) 0%, transparent 50%),
+        #080808;
+    }
+
+    .login-bg-grid {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-image:
+        linear-gradient(rgba(201,162,39,0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,162,39,0.012) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Login Card Container */
+    .login-container {
+      width: 100%;
+      max-width: 460px;
+      position: relative;
+      z-index: 10;
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Logo area at top */
+    .login-logo-wrap {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .login-logo-img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 2px solid var(--gold-border);
+      box-shadow: 0 0 25px rgba(201,162,39,0.15);
+      margin-bottom: 12px;
+    }
+
+    .login-logo-wrap h1 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    /* Card Box */
+    .login-card {
+      background: rgba(22, 22, 22, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--gold-border);
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.7),
+        0 0 40px rgba(201, 162, 39, 0.05);
+    }
+
+    /* Top border line */
+    .login-card::before {
+      content: '';
+      display: block;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: -40px -40px 35px -40px;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .login-title {
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .login-sub {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+
+    /* Input Fields */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: var(--silver);
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+
+    .form-input-wrap {
+      position: relative;
+    }
+
+    .form-input-wrap i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      pointer-events: none;
+      transition: color 0.2s;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 13px 16px 13px 40px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 12px rgba(201,162,39,0.15);
+    }
+
+    .form-input:focus ~ i,
+    .form-input-wrap:focus-within i {
+      color: var(--gold);
+    }
+
+    /* Toggle password visibility */
+    .toggle-pass {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .toggle-pass:hover { color: var(--gold); }
+
+    /* Error Message */
+    .login-error {
+      background: rgba(255, 60, 60, 0.08);
+      border: 1px solid rgba(255, 60, 60, 0.3);
+      border-radius: 4px;
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      color: #ff7070;
+      margin-bottom: 20px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .login-error.visible { display: flex; }
+
+    /* Submit Button */
+    .btn-login-submit {
+      width: 100%;
+      padding: 14px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--gold) 0%, #a6811e 100%);
+      color: #000;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: var(--font-heading);
+      margin-top: 8px;
+    }
+
+    .btn-login-submit:hover {
+      background: linear-gradient(135deg, var(--gold-metallic) 0%, var(--gold) 100%);
+      box-shadow: 0 6px 20px rgba(201,162,39,0.35);
+      transform: translateY(-2px);
+    }
+
+    .btn-login-submit:active { transform: translateY(0); }
+    .btn-login-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Divider */
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 25px 0;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+    }
+
+    .login-divider::before,
+    .login-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-color);
+    }
+
+    /* Tier info boxes */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .tier-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 14px;
+      text-align: center;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .tier-card:hover {
+      border-color: var(--gold-border);
+      background: rgba(201,162,39,0.04);
+      transform: translateY(-2px);
+    }
+
+    .tier-card .tier-price {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold-metallic);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .tier-card .tier-name {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+    }
+
+    /* Bottom note */
+    .login-footer-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 20px;
+    }
+
+    .login-footer-note a {
+      color: var(--gold);
+    }
+
+    /* Upgrade notice (shown if ?upgrade=1) */
+    .upgrade-notice {
+      background: rgba(201,162,39,0.07);
+      border: 1px solid var(--gold-border);
+      border-radius: 4px;
+      padding: 14px 18px;
+      font-size: 0.85rem;
+      color: var(--gold-metallic);
+      margin-bottom: 22px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .upgrade-notice.visible { display: flex; }
+  </style>
+</head>
+<body>
+  <div class="login-bg"></div>
+  <div class="login-bg-grid"></div>
+
+  <!-- Back to site link -->
+  <a href="../index.html" style="
+    position: fixed; top: 24px; left: 24px; z-index: 100;
+    font-family: var(--font-mono); font-size: 0.75rem;
+    color: var(--text-secondary); text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+    transition: color 0.2s;
+  " onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-secondary)'">
+    <i class="fa-solid fa-arrow-left-long"></i> BACK TO SITE
+  </a>
+
+  <div class="login-page-wrap">
+    <div class="login-container">
+      <!-- Logo -->
+      <div class="login-logo-wrap">
+        <img src="../assets/logo/imi-gold-logo.jpg" alt="IMI Logo" class="login-logo-img">
+        <h1>Member Portal Access</h1>
+      </div>
+
+      <!-- Login Card -->
+      <div class="login-card">
+
+        <!-- Upgrade Notice (shown when redirected for insufficient role) -->
+        <div class="upgrade-notice" id="upgrade-notice">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>That content requires a higher membership tier. Upgrade or sign in with your account.</span>
+        </div>
+
+        <!-- Error Message Box -->
+        <div class="login-error" id="login-error">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span id="login-error-text">Invalid credentials.</span>
+        </div>
+
+        <!-- Auth Tabs: Sign In vs Sign Up -->
+        <div style="display:flex; border-bottom:1px solid var(--border-color); margin-bottom:20px;">
+          <button type="button" id="tab-btn-login" onclick="switchAuthTab('login')" style="flex:1; padding:10px; background:none; border:none; border-bottom:2px solid var(--gold); color:var(--gold); font-family:var(--font-heading); font-weight:bold; text-transform:uppercase; cursor:pointer;">Sign In</button>
+          <button type="button" id="tab-btn-signup" onclick="switchAuthTab('signup')" style="flex:1; padding:10px; background:none; border:none; border-bottom:2px solid transparent; color:var(--text-secondary); font-family:var(--font-heading); font-weight:bold; text-transform:uppercase; cursor:pointer;">Create Account</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" novalidate>
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <div class="form-input-wrap">
+              <input type="email" id="login-email" class="form-input" placeholder="you@domain.com" required autocomplete="email">
+              <i class="fa-regular fa-envelope"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <div class="form-input-wrap">
+              <input type="password" id="login-password" class="form-input" placeholder="&rdquo;¢&rdquo;¢&rdquo;¢&rdquo;¢&rdquo;¢&rdquo;¢&rdquo;¢&rdquo;¢" required autocomplete="current-password">
+              <i class="fa-solid fa-lock"></i>
+              <button type="button" class="toggle-pass" id="toggle-pass" aria-label="Show password">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-login-submit" id="login-btn">
+            <span id="login-btn-text">Access Portal</span>
+          </button>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form id="signup-form" style="display:none;" novalidate>
+          <div class="form-group">
+            <label for="signup-name">Full Name</label>
+            <div class="form-input-wrap">
+              <input type="text" id="signup-name" class="form-input" placeholder="John Doe" required>
+              <i class="fa-regular fa-user"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signup-email">Email Address</label>
+            <div class="form-input-wrap">
+              <input type="email" id="signup-email" class="form-input" placeholder="you@domain.com" required autocomplete="email">
+              <i class="fa-regular fa-envelope"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <div class="form-input-wrap">
+              <input type="password" id="signup-password" class="form-input" placeholder="&rdquo;¢&rdquo;¢&rdquo;¢&rdquo;¢&rdquo;¢&rdquo;¢&rdquo;¢&rdquo;¢" required>
+              <i class="fa-solid fa-lock"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signup-role">Membership Tier</label>
+            <select id="signup-role" class="form-input" style="padding-left:14px; color:#fff; background:#111; border-color:var(--gold-border);">
+              <option value="free" selected>Free Membership (Dashboard, Booking &amp; Video Hub)</option>
+              <option value="core_tribe">Core Tribe Member ($5/mo - Full Curriculum)</option>
+              <option value="core_elite">Core Elite Member (Custom / VIP Advisory)</option>
+              <option value="admin">Administrator (Back Office Access)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-login-submit" id="signup-btn">
+            <span id="signup-btn-text">Create Account & Join Portal</span>
+          </button>
+        </form>
+
+        <div class="login-divider" style="margin-top:25px;">MEMBERSHIP TIERS</div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); text-align: center; margin-bottom: 15px;">
+          Choose a membership tier below to get access:
+        </p>
+
+        <!-- Tier Selection Cards -->
+        <div class="tier-grid" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
+          <div class="tier-card" style="border-color: rgba(96,165,250,0.35); cursor: pointer;" onclick="document.getElementById('signup-role').value='free'; window.switchAuthTab('signup');">
+            <span class="tier-price" style="color: #60a5fa;">Free</span>
+            <span class="tier-name">Free Tier</span>
+          </div>
+          <a href="https://www.patreon.com/c/IMICREATIVELABCLASSROOM" target="_blank" class="tier-card">
+            <span class="tier-price">$5<span style="font-size:0.7rem; font-weight:normal;">/mo</span></span>
+            <span class="tier-name">Core Tribe</span>
+          </a>
+          <a href="../pages/solutions.html#consulting" class="tier-card">
+            <span class="tier-price" style="font-size:0.95rem;">Custom</span>
+            <span class="tier-name">Core Elite</span>
+          </a>
+        </div>
+
+        <p class="login-footer-note" style="margin-top: 20px;">
+          <a href="../index.html">&rarr; Return to Main Site</a>
+        </p>
+
+      
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/i18n.js?v=20261001_v55"></script>
+  <script src="../js/config.js?v=20261001_v55"></script>
+  <script src="../js/auth-client.js?v=20261001_v55"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+
+    // If user explicitly navigated to switch accounts or sign out, clear session
+    if (params.get('switch') === '1' || params.get('logout') === '1' || params.get('action') === 'login') {
+      localStorage.removeItem('imi_active_session');
+    } else {
+      // Show active session info if already logged in without forcing page redirect
+      (async () => {
+        try {
+          const session = await IMI_AUTH.getSession();
+          if (session && session.email) {
+            const banner = document.createElement('div');
+            banner.style.cssText = 'background:rgba(201,162,39,0.12); border:1px solid rgba(201,162,39,0.35); border-radius:8px; padding:10px 14px; margin-bottom:16px; font-size:12px; color:#fff; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;';
+            const dest = session.role === 'admin' ? 'admin.html' : 'portal.html';
+            banner.innerHTML = `<span>Active session: <strong style="color:var(--gold);">${session.email}</strong></span> <a href="${dest}" style="color:var(--gold); font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">Go to Portal &rarr;</a>`;
+            const card = document.querySelector('.login-card');
+            if (card) card.prepend(banner);
+          }
+        } catch(e) {}
+      })();
+    }
+
+    // Show upgrade notice if redirected for insufficient role
+    if (params.get('upgrade') === '1') {
+      document.getElementById('upgrade-notice').classList.add('visible');
+    }
+
+    // Toggle password visibility
+    const toggleBtn = document.getElementById('toggle-pass');
+    const passInput = document.getElementById('login-password');
+    toggleBtn.addEventListener('click', () => {
+      const isPass = passInput.type === 'password';
+      passInput.type = isPass ? 'text' : 'password';
+      toggleBtn.querySelector('i').className = isPass ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+    });
+
+    // Login Form Submission
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email    = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const btn      = document.getElementById('login-btn');
+      const btnText  = document.getElementById('login-btn-text');
+      const errorBox = document.getElementById('login-error');
+      const errorTxt = document.getElementById('login-error-text');
+
+      if (!email) {
+        errorTxt.textContent = 'Please enter your email address.';
+        errorBox.classList.add('visible');
+        return;
+      }
+
+      btn.disabled = true;
+      btnText.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin" style="margin-right:8px;"></i> AUTHENTICATING...';
+      errorBox.classList.remove('visible');
+
+      try {
+        const result = await IMI_AUTH.login(email, password);
+
+        if (result && result.success) {
+          btnText.innerHTML = '<i class="fa-solid fa-check" style="margin-right:8px;"></i> ACCESS GRANTED';
+          btn.style.background = 'linear-gradient(135deg, #00c853, #008c3a)';
+
+          const returnUrl = params.get('return');
+          const dest = returnUrl
+            ? decodeURIComponent(returnUrl)
+            : (result.role === 'admin' ? 'admin.html' : 'portal.html');
+
+          setTimeout(() => { window.location.href = dest; }, 600);
+        } else {
+          btn.disabled = false;
+          btnText.textContent = 'Access Portal';
+          errorTxt.textContent = result?.error || 'Invalid credentials. Please check your email and password.';
+          errorBox.classList.add('visible');
+
+          // Shake animation
+          document.querySelector('.login-card').style.animation = 'shake 0.4s ease';
+          setTimeout(() => document.querySelector('.login-card').style.animation = '', 400);
+        }
+      } catch (err) {
+        console.error('Login submission error:', err);
+        btn.disabled = false;
+        btnText.textContent = 'Access Portal';
+        errorTxt.textContent = err.message || 'Login encountered an unexpected error.';
+        errorBox.classList.add('visible');
+      }
+    });
+
+    // Tab switcher &rdquo;” must live at top level, not inside login handler
+    window.switchAuthTab = (tab) => {
+      const loginForm  = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+      const loginBtn   = document.getElementById('tab-btn-login');
+      const signupBtn  = document.getElementById('tab-btn-signup');
+
+      if (tab === 'signup') {
+        loginForm.style.display  = 'none';
+        signupForm.style.display = 'block';
+        loginBtn.style.borderBottomColor  = 'transparent';
+        loginBtn.style.color              = 'var(--text-secondary)';
+        signupBtn.style.borderBottomColor = 'var(--gold)';
+        signupBtn.style.color             = 'var(--gold)';
+      } else {
+        signupForm.style.display = 'none';
+        loginForm.style.display  = 'block';
+        signupBtn.style.borderBottomColor = 'transparent';
+        signupBtn.style.color             = 'var(--text-secondary)';
+        loginBtn.style.borderBottomColor  = 'var(--gold)';
+        loginBtn.style.color              = 'var(--gold)';
+      }
+    };
+
+    // Sign Up Form Submission
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name     = document.getElementById('signup-name').value.trim();
+      const email    = document.getElementById('signup-email').value.trim();
+      const password = document.getElementById('signup-password').value;
+      const role     = document.getElementById('signup-role').value;
+      const btn      = document.getElementById('signup-btn');
+      const btnText  = document.getElementById('signup-btn-text');
+      const errorBox = document.getElementById('login-error');
+      const errorTxt = document.getElementById('login-error-text');
+
+      if (!name || !email || !password) {
+        errorTxt.textContent = 'Please fill out all required fields.';
+        errorBox.classList.add('visible');
+        return;
+      }
+
+      btn.disabled = true;
+      btnText.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin" style="margin-right:8px;"></i> CREATING ACCOUNT...';
+      errorBox.classList.remove('visible');
+
+      try {
+        const res = await IMI_AUTH.signUp(email, password, name, role);
+
+        if (res && res.success) {
+          btnText.innerHTML = '<i class="fa-solid fa-check" style="margin-right:8px;"></i> ACCOUNT CREATED';
+          btn.style.background = 'linear-gradient(135deg, #00c853, #008c3a)';
+
+          const dest = res.role === 'admin' ? 'admin.html' : 'portal.html';
+          setTimeout(() => { window.location.href = dest; }, 600);
+        } else {
+          btn.disabled = false;
+          btnText.textContent = 'Create Account & Join Portal';
+          errorTxt.textContent = res?.error || 'Registration failed.';
+          errorBox.classList.add('visible');
+        }
+      } catch (err) {
+        console.error('Sign up error:', err);
+        btn.disabled = false;
+        btnText.textContent = 'Create Account & Join Portal';
+        errorTxt.textContent = err.message || 'Registration encountered an unexpected error.';
+        errorBox.classList.add('visible');
+      }
+    });
+  </script>
+
+  <style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-10px); }
+      40% { transform: translateX(10px); }
+      60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); }
+    }
+  </style>
+</body>
+</html>
+
+

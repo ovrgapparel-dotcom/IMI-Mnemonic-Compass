@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Business Solutions | I MAKE IMAGE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../css/global.css">
+    <style>
+        .service-detail {
+            max-width: var(--container);
+            margin: 80px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            padding: 0 4vw;
+        }
+        .service-detail:nth-child(even) {
+            direction: rtl;
+        }
+        .service-detail:nth-child(even) > * {
+            direction: ltr;
+        }
+        .service-detail-text h3 {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            color: var(--gold-light);
+            margin-bottom: 16px;
+        }
+        .service-detail-text p {
+            color: var(--silver);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .service-detail-list {
+            list-style: none;
+            margin-bottom: 30px;
+            padding: 0;
+        }
+        .service-detail-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            color: rgba(255,255,255,0.75);
+            font-size: .9rem;
+            line-height: 1.5;
+        }
+        .service-detail-list li::before {
+            content: "\2713";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: .95rem;
+            font-weight: 700;
+            top: 0px;
+        }
+        .service-visual {
+            background: #141414;
+            border: 1px solid rgba(201,162,39,0.25);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .service-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 12px;
+        }
+        @media (max-width: 900px) {
+            .service-detail {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin: 50px auto;
+            }
+            .service-detail:nth-child(even) {
+                direction: ltr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="site-header" id="siteHeader">
+    <a href="../index.html" class="brand">
+        <div class="brand-mark">iM</div>
+        <div class="brand-name">
+            <strong>I MAKE IMAGE</strong>
+            <span>STRATEGIC BUSINESS ECOSYSTEM</span>
+        </div>
+    </a>
+    <nav class="desktop-nav">
+        <a href="solutions.html" style="color:var(--gold-light);">Solutions</a>
+        <a href="cmo-services.html">Services</a>
+        <a href="learning.html">Learn</a>
+        <a href="power-hours.html">Workshops</a>
+        <a href="tools.html">Tools</a>
+        <a href="news.html">News</a>
+        <a href="solo-corp.html">Solo Corp</a>
+        <a href="core-tribe.html">Core Tribe</a>
+        <a href="about.html">About</a>
+    </nav>
+    <div class="nav-actions">
+        <a href="booking.html" class="nav-button">Book a Session</a>
+        <a href="login.html" class="login-link">Login</a>
+    </div>
+    <button class="mobile-menu-button" id="mobileMenuButton">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a>
+    <div class="mobile-menu-group">
+        <span style="color:var(--gold-light);">Solutions</span>
+        <a href="solutions.html">Business Solutions</a>
+        <a href="services.html">Marketing Services</a>
+        <a href="booking.html">Book a Session</a>
+    </div>
+    <div class="mobile-menu-group">
+        <span>Learn</span>
+        <a href="learning.html">Learning Center</a>
+        <a href="courses.html">Courses</a>
+        <a href="workshops.html">Workshops</a>
+        <a href="resources.html">Resources</a>
+    </div>
+    <div class="mobile-menu-group">
+        <span>Tools</span>
+        <a href="compass.html">IMI Compass</a>
+        <a href="time-command.html">iM Time Command</a>
+        <a href="commander-bundle.html">Commander Bundle</a>
+    </div>
+    <a href="core-tribe.html">Core Tribe</a>
+    <a href="about.html">About</a>
+    <a href="login.html">Login</a>
+    <a href="booking.html" class="mobile-cta">Book a Session</a>
+</div>
+
+<main>
+
+<section class="hero" style="min-height: 60vh; padding-top: 150px; padding-bottom: 50px;">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+        <div class="eyebrow">IMI BUSINESS SOLUTIONS</div>
+        <h1>
+            Your business deserves<br>
+            <span>a marketing system.</span>
+        </h1>
+        <p>Strategic marketing leadership and practical implementation for growing organizations.</p>
+    </div>
+</section>
+
+<section class="system-intro section-black">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:48px; align-items:center; max-width:1200px; margin:0 auto 60px;">
+        <div>
+            <div class="section-label" id="sol-intro-eyebrow-text" style="margin-bottom:12px;">STRATEGIC LEADERSHIP & SYSTEMS</div>
+            <h2 id="sol-intro-h2-text">
+                WHEN YOU NEED<br>
+                <span>MORE THAN A TOOL.</span>
+            </h2>
+            <p id="sol-intro-desc-text" style="margin: 20px 0 0; color:var(--silver); font-size:1rem; line-height:1.7;">Technology can help you organize the work. Strategic guidance helps you determine what work matters.</p>
+        </div>
+
+        <!-- CMS Solutions Intro Media (displayed immediately, updated via CMS) -->
+        <div id="solutions-intro-media-container" style="border-radius:16px; overflow:hidden; border:1px solid rgba(201,162,39,0.25); box-shadow:0 15px 40px rgba(0,0,0,0.8); background:#151515; min-height:240px; display:flex; align-items:center; justify-content:center;">
+            <img src="../assets/logo/imi-gold-logo.jpg" alt="Solutions Intro" style="width:100%; height:100%; object-fit:cover; display:block; max-height:420px;">
+        </div>
+    </div>
+
+    <!-- CMO -->
+    <article class="service-detail">
+        <div class="service-detail-text">
+            <div class="section-label">STRATEGIC LEADERSHIP</div>
+            <h3>Fractional CMO</h3>
+            <p>High-level strategic marketing leadership for organizations that need a chief marketing officer without the full-time overhead. We align your marketing strategy directly with your revenue targets.</p>
+            <ul class="service-detail-list">
+                <li>Comprehensive Go-To-Market strategy</li>
+                <li>Marketing team management & hiring</li>
+                <li>Budget allocation and ROI optimization</li>
+                <li>Executive alignment and reporting</li>
+            </ul>
+        </div>
+        <div class="service-visual">
+            <img src="../assets/logo/imi-gold-logo.jpg" alt="CMO Strategy" class="imi-zoomable">
+        </div>
+    </article>
+
+    <!-- Marketing -->
+    <article class="service-detail">
+        <div class="service-detail-text">
+            <div class="section-label">BUILD THE SYSTEM</div>
+            <h3>Marketing Infrastructure</h3>
+            <p>We don't just run ads; we build the underlying machinery. From CRM setup and automation to full-stack funnel development, we create the marketing infrastructure your business needs to scale predictably.</p>
+            <ul class="service-detail-list">
+                <li>CRM and marketing automation architecture</li>
+                <li>Sales funnel design and implementation</li>
+                <li>Data tracking, analytics, and attribution</li>
+                <li>Lead generation systems</li>
+            </ul>
+        </div>
+        <div class="service-visual">
+            <img src="../assets/products/solo-corp-blueprint.jpg" alt="Infrastructure Blueprint" class="imi-zoomable">
+        </div>
+    </article>
+
+    <!-- Consulting -->
+    <article class="service-detail">
+        <div class="service-detail-text">
+            <div class="section-label">SOLVE THE PROBLEM</div>
+            <h3>Targeted Consulting</h3>
+            <p>Facing a specific marketing challenge? Whether you're launching a new product, repositioning your brand, or trying to fix a broken funnel, our consulting sessions provide rapid clarity and actionable roadmaps.</p>
+            <ul class="service-detail-list">
+                <li>Brand positioning and messaging frameworks</li>
+                <li>Product launch strategies</li>
+                <li>Audit of existing marketing efforts</li>
+                <li>Rapid problem-solving intensives</li>
+            </ul>
+        </div>
+        <div class="service-visual">
+            <img src="../assets/products/core-tribe-crown.jpg" alt="Targeted Consulting" class="imi-zoomable">
+        </div>
+    </article>
+
+    <!-- Implementation -->
+    <article class="service-detail">
+        <div class="service-detail-text">
+            <div class="section-label">PUT STRATEGY INTO ACTION</div>
+            <h3>Campaign Implementation</h3>
+            <p>Execution is the bottleneck of most strategies. Our implementation teams take the blueprint and handle the heavy lifting: from creative production and copywriting to ad management and deployment.</p>
+            <ul class="service-detail-list">
+                <li>Content creation (Video, Copy, Design)</li>
+                <li>Paid media management (Meta, Google, LinkedIn)</li>
+                <li>Email marketing and newsletter deployment</li>
+                <li>Web design and conversion rate optimization</li>
+            </ul>
+        </div>
+        <div class="service-visual">
+            <img src="../assets/logo/imi-gold-lockup.jpg" alt="Campaign Implementation" class="imi-zoomable">
+        </div>
+    </article>
+</section>
+    
+<section style="text-align: center; padding: 90px 4vw 70px; background:#0a0a0a; border-top: 1px solid rgba(255,255,255,0.05);">
+    <h2 style="font-family:var(--font-heading); font-size:clamp(1.4rem, 2.5vw, 2.2rem); margin-bottom:12px;">Ready to build your system?</h2>
+    <p style="color:var(--silver); margin: 0 auto 32px; max-width: 500px; line-height:1.6;">Schedule a strategy session to discuss your business challenges and determine the right solution.</p>
+    <a href="booking.html" class="button button-gold">BOOK A STRATEGY SESSION &rarr;</a>
+</section>
+
+<div id="sol-custom-sections-container"></div>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-brand">
+        <div class="brand-mark">iM</div>
+        <h3>I MAKE IMAGE</h3>
+        <p>Build Your Brand.<br>Command Your Marketing.<br>Grow Your Business.</p>
+    </div>
+    <div class="footer-column">
+        <h4>EXPLORE</h4>
+        <a href="solutions.html">Solutions</a>
+        <a href="learning.html">Learn</a>
+        <a href="tools.html">Tools</a>
+        <a href="core-tribe.html">Core Tribe</a>
+        <a href="about.html">About</a>
+    </div>
+    <div class="footer-column">
+        <h4>PRODUCTS</h4>
+        <a href="solo-corp.html">Solo Corp 101</a>
+        <a href="compass.html">IMI Compass</a>
+        <a href="time-command.html">iM Time Command</a>
+        <a href="commander-bundle.html">Commander Bundle</a>
+        <a href="core-elite.html">Core Elite</a>
+    </div>
+    <div class="footer-column">
+        <h4>SUPPORT</h4>
+        <a href="resources.html">Resources</a>
+        <a href="support.html">Support Center</a>
+        <a href="booking.html">Book A Session</a>
+        <a href="login.html">Member Login</a>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 I MAKE IMAGE</span>
+        <div><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../js/config.js?v=20261001_v55"></script>
+<script src="../js/auth-client.js?v=20261001_v55"></script>
+<script src="../js/main.js?v=20261001_v55"></script>
+
+</body>
+</html>
+
+
+
