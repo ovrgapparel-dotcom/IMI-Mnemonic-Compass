@@ -23,7 +23,9 @@ const titles = {
   portfolio:   'Portfolio & Work Showcase Manager',
   members:     'Members & Memberships Manager',
   subscribers: 'Newsletter Subscribers & Email Campaigns Hub',
-  bookings:    'Bookings & Communication Centre',
+  messages:    'Member Direct Messages & Strategy Inquiries',
+  community:   'Community Exchange & Discussion Moderation',
+  bookings:    'Bookings & Calendar Centre',
   analytics:   'Offers, Billing & Analytics',
   links:       'Links & Payments Hub',
   settings:    'Settings'
@@ -291,11 +293,18 @@ async function render() {
         state.data.communityPosts = liveCommunity || [];
         state.data.unreadMessages = (liveMessages || []).filter(m => (m.status || 'unread') === 'unread').length;
 
-        const bookingNav = document.querySelector('#sidebarNav [data-view="bookings"] span');
-        if (bookingNav) {
-          bookingNav.innerHTML = state.data.unreadMessages > 0
-            ? `Bookings &amp; Messaging <span style="background:#ef4444; color:#fff; font-size:10px; padding:1px 6px; border-radius:10px; margin-left:6px; font-weight:800;">${state.data.unreadMessages}</span>`
-            : 'Bookings &amp; Messaging';
+        const msgNav = document.querySelector('#sidebarNav [data-view="messages"] span');
+        if (msgNav) {
+          msgNav.innerHTML = state.data.unreadMessages > 0
+            ? `Direct Messages <span style="background:#ef4444; color:#fff; font-size:10px; padding:1px 6px; border-radius:10px; margin-left:6px; font-weight:800;">${state.data.unreadMessages}</span>`
+            : 'Direct Messages';
+        }
+        const commNav = document.querySelector('#sidebarNav [data-view="community"] span');
+        if (commNav) {
+          const postCount = (state.data.communityPosts || []).length;
+          commNav.innerHTML = postCount > 0
+            ? `Community Board <span style="background:rgba(96,165,250,0.2); color:#60a5fa; border:1px solid rgba(96,165,250,0.4); font-size:10px; padding:1px 6px; border-radius:10px; margin-left:6px; font-weight:700;">${postCount}</span>`
+            : 'Community Board';
         }
       } catch(err) {
         console.warn('Messages state fetch warning:', err);
@@ -326,6 +335,8 @@ async function render() {
     portfolio:   portfolioManager,
     members:     members,
     subscribers: subscribersManager,
+    messages:    messagesCentre,
+    community:   communityAdmin,
     bookings:    bookings,
     analytics:   analytics,
     links:       linksManager,
@@ -340,8 +351,29 @@ async function render() {
 
 // ── Dashboard View ────────────────────────────────────────────────────
 function dashboard() {
+  const unreadMsg = state.data.unreadMessages || 0;
+  const unreadBanner = unreadMsg > 0 ? `
+    <div style="background:rgba(201,162,39,0.12); border:1px solid rgba(201,162,39,0.4); border-left:4px solid var(--gold); border-radius:8px; padding:16px 20px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <div style="width:38px; height:38px; border-radius:50%; background:rgba(201,162,39,0.2); display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:1.1rem; flex-shrink:0;">
+          <i class="fa-solid fa-envelope-open-text"></i>
+        </div>
+        <div>
+          <div style="font-size:0.95rem; font-weight:700; color:#fff;">You have ${unreadMsg} unread member inquiry${unreadMsg > 1 ? 'ies' : ''}</div>
+          <div style="font-size:0.75rem; color:var(--silver);">Members are waiting for your response in the Direct Messages centre.</div>
+        </div>
+      </div>
+      <button onclick="document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active')); document.querySelector('.nav-item[data-view=messages]')?.classList.add('active'); state.view='messages'; render();" class="primary" style="font-size:0.78rem; padding:8px 16px; gap:6px;">
+        <i class="fa-solid fa-comments"></i> Open Messages &rarr;
+      </button>
+    </div>
+  ` : '';
+
   return `
+  ${unreadBanner}
   <div class="grid stats">
+    ${stat('Member Inquiries', (state.data.memberMessages || []).length, unreadMsg + ' Awaiting Reply')}
+
     ${stat('Active Members', state.data.members, 'Registered Profiles')}
     ${stat('Published Courses', state.data.courses, '4 Unlocked Modules')}
     ${stat('Total Bookings', state.data.bookings, 'Pending & Confirmed')}
@@ -3761,6 +3793,149 @@ window.publishBroadcastToPortal = async function() {
 
 // ── Bookings & Communication Centre (injected) ────────────────────────────
 // ── Bookings & Communication Centre ──────────────────────────────────
+
+// ── Dedicated Member Messages Centre ─────────────────────────────────────
+function messagesCentre() {
+  const memberMessages = state.data.memberMessages || [];
+  const unreadCount = state.data.unreadMessages || 0;
+
+  const messageCards = memberMessages.length === 0 ? `
+    <div style="text-align:center; padding:48px 24px; background:#0b0d10; border:1px dashed var(--line); border-radius:8px; color:var(--muted);">
+      <i class="fa-solid fa-inbox" style="font-size:2.4rem; margin-bottom:12px; color:var(--gold); display:block;"></i>
+      <h4 style="margin:0 0 6px 0; color:#fff; font-size:15px;">No Member Inquiries Yet</h4>
+      <p style="margin:0; font-size:13px; color:var(--silver);">When a registered member sends a message from their Member Portal, it will appear here immediately for you to review and answer.</p>
+    </div>
+  ` : memberMessages.map(m => {
+    const isUnread = (m.status || 'unread') === 'unread';
+    const replies = Array.isArray(m.replies) ? m.replies : [];
+    const roleBadge = m.member_role === 'core_tribe' ? '<span style="color:#B8BCC2; border:1px solid #B8BCC255; background:#B8BCC215; font-size:10px; padding:2px 6px; border-radius:4px; font-weight:700;">CORE TRIBE</span>'
+      : (m.member_role === 'core_elite' ? '<span style="color:#C9A227; border:1px solid #C9A22755; background:#C9A22715; font-size:10px; padding:2px 6px; border-radius:4px; font-weight:700;">CORE ELITE</span>'
+      : '<span style="color:#60a5fa; border:1px solid #60a5fa55; background:#60a5fa15; font-size:10px; padding:2px 6px; border-radius:4px; font-weight:700;">FREE TIER</span>');
+
+    const repliesHtml = replies.map(r => `
+      <div style="background:rgba(201,162,39,0.06); border-left:3px solid var(--gold); border-radius:4px; padding:12px 14px; margin-top:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <strong style="font-size:11px; color:var(--gold); display:flex; align-items:center; gap:6px;">
+            <i class="fa-solid fa-shield-halved"></i> ${r.sender_name || 'IMI Administrator'}
+          </strong>
+          <span style="font-size:10px; color:var(--muted);">${r.created_at ? new Date(r.created_at).toLocaleString() : 'Recent'}</span>
+        </div>
+        <p style="margin:0; font-size:12px; color:#ddd; line-height:1.5;">${r.text}</p>
+      </div>
+    `).join('');
+
+    return `
+    <div class="card" style="margin-bottom:18px; border-left:4px solid ${isUnread ? '#22c55e' : 'var(--gold)'}; background:#0e1117;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:10px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg, var(--gold), #7a5f10); color:#000; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:15px; overflow:hidden; flex-shrink:0;">
+            ${m.member_avatar ? `<img src="${m.member_avatar}" style="width:100%;height:100%;object-fit:cover;">` : (m.member_name ? m.member_name[0].toUpperCase() : 'M')}
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <strong style="color:#fff; font-size:14px;">${m.member_name || 'Member'}</strong>
+              ${roleBadge}
+            </div>
+            <div style="font-size:11px; color:var(--muted); font-family:var(--font-mono, monospace);">${m.member_email || ''}</div>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px;">
+          ${isUnread ? `<span style="background:rgba(34,197,94,0.15); color:#22c55e; border:1px solid rgba(34,197,94,0.4); font-size:10px; padding:3px 8px; border-radius:4px; font-weight:800; display:inline-flex; align-items:center; gap:4px;"><i class="fa-solid fa-circle" style="font-size:6px;"></i> NEW INQUIRY</span>`
+            : `<span style="background:rgba(201,162,39,0.15); color:var(--gold); border:1px solid rgba(201,162,39,0.4); font-size:10px; padding:3px 8px; border-radius:4px; font-weight:700;"><i class="fa-solid fa-reply"></i> REPLIED</span>`}
+          <span style="font-size:11px; color:var(--muted);">${m.created_at ? new Date(m.created_at).toLocaleString() : 'Recent'}</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <h4 style="margin:0 0 6px 0; color:var(--gold-light, #f1df9a); font-size:13px; font-weight:700;">${m.subject || 'Direct Message'}</h4>
+        <p style="margin:0; font-size:13px; color:#eee; line-height:1.6; background:rgba(0,0,0,0.25); padding:12px; border-radius:6px; border:1px solid rgba(255,255,255,0.04);">${m.body}</p>
+      </div>
+
+      ${repliesHtml}
+
+      <!-- Admin Reply Box -->
+      <div style="margin-top:14px; padding-top:12px; border-top:1px dashed rgba(255,255,255,0.08);">
+        <div style="display:flex; gap:10px;">
+          <input id="reply-text-${m.id}" placeholder="Write official administrator reply to ${m.member_name || 'member'}..." style="flex:1; background:#080a0d; border:1px solid var(--line); border-radius:6px; padding:8px 12px; color:#fff; font-size:12px;">
+          <button onclick="replyToMemberMessage('${m.id}')" class="primary" style="padding:8px 16px; font-size:11px; white-space:nowrap; gap:6px;">
+            <i class="fa-solid fa-paper-plane"></i> Send Reply
+          </button>
+          <button onclick="deleteMemberMessage('${m.id}')" style="background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); color:#ef4444; border-radius:6px; padding:8px 12px; font-size:11px; cursor:pointer;" title="Delete message">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    `;
+  }).join('');
+
+  return page('Direct Messages & Strategy Inquiries', 'Manage inbound communications, answer strategic member questions, and review message history.', null, `
+  <div class="grid stats" style="margin-bottom:20px;">
+    <div class="card"><div class="stat-label">Total Inbound Messages</div><div class="stat-value">${memberMessages.length}</div></div>
+    <div class="card"><div class="stat-label">Unread / Awaiting Reply</div><div class="stat-value" style="color:#22c55e;">${unreadCount}</div></div>
+    <div class="card"><div class="stat-label">Answered Inquiries</div><div class="stat-value">${memberMessages.length - unreadCount}</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <h3><i class="fa-solid fa-envelope-open-text" style="color:var(--gold); margin-right:8px;"></i> Member Inquiries Inbox</h3>
+      <button onclick="render()" class="secondary" style="font-size:11px; padding:6px 12px;"><i class="fa-solid fa-rotate"></i> Refresh Messages</button>
+    </div>
+    ${messageCards}
+  </div>
+  `);
+}
+
+// ── Dedicated Community Board Moderation ─────────────────────────────────
+function communityAdmin() {
+  const communityPosts = state.data.communityPosts || [];
+
+  const communityRows = communityPosts.map(p => `
+    <tr>
+      <td><b>${p.title}</b><div style="color:var(--muted); font-size:10px;">${p.content.substring(0, 80)}...</div></td>
+      <td>${p.author_name || 'Member'}<div style="color:var(--muted); font-size:10px;">${p.author_email || ''}</div></td>
+      <td><span style="font-size:10px; color:var(--gold); border:1px solid var(--gold-border); padding:2px 6px; border-radius:4px;">${p.category || 'General'}</span></td>
+      <td>${p.likes || 0} ❤️ / ${(p.comments || []).length} 💬</td>
+      <td>${p.created_at ? new Date(p.created_at).toLocaleDateString() : 'Recent'}</td>
+      <td>
+        <button onclick="deleteCommunityPost('${p.id}')" style="background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); color:#ef4444; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer;">
+          <i class="fa-solid fa-trash"></i> Delete
+        </button>
+      </td>
+    </tr>
+  `).join('');
+
+  return page('Community Board & Discussions', 'Moderate community member discussions, delete inappropriate posts, and publish official announcements.', 'Post Announcement', `
+  <div class="card" id="admin-new-community-box" style="display:none; margin-bottom:20px; border:1px solid rgba(201,162,39,0.35);">
+    <div class="card-title"><h3>Post Official Admin Topic to Community Board</h3></div>
+    <div style="display:grid; grid-template-columns:2fr 1fr; gap:10px; margin-bottom:10px;">
+      <input id="admin-comm-title" placeholder="Discussion / Announcement Title" style="background:#14171d; border:1px solid var(--line); border-radius:6px; padding:8px 12px; color:#fff; font-size:12px;">
+      <select id="admin-comm-category" style="background:#14171d; border:1px solid var(--line); border-radius:6px; padding:8px 12px; color:#fff; font-size:12px;">
+        <option value="Announcements">Announcements</option>
+        <option value="Brand Strategy">Brand Strategy</option>
+        <option value="General">General</option>
+        <option value="Wins & Milestones">Wins & Milestones</option>
+      </select>
+    </div>
+    <textarea id="admin-comm-content" rows="3" placeholder="Write announcement details or prompt for the community..." style="width:100%; background:#14171d; border:1px solid var(--line); border-radius:6px; padding:8px 12px; color:#fff; font-size:12px; margin-bottom:10px; box-sizing:border-box;"></textarea>
+    <button onclick="postAdminCommunityTopic()" class="primary" style="font-size:11px; padding:8px 16px;">Publish Announcement</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <h3><i class="fa-solid fa-comments" style="color:var(--gold); margin-right:8px;"></i> Published Community Discussions</h3>
+      <button onclick="document.getElementById('admin-new-community-box').style.display = document.getElementById('admin-new-community-box').style.display === 'none' ? 'block' : 'none'" class="primary" style="font-size:11px; padding:6px 12px;">
+        <i class="fa-solid fa-plus"></i> Post Announcement
+      </button>
+    </div>
+    <div class="table-wrap"><table class="table"><thead><tr><th>Topic / Post</th><th>Author</th><th>Category</th><th>Engagement</th><th>Date</th><th>Action</th></tr></thead><tbody>
+    ${communityRows || '<tr><td colspan="6">No community posts found.</td></tr>'}
+    </tbody></table></div>
+  </div>
+  `);
+}
+
 function bookings() {
   const bookingList = state.data.bookingList || [];
   const subsList = state.data.subscribersList || [];
