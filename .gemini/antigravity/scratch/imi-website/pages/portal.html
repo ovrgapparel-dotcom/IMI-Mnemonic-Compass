@@ -1303,8 +1303,6 @@
         <div class="portal-card" style="margin-bottom:24px; background:linear-gradient(135deg, rgba(20,20,20,0.9), rgba(10,10,10,0.95)); border:1px solid rgba(201,162,39,0.3); padding:28px 24px;">
           <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;">
             <div style="display:flex; align-items:center; gap:18px;">
-              <!-- Hidden file input for avatar upload -->
-              <input type="file" id="acc-avatar-file-input" accept="image/*" style="display:none;">
               <!-- Clickable avatar circle -->
               <div id="acc-avatar-initials" onclick="document.getElementById('acc-avatar-file-input').click()" title="Click to upload profile photo" style="width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg, var(--gold), #7a5f10); color:#000; font-family:var(--font-heading); font-size:1.6rem; font-weight:800; display:flex; align-items:center; justify-content:center; border:2px solid var(--gold-light); box-shadow:0 0 20px rgba(201,162,39,0.35); flex-shrink:0; cursor:pointer; position:relative; overflow:hidden;">
                 M
@@ -1604,9 +1602,9 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="../js/i18n.js?v=20261001_v53"></script>
-  <script src="../js/config.js?v=20261001_v53"></script>
-  <script src="../js/auth-client.js?v=20261001_v53"></script>
+  <script src="../js/i18n.js?v=20261001_v54"></script>
+  <script src="../js/config.js?v=20261001_v54"></script>
+  <script src="../js/auth-client.js?v=20261001_v54"></script>
   <script>
     // Immediate Synchronous Role Detection (prevents flash of unrestricted access)
     let syncRole = 'free';
@@ -1975,10 +1973,10 @@
       }
     };
 
-    // -- Avatar upload: wire up on DOMContentLoaded --
-    document.addEventListener('DOMContentLoaded', function () {
+    // -- Avatar upload setup (runs immediately - script is after DOM elements) --
+    (function setupAvatarUpload() {
       var fileInput = document.getElementById('acc-avatar-file-input');
-      if (!fileInput) return;
+      if (!fileInput) { console.warn('acc-avatar-file-input not found'); return; }
 
       // Hover overlay on the big hero circle
       var heroCircle = document.getElementById('acc-avatar-initials');
@@ -2052,9 +2050,9 @@
         };
         reader.readAsDataURL(file);
       });
-    });
 
-
+      console.log('Avatar upload listener attached successfully.');
+    })();
     window.saveMemberProfile = async () => {
       const nameInput = document.getElementById('acc-name');
       const phoneInput = document.getElementById('acc-phone');
@@ -3352,6 +3350,8 @@ window.closeToolPopUp = function() {
   if (contentEl) contentEl.innerHTML = '';
 };
 </script>
+  <!-- Global avatar file input: outside any hidden panel so .click() works in all browsers -->
+  <input type="file" id="acc-avatar-file-input" accept="image/*" style="position:fixed;top:-999px;left:-999px;width:1px;height:1px;opacity:0;pointer-events:none;">
 </body>
 </html>
 
