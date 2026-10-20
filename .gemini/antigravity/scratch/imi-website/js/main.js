@@ -1157,7 +1157,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     // If user supplied just a Facebook page URL, format it into a responsive embed iframe
                     if (embedCode.startsWith('http') && (embedCode.includes('facebook.com') || embedCode.includes('fb.com'))) {
                         const encodedUrl = encodeURIComponent(embedCode);
-                        embedCode = `<iframe src="https://www.facebook.com/plugins/page.php?href=${encodedUrl}&tabs=timeline&width=500&height=650&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true" width="100%" height="650" style="border:none;overflow:hidden;max-width:500px;margin:0 auto;display:block;border-radius:8px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`;
+                        embedCode = `<iframe src="https://www.facebook.com/plugins/page.php?href=${encodedUrl}&tabs=timeline&width=500&height=650&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true" width="100%" height="650" style="border:none;overflow:hidden;max-width:500px;margin:0 auto;display:block;border-radius:8px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" loading="lazy"></iframe>`;
+                    } else if (embedCode.includes('<iframe') && !embedCode.includes('loading=')) {
+                        embedCode = embedCode.replace('<iframe ', '<iframe loading="lazy" ');
                     }
 
                     // Hide loading spinner, inject embed
@@ -1172,8 +1174,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         oldScript.parentNode.replaceChild(newScript, oldScript);
                     });
 
-                    // Trigger Facebook SDK XFBML parser if present
-                    if (window.FB && window.FB.XFBML && typeof window.FB.XFBML.parse === 'function') {
+                    // Trigger Facebook SDK XFBML parser ONLY if XFBML markup (e.g. .fb-page) is present, avoiding duplicate iframe requests
+                    if (feedContainer.querySelector('.fb-page, .fb-post, .fb-video') && window.FB && window.FB.XFBML && typeof window.FB.XFBML.parse === 'function') {
                         window.FB.XFBML.parse(feedContainer);
                     }
 

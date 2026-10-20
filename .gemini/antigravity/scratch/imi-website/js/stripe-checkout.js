@@ -141,6 +141,16 @@
             }));
           } catch (_) {}
 
+          // Meta Pixel: Track InitiateCheckout
+          if (typeof window.fbq === 'function') {
+            try {
+              window.fbq('track', 'InitiateCheckout', {
+                content_name: productKey,
+                currency: 'USD'
+              });
+            } catch (_) {}
+          }
+
           // Redirect to Stripe Checkout page
           window.location.href = data.url;
         } else {
@@ -194,6 +204,16 @@
           const data = await res.json();
           if (data.ok && (data.paymentStatus === 'paid' || data.paymentStatus === 'no_payment_required')) {
             console.log('Stripe checkout verified successfully:', data);
+
+            // Meta Pixel: Track Purchase conversion event
+            if (typeof window.fbq === 'function') {
+              try {
+                window.fbq('track', 'Purchase', {
+                  value: data.amount ? data.amount / 100 : undefined,
+                  currency: 'USD'
+                });
+              } catch (_) {}
+            }
             
             // Clean up URL so refresh doesn't re-trigger
             const cleanUrl = window.location.pathname;
