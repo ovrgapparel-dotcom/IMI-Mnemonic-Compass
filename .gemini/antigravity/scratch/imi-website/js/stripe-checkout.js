@@ -111,6 +111,7 @@
           productKey: productKey,
           clientEmail: clientEmail,
           clientName: clientName,
+          imageUrl: options.imageUrl,
           hours: options.hours,
           customName: options.customName,
           customAmount: options.customAmount,
@@ -169,8 +170,10 @@
           const hours = btn.dataset.stripeHours;
           const name = btn.dataset.stripeName;
           const amount = btn.dataset.stripeAmount;
+          const image = btn.dataset.stripeImage;
           this.startCheckout({
             productKey: productKey,
+            imageUrl: image,
             hours: hours ? parseInt(hours) : undefined,
             customName: name,
             customAmount: amount ? parseFloat(amount) * 100 : undefined

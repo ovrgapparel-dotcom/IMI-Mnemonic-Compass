@@ -9,6 +9,7 @@ const CATALOG = {
     description: 'Standalone purchase: Immediate PDF download and 30-day framework.',
     amount: 500, // $5.00
     recurring: false,
+    image: '/assets/products/solo-corp-book-cover.png',
     cancelUrl: '/pages/solo-corp.html'
   },
   'tribe': {
@@ -17,6 +18,7 @@ const CATALOG = {
     amount: 500, // $5.00/mo
     recurring: true,
     interval: 'month',
+    image: '/assets/products/core-tribe-crown.jpg',
     cancelUrl: '/pages/core-tribe.html'
   },
   'elite': {
@@ -25,6 +27,7 @@ const CATALOG = {
     amount: 4999, // $49.99/mo
     recurring: true,
     interval: 'month',
+    image: '/assets/products/core-tribe-crown.jpg',
     cancelUrl: '/pages/core-tribe.html'
   },
   'compass': {
@@ -32,6 +35,7 @@ const CATALOG = {
     description: 'Lifetime software license for the IMI Mnemonic Compass.',
     amount: 999, // $9.99
     recurring: false,
+    image: '/assets/products/mnemonic-compass-hud.jpg',
     cancelUrl: '/pages/tools.html'
   },
   'time': {
@@ -39,6 +43,7 @@ const CATALOG = {
     description: 'High-performance productivity dashboard and timezone mapper.',
     amount: 799, // $7.99
     recurring: false,
+    image: '/assets/products/time-command-hud.jpg',
     cancelUrl: '/pages/tools.html'
   },
   'bundle': {
@@ -46,6 +51,7 @@ const CATALOG = {
     description: 'Complete digital software suite: Compass & Time Command.',
     amount: 1499, // $14.99
     recurring: false,
+    image: '/assets/products/mnemonic-compass-hud.jpg',
     cancelUrl: '/pages/tools.html'
   },
   'starter-sprint': {
@@ -53,6 +59,7 @@ const CATALOG = {
     description: '3-hour focused strategic power sprint with IMI leadership.',
     amount: 7500, // $75.00
     recurring: false,
+    image: '/assets/logo/imi-gold-logo.jpg',
     cancelUrl: '/pages/booking.html'
   },
   'build-sprint': {
@@ -60,6 +67,7 @@ const CATALOG = {
     description: 'Intensive strategic execution sprint ($25/hour).',
     amountPerHour: 2500, // $25.00/hr
     recurring: false,
+    image: '/assets/logo/imi-gold-logo.jpg',
     cancelUrl: '/pages/booking.html'
   },
   'imi-intensive': {
@@ -67,6 +75,7 @@ const CATALOG = {
     description: 'Flagship business transformation sprint ($25/hour).',
     amountPerHour: 2500, // $25.00/hr
     recurring: false,
+    image: '/assets/logo/imi-gold-logo.jpg',
     cancelUrl: '/pages/booking.html'
   },
   'cmo-consultation': {
@@ -74,6 +83,7 @@ const CATALOG = {
     description: 'One-on-one executive marketing roadmap & positioning consultation.',
     amount: 15000, // $150.00
     recurring: false,
+    image: '/assets/logo/imi-gold-lockup.jpg',
     cancelUrl: '/pages/cmo-services.html'
   },
   'brand-audit': {
@@ -81,6 +91,7 @@ const CATALOG = {
     description: 'Comprehensive brand and marketing infrastructure audit.',
     amount: 20000, // $200.00
     recurring: false,
+    image: '/assets/logo/imi-gold-lockup.jpg',
     cancelUrl: '/pages/cmo-services.html'
   },
   'core-elite-session': {
@@ -88,6 +99,7 @@ const CATALOG = {
     description: 'Direct strategic onboarding sprint for incoming Core Elite members.',
     amount: 4999, // $49.99
     recurring: false,
+    image: '/assets/products/core-tribe-crown.jpg',
     cancelUrl: '/pages/booking.html'
   }
 };
@@ -147,6 +159,7 @@ module.exports = async (req, res) => {
       productKey,
       clientName,
       clientEmail,
+      imageUrl,
       hours,
       customName,
       customAmount, // in cents
@@ -158,6 +171,7 @@ module.exports = async (req, res) => {
 
     const baseOrigin = req.headers.origin || req.headers.referer || 'https://imi-website-one.vercel.app';
     const cleanOrigin = baseOrigin.replace(/\/$/, '');
+    const canonicalOrigin = 'https://imi-website-one.vercel.app';
 
     let item = CATALOG[productKey];
 
@@ -185,6 +199,16 @@ module.exports = async (req, res) => {
     const resolvedSuccessUrl = successUrl || `${cleanOrigin}/pages/portal.html?payment=success&session_id={CHECKOUT_SESSION_ID}`;
     const resolvedCancelUrl = cancelUrl || (item && item.cancelUrl ? `${cleanOrigin}${item.cancelUrl}` : `${cleanOrigin}/index.html`);
 
+    // Resolve Product Picture for Stripe Checkout display
+    let finalImageUrl = null;
+    if (imageUrl && typeof imageUrl === 'string') {
+      finalImageUrl = imageUrl.startsWith('http') ? imageUrl : `${canonicalOrigin}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+    } else if (item && item.image) {
+      finalImageUrl = item.image.startsWith('http') ? item.image : `${canonicalOrigin}${item.image}`;
+    } else {
+      finalImageUrl = `${canonicalOrigin}/assets/logo/imi-gold-logo.jpg`;
+    }
+
     const stripeParams = {
       'line_items[0][price_data][currency]': 'usd',
       'line_items[0][price_data][product_data][name]': name,
@@ -197,6 +221,10 @@ module.exports = async (req, res) => {
       'metadata[product_key]': productKey || 'custom',
       'metadata[source]': 'imi_web_gateway'
     };
+
+    if (finalImageUrl) {
+      stripeParams['line_items[0][price_data][product_data][images][0]'] = finalImageUrl;
+    }
 
     if (isRecurring) {
       stripeParams['line_items[0][price_data][recurring][interval]'] = (item && item.interval) || 'month';
@@ -223,7 +251,8 @@ module.exports = async (req, res) => {
       return res.status(200).json({
         ok: true,
         sessionId: result.data.id,
-        url: result.data.url
+        url: result.data.url,
+        imageUrl: finalImageUrl
       });
     } else {
       console.error('Stripe API error:', result.data);
