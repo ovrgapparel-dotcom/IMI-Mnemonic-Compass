@@ -118,7 +118,7 @@
     <div class="eyebrow" id="tribe-eyebrow">IMI CORE MEMBERSHIP</div>
     <h1>Learn. Build. Execute. <span>Grow.</span></h1>
     <p id="tribe-desc">One ecosystem. Multiple ways to access the knowledge, tools, and community you need to build a business that actually works.</p>
-    <a href="login.html" class="btn-gold">Join The IMI Core Community &rarr;</a>
+    <a href="#" onclick="IMI_STRIPE.checkoutProduct('tribe'); return false;" class="btn-gold"><i class="fa-solid fa-bolt" style="margin-right:6px;"></i>Join The IMI Core Community &rarr;</a>
 </section>
 
 <!-- MEMBERSHIP TIERS -->
@@ -150,7 +150,7 @@
                 <li>Stronger Foundation blueprint</li>
                 <li>Clean, printable format with daily exercises</li>
             </ul>
-            <a href="login.html" class="btn-outline">Get Solo Corp 101</a>
+            <a href="#" onclick="IMI_STRIPE.checkoutProduct('solocorp'); return false;" class="btn-outline"><i class="fa-solid fa-lock" style="margin-right:6px;"></i>Get Solo Corp 101 — $5</a>
         </div>
 
         <!-- TIER 2: Core Tribe -->
@@ -194,7 +194,7 @@
                 <li>Priority Access to Workshops</li>
                 <li>IMI Business Solutions guidance</li>
             </ul>
-            <a href="login.html" class="btn-outline">Join Core Elite</a>
+            <a href="#" onclick="IMI_STRIPE.checkoutProduct('elite'); return false;" class="btn-outline"><i class="fa-solid fa-crown" style="margin-right:6px; color:var(--gold);"></i>Join Core Elite — $49.99/mo</a>
         </div>
 
     </div>
@@ -324,9 +324,10 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="../js/config.js?v=20261019_v57"></script>
-<script src="../js/auth-client.js?v=20261019_v57"></script>
-<script src="../js/main.js?v=20261019_v57"></script>
+<script src="../js/config.js?v=20261019_v58"></script>
+<script src="../js/auth-client.js?v=20261019_v58"></script>
+<script src="../js/main.js?v=20261019_v58"></script>
+<script src="../js/stripe-checkout.js?v=20261019_v58"></script>
 </body>
 </html>
 

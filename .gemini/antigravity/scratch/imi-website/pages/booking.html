@@ -210,7 +210,7 @@
         .form-textarea { resize: vertical; min-height: 80px; }
 
         /* ── PAYMENT OPTIONS ── */
-        .payment-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        .payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
         .pay-option {
             background: var(--surface2); border: 1.5px solid var(--border);
             border-radius: 10px; padding: 16px 12px; cursor: pointer;
@@ -634,6 +634,11 @@
                     <div id="paymentMethods">
                         <label class="form-label" style="margin-bottom:14px;">Choose Payment Method</label>
                         <div class="payment-grid">
+                            <div class="pay-option selected" data-method="stripe" onclick="selectPayment(this)" style="border-color:var(--gold); background:rgba(99,91,255,0.08);">
+                                <div class="pay-logo"><i class="fa-brands fa-stripe" style="color:#635bff; font-size:1.6rem;"></i></div>
+                                <div class="pay-name" style="color:#fff;">Stripe &bull; Cards</div>
+                                <div class="pay-detail">Apple Pay, Google Pay, Cards</div>
+                            </div>
                             <div class="pay-option" data-method="paypal" onclick="selectPayment(this)">
                                 <div class="pay-logo">ðŸ…¿ï¸</div>
                                 <div class="pay-name">PayPal</div>
@@ -648,6 +653,29 @@
                                 <div class="pay-logo">ðŸŒŠ</div>
                                 <div class="pay-name">Wave</div>
                                 <div class="pay-detail">Africa & global</div>
+                            </div>
+                        </div>
+
+                        <!-- STRIPE INSTRUCTIONS -->
+                        <div class="pay-instructions visible" id="stripe-instructions" style="background:rgba(99,91,255,0.06); border:1px solid rgba(99,91,255,0.3); border-radius:8px; padding:16px; margin-top:14px;">
+                            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+                                <h5 style="margin:0; display:flex; align-items:center; gap:8px; color:#fff;">
+                                    <i class="fa-solid fa-shield-halved" style="color:#4ade80;"></i>
+                                    Stripe Instant Secure Gateway
+                                </h5>
+                                <span style="font-size:0.7rem; color:#4ade80; background:rgba(34,197,94,0.12); padding:3px 10px; border-radius:12px; border:1px solid rgba(34,197,94,0.3); font-weight:700;">
+                                    <i class="fa-solid fa-bolt"></i> Instant Confirmation
+                                </span>
+                            </div>
+                            <p style="font-size:0.82rem; color:var(--text-sub); line-height:1.6; margin-bottom:8px;">
+                                Pay securely using any credit/debit card, Apple Pay, Google Pay, or Link. Your strategic session is instantly confirmed and scheduled upon payment.
+                            </p>
+                            <div style="display:flex; gap:14px; align-items:center; font-size:1.35rem; color:#c9a227; margin-top:10px;">
+                                <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                                <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+                                <i class="fa-brands fa-cc-amex" title="American Express"></i>
+                                <i class="fa-brands fa-apple-pay" style="font-size:1.6rem;" title="Apple Pay"></i>
+                                <i class="fa-brands fa-google-pay" style="font-size:1.6rem;" title="Google Pay"></i>
                             </div>
                         </div>
 
@@ -1022,12 +1050,32 @@ function setupPaymentStep() {
     const isFree = !selectedService || selectedService.price === 0;
     document.getElementById('freeSessionNotice').style.display = isFree ? 'block' : 'none';
     document.getElementById('paymentMethods').style.display = isFree ? 'none' : 'block';
-    document.getElementById('confirmBtn').disabled = !isFree;
-    if (isFree) selectedPayment = 'none';
+    document.getElementById('confirmBtn').disabled = false;
 
     // Generate reference number
     const ref = 'IMI-' + Math.random().toString(36).substring(2,10).toUpperCase();
     document.getElementById('payRefNum').textContent = ref;
+
+    if (isFree) {
+        selectedPayment = 'none';
+        document.getElementById('confirmBtn').innerHTML = '<i class="fa-solid fa-check" style="margin-right:6px;"></i> Confirm Free Booking';
+    } else {
+        selectedPayment = 'stripe';
+        const stripeOpt = document.querySelector('.pay-option[data-method="stripe"]');
+        if (stripeOpt) {
+            document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('selected'));
+            stripeOpt.classList.add('selected');
+        }
+        ['stripe','paypal','wise','wave'].forEach(m => {
+            const el = document.getElementById(m + '-instructions');
+            if (el) el.classList.remove('visible');
+        });
+        const sInstr = document.getElementById('stripe-instructions');
+        if (sInstr) sInstr.classList.add('visible');
+        document.getElementById('confirmBtn').innerHTML = '<i class="fa-solid fa-lock" style="margin-right:6px;"></i> Proceed to Stripe Checkout &rarr;';
+        document.getElementById('sumPayRow').style.display = 'flex';
+        document.getElementById('sumPay').textContent = 'Stripe (Cards / Apple Pay)';
+    }
 }
 
 // ── PAYMENT SELECTION ──
@@ -1036,16 +1084,23 @@ function selectPayment(el) {
     el.classList.add('selected');
     selectedPayment = el.dataset.method;
 
-    ['paypal','wise','wave'].forEach(m => {
+    ['stripe','paypal','wise','wave'].forEach(m => {
         const el = document.getElementById(m + '-instructions');
         if (el) el.classList.remove('visible');
     });
     const instr = document.getElementById(selectedPayment + '-instructions');
     if (instr) instr.classList.add('visible');
 
-    document.getElementById('confirmBtn').disabled = false;
+    const btn = document.getElementById('confirmBtn');
+    btn.disabled = false;
+    if (selectedPayment === 'stripe') {
+        btn.innerHTML = '<i class="fa-solid fa-lock" style="margin-right:6px;"></i> Proceed to Stripe Checkout &rarr;';
+    } else {
+        btn.innerHTML = '✓ Confirm My Booking';
+    }
+
     document.getElementById('sumPayRow').style.display = 'flex';
-    document.getElementById('sumPay').textContent = selectedPayment.charAt(0).toUpperCase() + selectedPayment.slice(1);
+    document.getElementById('sumPay').textContent = selectedPayment === 'stripe' ? 'Stripe (Cards / Apple Pay)' : (selectedPayment.charAt(0).toUpperCase() + selectedPayment.slice(1));
 }
 
 // ── CONFIRM BOOKING ──
@@ -1112,13 +1167,102 @@ function copyText(id) {
     });
 }
 
-// ── INIT ──
+// ── INIT & URL PARAMETERS ──
 initCalendar();
+
+async function handleUrlParameters() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const reqService = urlParams.get('service');
+    const paymentSuccess = urlParams.get('payment') === 'success';
+    const sessionId = urlParams.get('session_id');
+    const ref = urlParams.get('ref');
+
+    // Handle return from Stripe Checkout
+    if (paymentSuccess && sessionId) {
+        let cached = null;
+        try {
+            const raw = localStorage.getItem('imi_pending_booking');
+            if (raw) cached = JSON.parse(raw);
+        } catch (_) {}
+
+        // Verify session status with backend
+        let verifiedEmail = cached ? cached.client_email : '';
+        let verifiedName = cached ? cached.client_name : '';
+        try {
+            if (typeof IMI_STRIPE !== 'undefined') {
+                const res = await IMI_STRIPE.checkSessionReturn();
+                if (res && res.customerEmail) verifiedEmail = res.customerEmail;
+                if (res && res.customerName) verifiedName = res.customerName;
+            }
+        } catch (_) {}
+
+        // Update booking in Supabase to confirmed and paid
+        if (ref && typeof IMI_AUTH !== 'undefined' && IMI_AUTH.supabase) {
+            try {
+                await IMI_AUTH.supabase.from('bookings').update({
+                    status: 'confirmed',
+                    payment_status: 'paid',
+                    payment_reference: ref + ' (Stripe: ' + sessionId.slice(-8) + ')'
+                }).eq('payment_reference', ref);
+            } catch (_) {}
+        }
+
+        const sName = cached ? cached.service_name : 'Executive Strategy Session';
+        const sDur = cached ? cached.duration : 'Standard';
+        const sDate = cached ? cached.session_date : '';
+        const sTime = cached ? cached.session_time : '';
+        const sTotal = cached ? ('
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="../js/config.js?v=20261019_v57"></script>
-<script src="../js/auth-client.js?v=20261019_v57"></script>
+<script src="../js/config.js?v=20261019_v58"></script>
+<script src="../js/auth-client.js?v=20261019_v58"></script>
+<script src="../js/stripe-checkout.js?v=20261019_v58"></script>
+</body>
+</html>
+
+
+ + Number(cached.total_amount).toFixed(2)) : 'PAID';
+
+        document.getElementById('confirmDetails').innerHTML = `
+            <div style="background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3); border-radius:8px; padding:12px; margin-bottom:16px; text-align:center; color:#4ade80; font-weight:700;">
+                <i class="fa-solid fa-circle-check"></i> Stripe Payment Successfully Verified &bull; Booking Confirmed
+            </div>
+            <div class="cd-row"><span class="label">Name</span><span class="val">${verifiedName || (cached ? cached.client_name : 'Valued Client')}</span></div>
+            <div class="cd-row"><span class="label">Email</span><span class="val">${verifiedEmail || (cached ? cached.client_email : 'Verified')}</span></div>
+            <div class="cd-row"><span class="label">Service</span><span class="val">${sName}</span></div>
+            <div class="cd-row"><span class="label">Duration</span><span class="val">${sDur}</span></div>
+            ${sDate ? `<div class="cd-row"><span class="label">Date</span><span class="val">${sDate}</span></div>` : ''}
+            ${sTime ? `<div class="cd-row"><span class="label">Time (ET)</span><span class="val">${sTime}</span></div>` : ''}
+            <div class="cd-row"><span class="label">Total Paid</span><span class="val" style="color:#4ade80; font-size:1.05rem; font-weight:700;">${sTotal}</span></div>
+            <div class="cd-row"><span class="label">Payment Gateway</span><span class="val" style="color:#635bff; font-weight:700;"><i class="fa-brands fa-stripe"></i> Stripe (Card / Digital Wallet)</span></div>
+            <div class="cd-row"><span class="label">Reference ID</span><span class="val" style="font-family:monospace;color:var(--gold-light);">${ref || 'IMI-VERIFIED'}</span></div>
+        `;
+
+        goToStep(5);
+        return;
+    }
+
+    // Auto-select requested service from URL (e.g. ?service=cmo-consultation)
+    if (reqService && SERVICES[reqService]) {
+        const card = document.querySelector(`.service-card[data-service="${reqService}"]`);
+        if (card) {
+            selectService(card);
+            goToStep(2);
+        }
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', handleUrlParameters);
+} else {
+    handleUrlParameters();
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../js/config.js?v=20261019_v58"></script>
+<script src="../js/auth-client.js?v=20261019_v58"></script>
 </body>
 </html>
 

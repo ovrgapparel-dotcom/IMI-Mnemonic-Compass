@@ -695,8 +695,8 @@
                     $9.99 <span>ONE-TIME</span>
                 </div>
 
-                <a href="pages/compass.html" class="button button-outline">
-                    Explore Compass
+                <a href="#" onclick="IMI_STRIPE.checkoutProduct('compass'); return false;" class="button button-outline">
+                    <i class="fa-solid fa-lock" style="margin-right:6px;"></i>Buy Compass ($9.99)
                 </a>
 
             </div>
@@ -745,8 +745,8 @@
                     $7.99 <span>ONE-TIME</span>
                 </div>
 
-                <a href="pages/time-command.html" class="button button-outline">
-                    Explore Time Command
+                <a href="#" onclick="IMI_STRIPE.checkoutProduct('time'); return false;" class="button button-outline">
+                    <i class="fa-solid fa-lock" style="margin-right:6px;"></i>Buy Time Command ($7.99)
                 </a>
 
             </div>
@@ -782,9 +782,9 @@
             <span>ONE-TIME</span>
         </div>
 
-        <a href="pages/commander-bundle.html"
+        <a href="#" onclick="IMI_STRIPE.checkoutProduct('bundle'); return false;"
            class="button button-gold">
-            Get The Bundle
+            <i class="fa-solid fa-bolt" style="margin-right:6px;"></i>Get The Bundle ($14.99)
         </a>
 
     </div>
@@ -844,9 +844,9 @@
                 $5 <span>/ MONTH</span>
             </div>
 
-            <a href="pages/core-tribe.html"
+            <a href="#" onclick="IMI_STRIPE.checkoutProduct('tribe'); return false;"
                class="button button-gold">
-                Join Core Tribe
+                <i class="fa-solid fa-bolt" style="margin-right:6px;"></i>Join Core Tribe ($5/mo)
             </a>
 
         </div>
@@ -1087,9 +1087,10 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="js/config.js?v=20261019_v57"></script>
-<script src="js/auth-client.js?v=20261019_v57"></script>
-<script src="js/main.js?v=20261019_v57"></script>
+<script src="js/config.js?v=20261019_v58"></script>
+<script src="js/auth-client.js?v=20261019_v58"></script>
+<script src="js/main.js?v=20261019_v58"></script>
+<script src="js/stripe-checkout.js?v=20261019_v58"></script>
 </body>
 </html>
 

@@ -157,7 +157,7 @@
                 <div>Benchmarking against industry standards.</div>
             </div>
             <div class="tool-price" style="margin-bottom: 20px;">$9.99 <span>ONE-TIME</span></div>
-            <a href="compass.html" class="button button-outline">PURCHASE COMPASS</a>
+            <a href="#" onclick="IMI_STRIPE.checkoutProduct('compass'); return false;" class="button button-outline"><i class="fa-solid fa-lock" style="margin-right:6px;"></i>PURCHASE COMPASS ($9.99)</a>
         </div>
         <div class="tool-detail-visual compass-visual">
             <div class="tool-ring"></div>
@@ -190,7 +190,7 @@
                 <div>Direct integration with your daily workflows.</div>
             </div>
             <div class="tool-price" style="margin-bottom: 20px;">$7.99 <span>ONE-TIME</span></div>
-            <a href="time-command.html" class="button button-outline">PURCHASE TIME COMMAND</a>
+            <a href="#" onclick="IMI_STRIPE.checkoutProduct('time'); return false;" class="button button-outline"><i class="fa-solid fa-lock" style="margin-right:6px;"></i>PURCHASE TIME COMMAND ($7.99)</a>
         </div>
     </article>
     
@@ -204,7 +204,7 @@
             <strong>$14.99</strong>
             <span>ONE-TIME</span>
         </div>
-        <a href="commander-bundle.html" class="button button-gold">Get The Bundle</a>
+        <a href="#" onclick="IMI_STRIPE.checkoutProduct('bundle'); return false;" class="button button-gold"><i class="fa-solid fa-bolt" style="margin-right:6px;"></i>Get The Bundle ($14.99)</a>
     <div id="tools-custom-sections-container"></div>
 </main>
 <footer class="site-footer">
@@ -242,9 +242,10 @@
     </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="../js/config.js?v=20261019_v57"></script>
-<script src="../js/auth-client.js?v=20261019_v57"></script>
-<script src="../js/main.js?v=20261019_v57"></script>
+<script src="../js/config.js?v=20261019_v58"></script>
+<script src="../js/auth-client.js?v=20261019_v58"></script>
+<script src="../js/main.js?v=20261019_v58"></script>
+<script src="../js/stripe-checkout.js?v=20261019_v58"></script>
 </body>
 </html>
 

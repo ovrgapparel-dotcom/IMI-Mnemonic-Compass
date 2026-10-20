@@ -4420,6 +4420,41 @@ function linksManager() {
   </div>
 
   <div class="card" style="margin-bottom:20px;">
+    
+  <div class="card" style="margin-bottom:20px; border-left: 4px solid #635bff;">
+    <div class="card-title">
+      <h3><i class="fa-brands fa-stripe" style="color:#635bff; font-size:1.4rem; vertical-align:middle; margin-right:8px;"></i>Stripe Integrated Payment Gateway</h3>
+      <span class="badge" style="background:rgba(99,91,255,0.15); color:#635bff; border-color:rgba(99,91,255,0.3);">CONNECTED &bull; SANDBOX ACTIVE</span>
+    </div>
+    <div style="font-size:0.85rem; color:var(--text-sub); line-height:1.6; margin-bottom:16px;">
+      Stripe Checkout is integrated across all front-end digital tools, courses, memberships, and power hour booking services.
+    </div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Connected Stripe Account ID</label>
+        <input type="text" value="acct_1URI7TRwfjjvsVyx" readonly style="background:rgba(255,255,255,0.04); color:var(--gold-light);">
+      </div>
+      <div class="field">
+        <label>Account Business Name</label>
+        <input type="text" value="I MAKE IMAGE sandbox" readonly style="background:rgba(255,255,255,0.04);">
+      </div>
+      <div class="field">
+        <label>Active Gateway Modes</label>
+        <input type="text" value="Cards, Apple Pay, Google Pay, Link &bull; One-Time &amp; Subscriptions" readonly style="background:rgba(255,255,255,0.04);">
+      </div>
+      <div class="field">
+        <label>Gateway Endpoint</label>
+        <input type="text" value="/api/create-checkout-session" readonly style="background:rgba(255,255,255,0.04);">
+      </div>
+    </div>
+    <div style="margin-top:16px; display:flex; gap:10px;">
+      <button type="button" class="primary" onclick="testStripeGateway()" style="background:#635bff; border-color:#635bff; color:#fff; padding:10px 18px; font-size:12px; cursor:pointer;">
+        <i class="fa-solid fa-bolt" style="margin-right:6px;"></i> Test Live Stripe Checkout ($1.00)
+      </button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:20px;">
     <div class="card-title"><h3>2. Product Checkout & Offer Links</h3><span>PAID DIGITAL PRODUCTS</span></div>
     <div class="form-grid">
       <div class="field"><label>IMI Compass Launch / Checkout URL</label><input id="link_compass_url" value="${sc['tools.compass_url'] || 'pages/compass.html'}"></div>
@@ -4547,5 +4582,19 @@ window.handleAdminSignOut = async function() {
       localStorage.removeItem('sb-vpdilgdelkrotatvwfhh-auth-token');
     }
     window.location.href = 'login.html';
+  }
+};
+
+
+// ── STRIPE GATEWAY ADMIN TEST ──
+window.testStripeGateway = function() {
+  if (typeof IMI_STRIPE !== 'undefined') {
+    IMI_STRIPE.startCheckout({
+      customName: 'IMI Admin Gateway Test Verification',
+      customAmount: 100,
+      message: 'Generating test checkout session with Stripe...'
+    });
+  } else {
+    alert('Stripe library loading... please try again.');
   }
 };
