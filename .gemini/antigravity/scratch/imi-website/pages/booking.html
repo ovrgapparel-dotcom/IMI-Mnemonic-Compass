@@ -524,7 +524,7 @@
                     </div>
 
                     <div style="margin-top:24px; display:flex; gap:12px; justify-content:space-between;">
-                        <button class="btn-secondary" onclick="goToStep(1)">&rarr; Back</button>
+                        <button class="btn-secondary" onclick="goToStep(1)"><i class="fa-solid fa-arrow-left" style="margin-right:6px;"></i>Back</button>
                         <button class="btn-primary" id="nextBtn2" style="width:auto; padding:12px 28px;" disabled onclick="goToStep(3)">
                             Next: Your Details &rarr;
                         </button>
@@ -610,7 +610,7 @@
                     </div>
 
                     <div style="display:flex; gap:12px; justify-content:space-between; margin-top:8px;">
-                        <button class="btn-secondary" onclick="goToStep(2)">&rarr; Back</button>
+                        <button class="btn-secondary" onclick="goToStep(2)"><i class="fa-solid fa-arrow-left" style="margin-right:6px;"></i>Back</button>
                         <button class="btn-primary" style="width:auto; padding:12px 28px;" onclick="validateStep3()">
                             Next: Payment &rarr;
                         </button>
@@ -736,7 +736,7 @@
                     <div id="payAlert" class="alert"></div>
 
                     <div style="display:flex; gap:12px; justify-content:space-between; margin-top:20px;">
-                        <button class="btn-secondary" onclick="goToStep(3)">&rarr; Back</button>
+                        <button class="btn-secondary" onclick="goToStep(3)"><i class="fa-solid fa-arrow-left" style="margin-right:6px;"></i>Back</button>
                         <button class="btn-primary" id="confirmBtn" style="width:auto; padding:12px 28px;" onclick="confirmBooking()">
                             ✓ Confirm My Booking
                         </button>
@@ -752,7 +752,7 @@
                     <div class="confirm-sub">Your session has been submitted. We'll verify your payment and send a confirmation to your email within 24 hours.</div>
                     <div class="confirm-details" id="confirmDetails"></div>
                     <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
-                        <a href="../index.html" class="btn-secondary">&rarr; Back to Home</a>
+                        <a href="../index.html" class="btn-secondary"><i class="fa-solid fa-arrow-left" style="margin-right:6px;"></i>Back to Home</a>
                         <a href="core-tribe.html" class="btn-primary" style="text-decoration:none; width:auto; padding:12px 28px;">Join Core Tribe &rarr;</a>
                     </div>
                 </div>
@@ -804,7 +804,7 @@
 
                 <div id="summaryPayNote" style="display:none; margin-top:18px; padding:12px; background:rgba(201,162,39,0.06); border:1px solid var(--border-gold); border-radius:8px;">
                     <p style="font-size:.75rem; color:var(--text-muted); line-height:1.6;">
-                        ðŸ’³ Payment is completed externally via your selected method (PayPal, Wise, or Wave). Booking is confirmed once payment is verified.
+                        <i class="fa-solid fa-credit-card" style="color:var(--gold); margin-right:6px;"></i>Payment is completed externally via your selected method (PayPal, Wise, or Wave). Booking is confirmed once payment is verified.
                     </p>
                 </div>
             </div>
@@ -1108,7 +1108,7 @@ function selectPayment(el) {
 async function confirmBooking() {
     const btn = document.getElementById('confirmBtn');
     btn.disabled = true;
-    btn.textContent = 'â³ Submitting...';
+    btn.textContent = 'Submitting...';
 
     // Simulate a brief delay
     await new Promise(r => setTimeout(r, 1200));
