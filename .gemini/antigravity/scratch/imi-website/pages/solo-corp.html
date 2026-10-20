@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
@@ -29,7 +30,7 @@
         }
         body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; }
 
-        /* &rdquo;──â‚¬ NAV &rdquo;──â‚¬ */
+        /* ── NAV ── */
         .site-header {
             position: fixed; top: 0; left: 0; right: 0; z-index: 999;
             height: 68px; padding: 0 5vw;
@@ -59,7 +60,7 @@
         .login-link { font-size: .8rem; color: var(--text-muted); text-decoration: none; }
         @media(max-width:768px){ .desktop-nav { display:none; } }
 
-        /* &rdquo;──â‚¬ HERO &rdquo;──â‚¬ */
+        /* ── HERO ── */
         .hero {
             position: relative; overflow: hidden;
             padding: 140px 5vw 100px;
@@ -181,7 +182,7 @@
         h2 span { color: var(--gold-light); }
         .section-intro { color: var(--text-muted); font-size: .95rem; max-width: 580px; line-height: 1.75; margin-bottom: 48px; }
 
-        /* &rdquo;──â‚¬ THE PROBLEM &rdquo;──â‚¬ */
+        /* ── THE PROBLEM ── */
         .problem-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
         }
@@ -200,7 +201,7 @@
         .big-stat { font-family: var(--head); font-size: 4rem; font-weight: 900; color: var(--gold); line-height: 1; }
         .big-stat-label { font-size: .85rem; color: var(--text-muted); margin-top: 8px; }
 
-        /* &rdquo;──â‚¬ 30-DAY FRAMEWORK &rdquo;──â‚¬ */
+        /* ── 30-DAY FRAMEWORK ── */
         .framework-grid {
             display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 40px;
         }
@@ -234,7 +235,7 @@
         }
         .module-list li::before { content: '\2192'; color: var(--gold); font-size: .8rem; flex-shrink: 0; }
 
-        /* &rdquo;──â‚¬ PRICING &rdquo;──â‚¬ */
+        /* ── PRICING ── */
         .pricing-grid {
             display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 44px;
         }
@@ -263,7 +264,7 @@
         }
         .price-includes li::before { content: '\2713'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
 
-        /* &rdquo;──â‚¬ TESTIMONIAL / QUOTE &rdquo;──â‚¬ */
+        /* ── TESTIMONIAL / QUOTE ── */
         .quote-block {
             background: var(--surface2); border-left: 3px solid var(--gold);
             border-radius: 0 10px 10px 0; padding: 28px 32px;
@@ -271,7 +272,7 @@
         }
         .quote-block cite { display: block; margin-top: 14px; font-style: normal; font-size: .78rem; color: var(--gold); font-weight: 600; font-family: var(--head); letter-spacing: .08em; }
 
-        /* &rdquo;──â‚¬ FAQ &rdquo;──â‚¬ */
+        /* ── FAQ ── */
         .faq-list { margin-top: 32px; }
         .faq-item {
             border-bottom: 1px solid var(--border); padding: 20px 0; cursor: pointer;
@@ -287,7 +288,7 @@
         .faq-a { font-size: .85rem; color: var(--text-muted); line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .3s; }
         .faq-item.open .faq-a { max-height: 300px; padding-top: 12px; }
 
-        /* &rdquo;──â‚¬ CTA SECTION &rdquo;──â‚¬ */
+        /* ── CTA SECTION ── */
         .cta-section {
             background: linear-gradient(135deg, #141000, #0d0d0d);
             border-top: 1px solid var(--gold-border); border-bottom: 1px solid var(--gold-border);
@@ -298,7 +299,7 @@
         .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
         .btn-large { padding: 18px 38px; font-size: 1rem; }
 
-        /* &rdquo;──â‚¬ FOOTER &rdquo;──â‚¬ */
+        /* ── FOOTER ── */
         .site-footer {
             background: var(--bg2); border-top: 1px solid var(--border);
             padding: 50px 5vw 30px;
@@ -537,22 +538,22 @@
         <h2>Everything You Get<br>for <span>$5</span></h2>
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-top:36px;">
             <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:22px 18px;">
-                <div style="font-size:1.6rem; margin-bottom:10px;">&ldquo;&rdquo;“</div>
+                <div style="font-size:1.6rem; margin-bottom:12px; color:var(--gold);"><i class="fa-solid fa-file-pdf"></i></div>
                 <div style="font-family:var(--head); font-weight:700; color:#fff; margin-bottom:6px;">PDF eBook</div>
                 <div style="font-size:.82rem; color:var(--text-muted); line-height:1.6;">Full Solo Corp 101 guide in a clean, printable PDF format you can work through on any device.</div>
             </div>
             <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:22px 18px;">
-                <div style="font-size:1.6rem; margin-bottom:10px;">&ldquo;&rdquo;¦</div>
+                <div style="font-size:1.6rem; margin-bottom:12px; color:var(--gold);"><i class="fa-solid fa-calendar-check"></i></div>
                 <div style="font-family:var(--head); font-weight:700; color:#fff; margin-bottom:6px;">30-Day Framework</div>
                 <div style="font-size:.82rem; color:var(--text-muted); line-height:1.6;">A structured day-by-day sequence designed for progressive implementation and real momentum.</div>
             </div>
             <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:22px 18px;">
-                <div style="font-size:1.6rem; margin-bottom:10px;"></div>
+                <div style="font-size:1.6rem; margin-bottom:12px; color:var(--gold);"><i class="fa-solid fa-pen-to-square"></i></div>
                 <div style="font-family:var(--head); font-weight:700; color:#fff; margin-bottom:6px;">Daily Exercises</div>
                 <div style="font-size:.82rem; color:var(--text-muted); line-height:1.6;">Each day includes a practical written exercise — designed to create self-awareness and drive action, not just reflection.</div>
             </div>
             <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:22px 18px;">
-                <div style="font-size:1.6rem; margin-bottom:10px;">&rdquo;”Âº</div>
+                <div style="font-size:1.6rem; margin-bottom:12px; color:var(--gold);"><i class="fa-solid fa-compass"></i></div>
                 <div style="font-family:var(--head); font-weight:700; color:#fff; margin-bottom:6px;">Ecosystem Roadmap</div>
                 <div style="font-size:.82rem; color:var(--text-muted); line-height:1.6;">On Day 30 you receive a clear orientation to the full IMI ecosystem — so your next step is always obvious.</div>
             </div>
@@ -684,7 +685,7 @@
 
 <div id="solocorp-custom-sections-container"></div>
 
-<!-- &rdquo;”&rdquo;” FOOTER &rdquo;”&rdquo;” -->
+<!-- ── FOOTER ── -->
 <footer class="site-footer">
     <div class="footer-brand">
         <div class="bm">iM</div>
@@ -732,10 +733,10 @@ function toggleFaq(el) {
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="../js/config.js?v=20261020_v59"></script>
-<script src="../js/auth-client.js?v=20261020_v59"></script>
-<script src="../js/main.js?v=20261020_v59"></script>
-<script src="../js/stripe-checkout.js?v=20261020_v59"></script>
+<script src="../js/config.js?v=20261020_v61"></script>
+<script src="../js/auth-client.js?v=20261020_v61"></script>
+<script src="../js/main.js?v=20261020_v61"></script>
+<script src="../js/stripe-checkout.js?v=20261020_v61"></script>
 </body>
 </html>
 
