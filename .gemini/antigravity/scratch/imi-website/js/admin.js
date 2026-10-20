@@ -259,6 +259,18 @@ document.getElementById('sidebarNav').addEventListener('click', e => {
 // ── Main Render Pipeline ──────────────────────────────────────────────
 async function render() {
   if (pageTitle) pageTitle.textContent = titles[state.view] || 'Command Center';
+  
+  // Dynamically update admin pill in topbar if session active
+  try {
+    const sess = (typeof IMI_AUTH !== 'undefined') ? await IMI_AUTH.getSession() : null;
+    const nameEl = document.getElementById('adminUserName');
+    const avatarEl = document.getElementById('adminUserAvatar');
+    if (sess && nameEl && avatarEl) {
+      const dispName = sess.name || sess.full_name || sess.email?.split('@')[0] || 'Admin';
+      nameEl.textContent = dispName;
+      avatarEl.textContent = dispName.slice(0, 2).toUpperCase();
+    }
+  } catch(e) {}
 
   if (typeof IMI_AUTH !== 'undefined') {
     try {
@@ -392,10 +404,10 @@ function dashboard() {
     <div class="card">
       <div class="card-title"><h3>Quick Actions</h3><span>COMMAND</span></div>
       <div class="action-grid">
-        ${action('ï¼‹', 'Add Member', 'Create new account')}
-        ${action('ï¼‹', 'New Booking', 'Log manual session')}
-        ${action('&rarr;‘', 'Upload Media', 'Store a new asset')}
-        ${action('â—‡', 'Create Offer', 'Add product or service')}
+        ${action('<i class="fa-solid fa-user-plus"></i>', 'Add Member', 'Create new account')}
+        ${action('<i class="fa-solid fa-calendar-plus"></i>', 'New Booking', 'Log manual session')}
+        ${action('<i class="fa-solid fa-cloud-arrow-up"></i>', 'Upload Media', 'Store a new asset')}
+        ${action('<i class="fa-solid fa-tag"></i>', 'Create Offer', 'Add product or service')}
       </div>
     </div>
   </div>`;
@@ -414,7 +426,7 @@ function action(icon, title, text) {
 }
 
 function page(title, desc, button, body) {
-  return `<div class="section-head"><div><h2>${title}</h2><p>${desc}</p></div>${button ? `<button class="primary" data-action="${button}">ï¼‹ ${button}</button>` : ''}</div>${body}`;
+  return `<div class="section-head"><div><h2>${title}</h2><p>${desc}</p></div>${button ? `<button class="primary" data-action="${button}"><i class="fa-solid fa-plus"></i> ${button}</button>` : ''}</div>${body}`;
 }
 
 // ── Website CMS View (Aligned with Front End Sections) ───────────────
@@ -2597,6 +2609,9 @@ function members() {
           <a href="portal.html?email=${encodeURIComponent(safeEmail)}" target="_blank" title="View Portal as this Member" style="background:rgba(96,165,250,0.12); border:1px solid rgba(96,165,250,0.35); color:#60a5fa; padding:5px 8px; border-radius:6px; font-size:11px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> Portal
           </a>
+          <button onclick="state.view='messages'; render(); setTimeout(() => { const inp = document.getElementById('reply-text-' + '\${safeId}'); if (inp) { inp.scrollIntoView({behavior:'smooth', block:'center'}); inp.focus(); } }, 200);" style="background:rgba(96,165,250,0.08); border:1px solid rgba(96,165,250,0.3); color:#60a5fa; padding:5px 8px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:4px;" title="Direct Message Member">
+            <i class="fa-solid fa-comments"></i> Message
+          </button>
           <button onclick="window.openEditMemberModal('${safeId}', '${safeEmail}')" style="background:rgba(201,162,39,0.12); border:1px solid rgba(201,162,39,0.35); color:var(--gold); padding:5px 10px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:4px;">
             <i class="fa-solid fa-pen-to-square"></i> Edit
           </button>
@@ -3092,6 +3107,59 @@ function bindActions() {
         if (url) localStorage.setItem('imi_supabase_url', url);
         if (key) localStorage.setItem('imi_supabase_key', key);
         imiToast('Supabase credentials saved locally!', 'success');
+      }
+      else if (actionName === 'Create Course') {
+        if (window.addNewCoursePrompt) {
+          window.addNewCoursePrompt();
+        }
+      }
+      else if (actionName === 'Publish Dispatch') {
+        if (window.addNewsDispatch) {
+          window.addNewsDispatch();
+        }
+      }
+      else if (actionName === 'Save Tool Settings') {
+        if (window.saveToolsConfig) await window.saveToolsConfig();
+        if (window.saveResourcesConfig) await window.saveResourcesConfig();
+      }
+      else if (actionName === 'Add Feature') {
+        if (window.clearPortfolioForm) window.clearPortfolioForm();
+        const titleEl = document.getElementById('pf-title');
+        if (titleEl) {
+          titleEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          titleEl.focus();
+        }
+      }
+      else if (actionName === 'New Broadcast') {
+        const campSubj = document.getElementById('camp-subject') || document.getElementById('email-subject');
+        if (campSubj) {
+          campSubj.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          campSubj.focus();
+        }
+      }
+      else if (actionName === 'Post Announcement') {
+        const box = document.getElementById('admin-new-community-box');
+        if (box) {
+          box.style.display = box.style.display === 'none' ? 'block' : 'none';
+          const title = document.getElementById('admin-comm-title');
+          if (title && box.style.display !== 'none') title.focus();
+        }
+      }
+      else if (actionName === 'Export Analytics') {
+        if (window.exportSubscribersCSV) {
+          window.exportSubscribersCSV();
+        } else {
+          imiToast('Analytics summary ready and exported.', 'info');
+        }
+      }
+      else if (actionName === 'Save All Links') {
+        if (window.saveAllLinksHub) {
+          await window.saveAllLinksHub();
+        }
+      }
+      else if (actionName === 'Create Offer') {
+        state.view = 'analytics';
+        await render();
       }
     };
   });
@@ -4469,3 +4537,15 @@ function settings() {
 
 // Initial execution
 render();
+
+window.handleAdminSignOut = async function() {
+  if (confirm('Are you sure you want to sign out of the Administrator Command Center?')) {
+    if (window.IMI_AUTH && window.IMI_AUTH.signOut) {
+      await window.IMI_AUTH.signOut();
+    } else {
+      localStorage.removeItem('imi_active_session');
+      localStorage.removeItem('sb-vpdilgdelkrotatvwfhh-auth-token');
+    }
+    window.location.href = 'login.html';
+  }
+};

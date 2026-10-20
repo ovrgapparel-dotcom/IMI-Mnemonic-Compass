@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>iM Admin Command &rdquo;” I MAKE IMAGE</title>
+  <title>iM Admin Command — I MAKE IMAGE</title>
   <link rel="stylesheet" href="../css/admin.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -67,8 +67,11 @@
           <h1 id="pageTitle">Command Center</h1>
         </div>
         <div class="top-actions">
-          <a href="../index.html" class="button button-outline" style="text-decoration:none; padding:6px 14px; font-size:0.78rem; border-radius:4px; color:var(--gold); border:1px solid var(--gold);" target="_blank">View Live Site &rarr;—</a>
-          <div class="admin-user"><div class="avatar">IM</div><span>Administrator</span></div>
+          <a href="../index.html" class="button button-outline" style="text-decoration:none; padding:6px 14px; font-size:0.78rem; border-radius:4px; color:var(--gold); border:1px solid var(--gold);" target="_blank">View Live Site &rarr;</a>
+          <div class="admin-user" id="adminUserPill"><div class="avatar" id="adminUserAvatar">IM</div><span id="adminUserName">Administrator</span></div>
+          <button type="button" onclick="handleAdminSignOut()" class="button button-outline" style="text-decoration:none; padding:6px 12px; font-size:0.75rem; border-radius:4px; color:#ef4444; border:1px solid rgba(239,68,68,0.4); background:rgba(239,68,68,0.08); display:inline-flex; align-items:center; gap:6px; cursor:pointer;">
+            <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+          </button>
         </div>
       </header>
 
@@ -77,9 +80,9 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="../js/config.js?v=20261001_v56"></script>
-  <script src="../js/auth-client.js?v=20261001_v56"></script>
-  <script src="../js/admin.js?v=20261001_v56"></script>
+  <script src="../js/config.js?v=20261019_v57"></script>
+  <script src="../js/auth-client.js?v=20261019_v57"></script>
+  <script src="../js/admin.js?v=20261019_v57"></script>
 </body>
 </html>
 
