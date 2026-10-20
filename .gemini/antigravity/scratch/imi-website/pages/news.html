@@ -143,7 +143,7 @@
 </head>
 <body>
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0" nonce="IMI_FB_NONCE"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0"></script>
 
 <!-- HEADER -->
 <header class="site-header" id="siteHeader">
@@ -263,7 +263,23 @@
             <span style="font-size:0.75rem; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.1em;">UPDATED IN REAL TIME</span>
         </div>
         <div id="news-feed-embed-container">
-            <p style="color:rgba(255,255,255,0.5); font-size:0.88rem;">Official IMI social broadcasts, live video replays, and newsletter dispatches stream here.</p>
+            <!-- Loading state shown while CMS embed loads from Supabase -->
+            <div id="feed-loading-state" style="text-align:center; padding:40px 20px;">
+                <div style="display:inline-block; width:36px; height:36px; border:3px solid rgba(255,255,255,0.1); border-top-color:var(--gold,#C9A84C); border-radius:50%; animation:spin 0.8s linear infinite; margin-bottom:20px;"></div>
+                <p style="color:rgba(255,255,255,0.4); font-size:0.85rem; margin:0;">Loading social feed…</p>
+            </div>
+            <!-- Fallback CTA shown if embed fails or is unavailable -->
+            <div id="feed-fallback-cta" style="display:none; text-align:center; padding:40px 24px; background:rgba(201,168,76,0.05); border:1px dashed rgba(201,168,76,0.25); border-radius:10px;">
+                <div style="font-size:2.5rem; margin-bottom:14px;">📣</div>
+                <h4 style="color:#fff; font-family:'Outfit',sans-serif; font-weight:700; margin:0 0 8px;">Follow IMI on Facebook</h4>
+                <p style="color:rgba(255,255,255,0.5); font-size:0.88rem; margin:0 0 20px; max-width:380px; margin-left:auto; margin-right:auto;">Stay updated with official IMI broadcasts, video replays, and community highlights.</p>
+                <a href="https://www.facebook.com/imakeimage/" target="_blank" rel="noopener noreferrer"
+                   style="display:inline-flex; align-items:center; gap:10px; background:#1877F2; color:#fff; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:700; font-size:0.92rem; font-family:'Outfit',sans-serif; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    View Our Facebook Page
+                </a>
+            </div>
+            <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
         </div>
     </div>
 
